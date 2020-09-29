@@ -32,6 +32,8 @@ PMDressUpFrameMixin = {}
 function PMDressUpFrameMixin:OnLoad()
   self.mode = "player"
   self:ClearScene()
+  self:Show()
+  self.ModelScene:Hide()
 end
 
 function PMDressUpFrameMixin:Process()
@@ -58,9 +60,7 @@ end
 function PMDressUpFrameMixin:OnUpdate()
   if not self:PlayerActor():IsLoaded() then
     print("setup")
-    self:OnLoad()
-  else
-    self:SetScript("OnUpdate", nil)
+    self:ClearScene()
   end
 end
 
