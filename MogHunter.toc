@@ -1,0 +1,10 @@
+## Interface: 80300
+## Title: TMog Source ID Processor
+## Version: 1
+## Author: plusmouse
+## RequiredDeps: Auctionator
+
+Source\Objects.lua
+Source\Frame.lua
+Source\Frame.xml
+Source\Tab\Manifest.xml
