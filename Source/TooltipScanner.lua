@@ -20,7 +20,7 @@ local function EnumerateTooltipLines_helper(...)
   for i = 1, select("#", ...) do
     local region = select(i, ...)
     if region and region:GetObjectType() == "FontString" and
-        IsBlueColor(region:GetTextColor()) and region:GetText() then
+        region:GetText() == TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN then
       return true
     end
   end
