@@ -92,9 +92,8 @@ function PMDataProviderMixin:Refresh()
 
   for _, sourceInfo in ipairs(PM_SOURCES) do
     local info = GetFS()[sourceInfo.index]
-    if not C_TransmogCollection.PlayerHasTransmogItemModifiedAppearance(sourceInfo.s) and
-       C_TransmogCollection.PlayerKnowsSource(sourceInfo.s)
-      then
+    local allClasses = C_TransmogCollection.GetSourceInfo(sourceInfo.s)
+    if info.replicateInfo[4] > 1 and not allClasses.isCollected then
       table.insert(results, {
         index = sourceInfo.index,
         itemName = ColorName(info.itemLink, info.replicateInfo[1]),
