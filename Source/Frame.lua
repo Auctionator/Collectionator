@@ -114,9 +114,8 @@ function BatchStep(pa, start, limit)
     local item = Item:CreateFromItemID(GetFS()[i].auctionInfo[17])
     item:ContinueOnItemLoad((function(index, link)
       return function()
-        local arr = {GetItemInfo(link)}
-      --if (classID == LE_ITEM_CLASS_WEAPON or classID == LE_ITEM_CLASS_ARMOR) and
-        if IsDressableItem(link) then
+        --local arr = {GetItemInfo(link)}
+        if EnumerateTooltipLines(MogHunterTooltip, link) and IsDressableItem(link) then
           --local pa = ClearScene(PMDressUpFrame)
           local result = pa:TryOn(link)
           GetSlotSource(index, link)

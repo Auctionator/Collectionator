@@ -1,0 +1,15 @@
+<Ui>
+  <GameTooltip name="MogHunterTooltip" inherits="GameTooltipTemplate">
+    <Scripts>
+      <OnLoad>
+      self:SetOwner(WorldFrame, "ANCHOR_NONE");
+      print("here!!")
+      </OnLoad>
+    </Scripts>
+  </GameTooltip>
+  <Frame mixin="MogHunterTooltipMixin">
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+    </Scripts>
+  </Frame>
+</Ui>
