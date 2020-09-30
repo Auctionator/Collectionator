@@ -37,6 +37,9 @@ function PMDressUpFrameMixin:OnLoad()
 end
 
 function PMDressUpFrameMixin:Process()
+  PM_SOURCES = {}
+  PM_MISSED = 0
+
   if self:IsReady() then
     BatchStep(self:PlayerActor(), 1, 500)
   end
@@ -46,6 +49,10 @@ function PMDressUpFrameMixin:ClearScene()
   self.ModelScene:ClearScene();
   self.ModelScene:SetViewInsets(0, 0, 0, 0);
   self.ModelScene:TransitionToModelSceneID(290, CAMERA_TRANSITION_TYPE_IMMEDIATE, CAMERA_MODIFICATION_TYPE_DISCARD, true);
+  self:ResetPlayer()
+end
+
+function PMDressUpFrameMixin:ResetPlayer()
   SetupPlayerForModelScene(self.ModelScene, nil, false, false);
 end
 
@@ -64,20 +71,28 @@ function PMDressUpFrameMixin:OnUpdate()
 end
 
 PM_SOURCES = {}
+PM_MISSED = 0
 function GetSlotSource(index, link)
-  local pa = PMDressUpFrame.ModelScene:GetPlayerActor()
   local possibleSlots = INVENTORY_TYPES_TO_SLOT[select(9, GetItemInfo(link))]
-  if possibleSlots == nil then
-    return false
+  if not possibleSlots then
+    PM_MISSED = PM_MISSED + 1
+    return
+  elseif #possibleSlots > 1 then
+    PMDressUpFrame:ResetPlayer()
   end
+
+  local pa = PMDressUpFrame.ModelScene:GetPlayerActor()
+
+  pa:TryOn(link)
 
   for _, slot in ipairs(possibleSlots) do
     local source = pa:GetSlotTransmogSources(slot)
     if source ~= 0 then
       table.insert(PM_SOURCES, {s = source, index = index})
-      break
+      return
     end
   end
+  PM_MISSED = PM_MISSED + 1
 end
 
 PM_SOURCES = {}
@@ -103,10 +118,9 @@ end
 function BatchStep(pa, start, limit)
   Auctionator.Debug.Message("MogHunter.BatchStep", start, limit)
   if start > #GetFS() then
-    print("READY", start, #PM_SOURCES)
+    print("READY", start, PM_MISSED, #PM_SOURCES)
     return
   end
-  print("partway", start, #PM_SOURCES)
 
   for i=start, math.min(limit, #GetFS()) do
     local link = GetFS()[i].itemLink
@@ -115,7 +129,6 @@ function BatchStep(pa, start, limit)
     item:ContinueOnItemLoad((function(index, link)
       return function()
         if IsDressableItem(link) then
-          local result = pa:TryOn(link)
           GetSlotSource(index, link)
         end
       end
