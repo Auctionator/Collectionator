@@ -16,23 +16,22 @@ local function IsBlueColor(r, g, b, a)
   return r==54 and g==67 and b == 100 and a == 100
 end
 
-local function EnumerateTooltipLines_helper(...)
-  for i = 1, select("#", ...) do
-    local region = select(i, ...)
+local function ScanTooltipRegions(regions, textToFind)
+  for _, region in ipairs(regions) do
     if region and region:GetObjectType() == "FontString" and
-        region:GetText() == TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN then
+        region:GetText() == textToFind then
       return true
     end
   end
   return false
 end
 
-function EnumerateTooltipLines(tooltip, link)
+function ScanTooltipFor(link, textToFind)
   MogHunterTooltip:ClearLines()
   if string.match(link, "battlepet") then
     return false
   end
   MogHunterTooltip:SetHyperlink(link)
-  local result = EnumerateTooltipLines_helper(tooltip:GetRegions())
+  local result = ScanTooltipRegions({MogHunterTooltip:GetRegions()}, textToFind)
   return result
 end

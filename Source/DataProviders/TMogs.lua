@@ -97,12 +97,12 @@ function PMDataProviderMixin:Refresh()
     local info = GetFS()[sourceInfo.index]
     table.insert(results, {
       index = sourceInfo.index,
-      itemName = ColorName(info.itemLink, info.auctionInfo[1]),
-      name = info.auctionInfo[1],
-      quantity = info.auctionInfo[3],
-      price = info.auctionInfo[10] or info.auctionInfo[11],
+      itemName = ColorName(info.itemLink, info.replicateInfo[1]),
+      name = info.replicateInfo[1],
+      quantity = info.replicateInfo[3],
+      price = info.replicateInfo[10] or info.replicateInfo[11],
       itemLink = info.itemLink, -- Used for tooltips
-      iconTexture = info.auctionInfo[2],
+      iconTexture = info.replicateInfo[2],
     })
   end
   self:AppendEntries(results, true)

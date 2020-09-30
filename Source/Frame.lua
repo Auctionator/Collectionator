@@ -94,8 +94,8 @@ function FindSourceID(id)
       local entry = GetFS()[details.index]
       print(entry.itemLink)
       print(
-        Auctionator.Utilities.CreateMoneyString(entry.auctionInfo[10]),
-        entry.auctionInfo[17]
+        Auctionator.Utilities.CreateMoneyString(entry.replicateInfo[10]),
+        entry.replicateInfo[17]
       )
     end
   end
@@ -112,14 +112,14 @@ function BatchStep(pa, start, limit)
   for i=start, math.min(limit, #GetFS()) do
     local link = GetFS()[i].itemLink
 
-    local item = Item:CreateFromItemID(GetFS()[i].auctionInfo[17])
+    local item = Item:CreateFromItemID(GetFS()[i].replicateInfo[17])
     item:ContinueOnItemLoad((function(index, link)
       return function()
         --local arr = {GetItemInfo(link)}
         if IsDressableItem(link) then
           --local pa = ClearScene(PMDressUpFrame)
           local result = pa:TryOn(link)
-          if EnumerateTooltipLines(MogHunterTooltip, link) then
+          if ScanTooltipFor(link, TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN) then
             GetSlotSource(index, link)
           end
         end
