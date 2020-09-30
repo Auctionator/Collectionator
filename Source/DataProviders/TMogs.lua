@@ -41,10 +41,7 @@ function PMDataProviderMixin:OnLoad()
 end
 
 function PMDataProviderMixin:OnShow()
-
   Auctionator.EventBus:Register(self, EVENT_BUS_EVENTS)
-
-  self:Refresh()
 
   FrameUtil.RegisterFrameForEvents(self, DATA_EVENTS)
 end
@@ -95,15 +92,19 @@ function PMDataProviderMixin:Refresh()
 
   for _, sourceInfo in ipairs(PM_SOURCES) do
     local info = GetFS()[sourceInfo.index]
-    table.insert(results, {
-      index = sourceInfo.index,
-      itemName = ColorName(info.itemLink, info.replicateInfo[1]),
-      name = info.replicateInfo[1],
-      quantity = info.replicateInfo[3],
-      price = info.replicateInfo[10] or info.replicateInfo[11],
-      itemLink = info.itemLink, -- Used for tooltips
-      iconTexture = info.replicateInfo[2],
-    })
+    if not C_TransmogCollection.PlayerHasTransmogItemModifiedAppearance(sourceInfo.s) and
+       C_TransmogCollection.PlayerKnowsSource(sourceInfo.s)
+      then
+      table.insert(results, {
+        index = sourceInfo.index,
+        itemName = ColorName(info.itemLink, info.replicateInfo[1]),
+        name = info.replicateInfo[1],
+        quantity = info.replicateInfo[3],
+        price = info.replicateInfo[10] or info.replicateInfo[11],
+        itemLink = info.itemLink, -- Used for tooltips
+        iconTexture = info.replicateInfo[2],
+      })
+    end
   end
   self:AppendEntries(results, true)
 end

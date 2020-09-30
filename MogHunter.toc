@@ -6,9 +6,7 @@
 
 Source\Objects.lua
 Source\Frame.lua
-Source\TooltipScanner.lua
 
-Source\TooltipScanner.xml
 Source\Frame.xml
 Source\Tab\Manifest.xml
 

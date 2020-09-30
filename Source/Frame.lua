@@ -115,13 +115,9 @@ function BatchStep(pa, start, limit)
     local item = Item:CreateFromItemID(GetFS()[i].replicateInfo[17])
     item:ContinueOnItemLoad((function(index, link)
       return function()
-        --local arr = {GetItemInfo(link)}
         if IsDressableItem(link) then
-          --local pa = ClearScene(PMDressUpFrame)
           local result = pa:TryOn(link)
-          if ScanTooltipFor(link, TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN) then
-            GetSlotSource(index, link)
-          end
+          GetSlotSource(index, link)
         end
       end
     end)(i, link))
