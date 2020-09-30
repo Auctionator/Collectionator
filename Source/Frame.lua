@@ -59,7 +59,6 @@ end
 
 function PMDressUpFrameMixin:OnUpdate()
   if not self:PlayerActor():IsLoaded() then
-    print("setup")
     self:ClearScene()
   end
 end
