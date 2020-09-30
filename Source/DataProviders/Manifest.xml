@@ -1,0 +1,4 @@
+<!-- DataProviders directory manifest -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="TMogs.lua"/>
+</Ui>

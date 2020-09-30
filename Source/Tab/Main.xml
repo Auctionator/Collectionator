@@ -1,0 +1,53 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="PMTabFrameTemplate"
+    virtual="true"
+    inherits="AuctionatorTabFrameTemplate"
+    parentKey="PMTabFrame"
+    mixin="PMTabMixin"
+  >
+    <Frames>
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Process FS" parentKey="ProcessFS">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" y="50" x="10" />
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():ProcessFSClicked()
+          </OnClick>
+        </Scripts>
+      </Button>
+
+      <Button inherits="RefreshButtonTemplate">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent" x="-44" y="65"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent().DataProvider:Refresh()
+          </OnClick>
+        </Scripts>
+      </Button>
+
+      <Frame parentKey="DataProvider" mixin="PMDataProviderMixin">
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnShow method="OnShow"/>
+          <OnHide method="OnHide"/>
+          <OnEvent method="OnEvent"/>
+          <OnUpdate method="OnUpdate"/>
+        </Scripts>
+      </Frame>
+
+      <Frame parentKey="ResultsListing" inherits="AuctionatorResultsListingTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="15" y="24"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-20"/>
+        </Anchors>
+      </Frame>
+    </Frames>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+    </Scripts>
+  </Frame>
+</Ui>
