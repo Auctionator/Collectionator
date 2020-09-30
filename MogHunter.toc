@@ -1,5 +1,5 @@
 ## Interface: 80300
-## Title: TMog Source ID Processor
+## Title: MogHunter
 ## Version: 1
 ## Author: plusmouse
 ## RequiredDeps: Auctionator
