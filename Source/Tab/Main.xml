@@ -18,6 +18,21 @@
         </Scripts>
       </Button>
 
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Activate Cache" parentKey="ActivateCache">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ProcessFS" relativePoint="TOPRIGHT" x="10" />
+        </Anchors>
+        <Scripts>
+          <OnShow>
+            self:GetParent():CacheTextUpdate()
+          </OnShow>
+          <OnClick>
+            self:GetParent():ActivateCacheToggle()
+            self:GetParent():CacheTextUpdate()
+          </OnClick>
+        </Scripts>
+      </Button>
+
       <Button inherits="RefreshButtonTemplate">
         <Anchors>
             <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent" x="-44" y="65"/>

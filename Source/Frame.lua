@@ -104,9 +104,10 @@ end
 function BatchStep(pa, start, limit)
   Auctionator.Debug.Message("MogHunter.BatchStep", start, limit)
   if start > #GetFS() then
-    print("ending", start, #PM_SOURCES)
+    print("READY", start, #PM_SOURCES)
     return
   end
+  print("partway", start, #PM_SOURCES)
 
   for i=start, math.min(limit, #GetFS()) do
     local link = GetFS()[i].itemLink
@@ -115,10 +116,12 @@ function BatchStep(pa, start, limit)
     item:ContinueOnItemLoad((function(index, link)
       return function()
         --local arr = {GetItemInfo(link)}
-        if EnumerateTooltipLines(MogHunterTooltip, link) and IsDressableItem(link) then
+        if IsDressableItem(link) then
           --local pa = ClearScene(PMDressUpFrame)
           local result = pa:TryOn(link)
-          GetSlotSource(index, link)
+          if EnumerateTooltipLines(MogHunterTooltip, link) then
+            GetSlotSource(index, link)
+          end
         end
       end
     end)(i, link))
