@@ -9,7 +9,4 @@ User guide
 
 4. Do a full scan
 
-5. Click "Process FS" in the "Hunting" tab and wait for "READY" to appear in
-   your chat
-
-6. Finally, click the refresh button.
+5. Click "Process FS" in the "Hunting" tab and wait for the items to appear
