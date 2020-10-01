@@ -23,33 +23,12 @@ local TMOG_TABLE_LAYOUT = {
   },
 }
 
-local DATA_EVENTS = {
-  "OWNED_AUCTIONS_UPDATED",
-  "AUCTION_CANCELED"
-}
-
-local EVENT_BUS_EVENTS = {
-  Auctionator.Cancelling.Events.RequestCancel,
-  Auctionator.Cancelling.Events.UndercutStatus,
-  Auctionator.Cancelling.Events.UndercutScanStart,
-}
-
 HuntingDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
 
 function HuntingDataProviderMixin:OnLoad()
   AuctionatorDataProviderMixin.OnLoad(self)
-end
 
-function HuntingDataProviderMixin:OnShow()
-  Auctionator.EventBus:Register(self, EVENT_BUS_EVENTS)
-
-  FrameUtil.RegisterFrameForEvents(self, DATA_EVENTS)
-end
-
-function HuntingDataProviderMixin:OnHide()
-  Auctionator.EventBus:Unregister(self, EVENT_BUS_EVENTS)
-
-  FrameUtil.UnregisterFrameForEvents(self, DATA_EVENTS)
+  self.processCountPerUpdate = 500
 end
 
 local COMPARATORS = {
@@ -70,12 +49,6 @@ function HuntingDataProviderMixin:Sort(fieldName, sortDirection)
   self.onUpdate(self.results)
 end
 
-function HuntingDataProviderMixin:OnEvent(eventName, auctionID, ...)
-end
-
-function HuntingDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
-end
-
 local function GetFS()
   return AUCTIONATOR_RAW_FULL_SCAN[Auctionator.Variables.GetConnectedRealmRoot()] or {}
 end
@@ -87,6 +60,7 @@ end
 
 function HuntingDataProviderMixin:Refresh()
   self:Reset()
+  self.onSearchStarted()
 
   local results = {}
 
