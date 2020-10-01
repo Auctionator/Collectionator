@@ -70,6 +70,26 @@
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ResultsListing" relativePoint="BOTTOMRIGHT"/>
         </Anchors>
       </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShowAllItems">
+        <KeyValues>
+          <KeyValue key="labelText" value="Show all sources" type="string" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" relativePoint="BOTTOMLEFT" y="-10" x="20"/>
+          <Anchor point="RIGHT" relativeKey="$parent.ResultsListing" relativePoint="LEFT" x="300"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="CharacterOnly">
+        <KeyValues>
+          <KeyValue key="labelText" value="TMogs for this character only" type="string" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ShowAllItems" relativePoint="TOPRIGHT" x="20"/>
+          <Anchor point="RIGHT" relativeKey="$parent.ShowAllItems" relativePoint="RIGHT" x="300"/>
+        </Anchors>
+      </Frame>
     </Frames>
     <Scripts>
       <OnLoad method="OnLoad"/>

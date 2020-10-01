@@ -7,6 +7,14 @@ local TMOG_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerText = "Source ID",
+    headerParameters = { "sourceID" },
+    cellTemplate = "AuctionatorStringCellTemplate",
+    cellParameters = { "sourceID" },
+    width = 100
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerText = "Choices",
     headerParameters = { "quantity" },
     cellTemplate = "AuctionatorStringCellTemplate",
@@ -60,8 +68,7 @@ local COMPARATORS = {
   price = Auctionator.Utilities.NumberComparator,
   name = Auctionator.Utilities.StringComparator,
   quantity = Auctionator.Utilities.NumberComparator,
-  timeLeft = Auctionator.Utilities.NumberComparator,
-  undercut = Auctionator.Utilities.StringComparator,
+  sourceID = Auctionator.Utilities.NumberComparator,
 }
 
 function HuntingDataProviderMixin:Sort(fieldName, sortDirection)
@@ -83,50 +90,91 @@ local function ColorName(link, name)
   return "|c" .. qualityColor .. name .. "|r"
 end
 
-local function MergeBySourceID(sources, fullScan)
-  local sourceMap = {}
-  for _, sourceInfo in ipairs(sources) do
-    local id = sourceInfo.id
-    local quantity = fullScan[sourceInfo.index].replicateInfo[3]
-    local price = fullScan[sourceInfo.index].replicateInfo[10]
+local function GroupedBySourceID(array)
+  local results = {}
 
-    if sourceMap[id] == nil then
-      sourceMap[id] = {
-        index = sourceInfo.index,
-        quantity = quantity,
-        price = price,
-      }
-    else
-      sourceMap[id].quantity = sourceMap[id].quantity + quantity
-
-      if price < sourceMap[id].price then
-        sourceMap[id].index = sourceInfo.index
-      end
+  for _, info in ipairs(array) do
+    if results[info.id] == nil then
+      results[info.id] = {}
     end
+    table.insert(results[info.id], info)
   end
 
-  local result = {}
+  return results
+end
 
-  for key, value in pairs(sourceMap) do
-    table.insert(result, {id = key, index = value.index, quantity = value.quantity})
+local function SortByPrice(array, fullScan)
+  table.sort(array, function(a, b)
+    return fullScan[a.index].replicateInfo[10] < fullScan[b.index].replicateInfo[10]
+  end)
+end
+local function CombineForCheapest(array, fullScan)
+  SortByPrice(array, fullScan)
+
+  array[1].quantity = #array
+
+  return array[1]
+end
+
+local function SelectFirstItemIDs(array, fullScan)
+  SortByPrice(array, fullScan)
+
+  local haveSeen = {}
+  local result = {}
+  for index, info in ipairs(array) do
+    local itemID = fullScan[info.index].replicateInfo[17]
+    if haveSeen[itemID] == nil then
+      if index > 1 then
+        print(info.id)
+      end
+      haveSeen[itemID] = info
+      info.quantity = 1
+      table.insert(result, info)
+    else
+      haveSeen[itemID].quantity = haveSeen[itemID].quantity + 1
+    end
   end
 
   return result
 end
+
 
 function HuntingDataProviderMixin:Refresh()
   self:Reset()
   self.onSearchStarted()
   self.dirty = false
 
-  local merged = MergeBySourceID(self.sources, GetFS())
+  local grouped = GroupedBySourceID(self.sources)
+  local filteredOnly = {}
+  local fullScan = GetFS()
+
+  if self:GetParent().ShowAllItems:GetChecked() then
+    for _, array in pairs(grouped) do
+      for _, item in ipairs(SelectFirstItemIDs(array, fullScan)) do
+        table.insert(filteredOnly, item)
+      end
+    end
+  else
+    for _, array in pairs(grouped) do
+      table.insert(filteredOnly, CombineForCheapest(array, fullScan))
+    end
+  end
+  Auctionator.Debug.Message("HuntingDataProviderMixin:Refresh", "filtered", #filteredOnly)
 
   local results = {}
 
-  for _, sourceInfo in ipairs(merged) do
-    local info = GetFS()[sourceInfo.index]
-    local allClasses = C_TransmogCollection.GetSourceInfo(sourceInfo.id)
-    if info.replicateInfo[4] > 1 and not allClasses.isCollected then
+  for _, sourceInfo in ipairs(filteredOnly) do
+    local info = fullScan[sourceInfo.index]
+
+    local check = false
+    if self:GetParent().CharacterOnly:GetChecked() then
+      check = not C_TransmogCollection.PlayerHasTransmogItemModifiedAppearance(sourceInfo.id) and C_TransmogCollection.PlayerKnowsSource(sourceInfo.id)
+    else
+      local tmogInfo = C_TransmogCollection.GetSourceInfo(sourceInfo.id)
+      check = not tmogInfo.isCollected and info.replicateInfo[4] > 1
+    end
+
+    if check then
       table.insert(results, {
         index = sourceInfo.index,
         itemName = ColorName(info.itemLink, info.replicateInfo[1]),
@@ -135,6 +183,7 @@ function HuntingDataProviderMixin:Refresh()
         price = info.replicateInfo[10] or info.replicateInfo[11],
         itemLink = info.itemLink, -- Used for tooltips
         iconTexture = info.replicateInfo[2],
+        sourceID = sourceInfo.id,
       })
     end
   end
