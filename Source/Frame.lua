@@ -27,9 +27,21 @@ local INVENTORY_TYPES_TO_SLOT = {
   ["INVTYPE_TABARD"] = {19},
 }
 
+HUNTING_SOURCES = {}
+HUNTING_MISSED = 0
+HUNTING_LEFT = 0
+
+local function GetFS()
+  return AUCTIONATOR_RAW_FULL_SCAN[Auctionator.Variables.GetConnectedRealmRoot()] or {}
+end
+
 HuntingDressUpFrameMixin = {}
 
 function HuntingDressUpFrameMixin:OnLoad()
+  self.sources = {}
+  self.droppedCount = 0
+  self.leftCount = 0
+
   self.mode = "player"
   self:ClearScene()
   self:Show()
@@ -37,11 +49,12 @@ function HuntingDressUpFrameMixin:OnLoad()
 end
 
 function HuntingDressUpFrameMixin:Process()
-  HUNTING_SOURCES = {}
-  HUNTING_MISSED = 0
+  self.sources = {}
+  self.droppedCount = 0
+  self.leftCount = #GetFS()
 
   if self:IsReady() then
-    BatchStep(self:PlayerActor(), 1, 500)
+    self:BatchStep(1, 500)
   end
 end
 
@@ -70,55 +83,34 @@ function HuntingDressUpFrameMixin:OnUpdate()
   end
 end
 
-HUNTING_SOURCES = {}
-HUNTING_MISSED = 0
-function GetSlotSource(index, link)
+
+function HuntingDressUpFrameMixin:GetSlotSource(index, link)
   local possibleSlots = INVENTORY_TYPES_TO_SLOT[select(9, GetItemInfo(link))]
   if not possibleSlots then
-    HUNTING_MISSED = HUNTING_MISSED + 1
+    self.droppedCount = self.droppedCount + 1
     return
   elseif #possibleSlots > 1 then
-    HuntingDressUpFrame:ResetPlayer()
+    self:ResetPlayer()
   end
 
-  local pa = HuntingDressUpFrame.ModelScene:GetPlayerActor()
+  local pa = self.ModelScene:GetPlayerActor()
 
   pa:TryOn(link)
 
   for _, slot in ipairs(possibleSlots) do
     local source = pa:GetSlotTransmogSources(slot)
     if source ~= 0 then
-      table.insert(HUNTING_SOURCES, {s = source, index = index})
+      table.insert(self.sources, {id = source, index = index})
       return
     end
   end
-  HUNTING_MISSED = HUNTING_MISSED + 1
+  self.droppedCount = self.droppedCount + 1
 end
 
-HUNTING_SOURCES = {}
-
-local function GetFS()
-  return AUCTIONATOR_RAW_FULL_SCAN[Auctionator.Variables.GetConnectedRealmRoot()] or {}
-end
-
-function FindSourceID(id)
-  local result = {}
-  for index, details in ipairs(HUNTING_SOURCES) do
-    if details.s == id then
-      local entry = GetFS()[details.index]
-      print(entry.itemLink)
-      print(
-        Auctionator.Utilities.CreateMoneyString(entry.replicateInfo[10]),
-        entry.replicateInfo[17]
-      )
-    end
-  end
-end
-
-function BatchStep(pa, start, limit)
-  Auctionator.Debug.Message("Hunting.BatchStep", start, limit)
+function HuntingDressUpFrameMixin:BatchStep(start, limit)
+  Auctionator.Debug.Message("HuntingDressUpFrameMixin:BatchStep", start, limit)
   if start > #GetFS() then
-    print("READY", start, HUNTING_MISSED, #HUNTING_SOURCES)
+    print("READY", start, self.droppedCount, #self.sources)
     return
   end
 
@@ -128,14 +120,29 @@ function BatchStep(pa, start, limit)
     local item = Item:CreateFromItemID(GetFS()[i].replicateInfo[17])
     item:ContinueOnItemLoad((function(index, link)
       return function()
+        self.leftCount = self.leftCount - 1
         if IsDressableItem(link) then
-          GetSlotSource(index, link)
+          self:GetSlotSource(index, link)
         end
       end
     end)(i, link))
   end
 
   C_Timer.After(0.01, function()
-    BatchStep(pa, limit + 1, limit + 1 + (limit-start))
+    self:BatchStep(limit + 1, limit + 1 + (limit-start))
   end)
+end
+
+function FindSourceID(id)
+  local result = {}
+  for index, details in ipairs(HuntingDressUpFrame.sources) do
+    if details.id == id then
+      local entry = GetFS()[details.index]
+      print(entry.itemLink)
+      print(
+        Auctionator.Utilities.CreateMoneyString(entry.replicateInfo[10]),
+        entry.replicateInfo[17]
+      )
+    end
+  end
 end

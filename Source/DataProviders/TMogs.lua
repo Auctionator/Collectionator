@@ -64,9 +64,9 @@ function HuntingDataProviderMixin:Refresh()
 
   local results = {}
 
-  for _, sourceInfo in ipairs(HUNTING_SOURCES) do
+  for _, sourceInfo in ipairs(HuntingDressUpFrame.sources) do
     local info = GetFS()[sourceInfo.index]
-    local allClasses = C_TransmogCollection.GetSourceInfo(sourceInfo.s)
+    local allClasses = C_TransmogCollection.GetSourceInfo(sourceInfo.id)
     if info.replicateInfo[4] > 1 and not allClasses.isCollected then
       table.insert(results, {
         index = sourceInfo.index,
