@@ -1,8 +1,8 @@
 Auctionator.Tabs.Register( {
-  name = "HuntingTab",
-  textLabel = "Hunting",
+  name = "CollectingTab",
+  textLabel = "Collecting",
   tabTemplate = "HuntingTabFrameTemplate",
-  tabHeader = "TMog Hunting - Powered by Auctionator",
+  tabHeader = "Collectionator - Collecting",
   tabFrameName = "HuntingTabFrame",
   tabOrder = 5,
 })

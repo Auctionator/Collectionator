@@ -13,17 +13,6 @@
     </Anchors>
 
     <Frames>
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Process FS" parentKey="ProcessFS">
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" y="50" x="10" />
-        </Anchors>
-        <Scripts>
-          <OnClick>
-            self:GetParent():ProcessFSClicked()
-          </OnClick>
-        </Scripts>
-      </Button>
-
       <Button inherits="RefreshButtonTemplate">
         <Anchors>
             <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent" x="-44" y="65"/>

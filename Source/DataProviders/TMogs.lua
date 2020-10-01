@@ -134,9 +134,14 @@ end
 
 
 function HuntingDataProviderMixin:Refresh()
-  self:Reset()
-  self.onSearchStarted()
   self.dirty = false
+  self:Reset()
+
+  if self.sources == nil or #self.sources == 0 then
+    return
+  end
+
+  self.onSearchStarted()
 
   local grouped = GroupedBySourceID(self.sources)
   local filteredOnly = {}

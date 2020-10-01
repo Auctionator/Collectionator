@@ -27,10 +27,6 @@ local INVENTORY_TYPES_TO_SLOT = {
   ["INVTYPE_TABARD"] = {19},
 }
 
-HUNTING_SOURCES = {}
-HUNTING_MISSED = 0
-HUNTING_LEFT = 0
-
 HuntingDressUpFrameMixin = {}
 
 function HuntingDressUpFrameMixin:OnLoad()
@@ -49,7 +45,12 @@ end
 
 function HuntingDressUpFrameMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.FullScan.Events.ScanComplete then
+    self.dirty = true
     self.fullScan = eventData
+
+    if self:IsShown() then
+      self:Process()
+    end
   end
 end
 
@@ -62,7 +63,15 @@ function HuntingDressUpFrameMixin:OnEvent(event, ...)
   end
 end
 
+function HuntingDressUpFrameMixin:OnShow()
+  if self.dirty then
+    self:Process()
+  end
+end
+
 function HuntingDressUpFrameMixin:Process()
+  self.dirty = false
+
   if #self.fullScan == 0 then
     return
   end
