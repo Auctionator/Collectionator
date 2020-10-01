@@ -1,10 +1,10 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame
-    name="PMTabFrameTemplate"
+    name="HuntingTabFrameTemplate"
     virtual="true"
     inherits="AuctionatorTabFrameTemplate"
-    parentKey="PMTabFrame"
-    mixin="PMTabMixin"
+    parentKey="HuntingTabFrame"
+    mixin="HuntingTabMixin"
   >
     <Frames>
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Process FS" parentKey="ProcessFS">
@@ -44,7 +44,7 @@
         </Scripts>
       </Button>
 
-      <Frame parentKey="DataProvider" mixin="PMDataProviderMixin">
+      <Frame parentKey="DataProvider" mixin="HuntingDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow"/>

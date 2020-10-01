@@ -1,1 +1,1 @@
-MogHunter = {}
+Hunting = {}

@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame
-    name="MogHunterTMogRowTemplate"
-    mixin="MogHunterTMogRowMixin"
+    name="HuntingTMogRowTemplate"
+    mixin="HuntingTMogRowMixin"
     inherits="AuctionatorResultsRowTemplate"
     virtual="true"
     enableMouse="true"

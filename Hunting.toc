@@ -1,5 +1,5 @@
 ## Interface: 80300
-## Title: MogHunter
+## Title: TMog Hunting
 ## Version: 1
 ## Author: plusmouse
 ## RequiredDeps: Auctionator

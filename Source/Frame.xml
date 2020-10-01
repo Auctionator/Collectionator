@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Frame name="PMDressUpFrame" toplevel="true" enableMouse="true" parent="UIParent" hidden="true" mixin="PMDressUpFrameMixin">
+  <Frame name="HuntingDressUpFrame" toplevel="true" enableMouse="true" parent="UIParent" hidden="true" mixin="HuntingDressUpFrameMixin">
     <Size x="450" y="545"/>
     <Anchors>
       <Anchor point="TOPLEFT" x="70" y="-104"/>

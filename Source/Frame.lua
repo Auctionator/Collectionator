@@ -27,75 +27,75 @@ local INVENTORY_TYPES_TO_SLOT = {
   ["INVTYPE_TABARD"] = {19},
 }
 
-PMDressUpFrameMixin = {}
+HuntingDressUpFrameMixin = {}
 
-function PMDressUpFrameMixin:OnLoad()
+function HuntingDressUpFrameMixin:OnLoad()
   self.mode = "player"
   self:ClearScene()
   self:Show()
   self.ModelScene:Hide()
 end
 
-function PMDressUpFrameMixin:Process()
-  PM_SOURCES = {}
-  PM_MISSED = 0
+function HuntingDressUpFrameMixin:Process()
+  HUNTING_SOURCES = {}
+  HUNTING_MISSED = 0
 
   if self:IsReady() then
     BatchStep(self:PlayerActor(), 1, 500)
   end
 end
 
-function PMDressUpFrameMixin:ClearScene()
+function HuntingDressUpFrameMixin:ClearScene()
   self.ModelScene:ClearScene();
   self.ModelScene:SetViewInsets(0, 0, 0, 0);
   self.ModelScene:TransitionToModelSceneID(290, CAMERA_TRANSITION_TYPE_IMMEDIATE, CAMERA_MODIFICATION_TYPE_DISCARD, true);
   self:ResetPlayer()
 end
 
-function PMDressUpFrameMixin:ResetPlayer()
+function HuntingDressUpFrameMixin:ResetPlayer()
   SetupPlayerForModelScene(self.ModelScene, nil, false, false);
 end
 
-function PMDressUpFrameMixin:PlayerActor()
+function HuntingDressUpFrameMixin:PlayerActor()
   return self.ModelScene:GetPlayerActor()
 end
 
-function PMDressUpFrameMixin:IsReady()
+function HuntingDressUpFrameMixin:IsReady()
   return self:PlayerActor() and self:PlayerActor():IsLoaded()
 end
 
-function PMDressUpFrameMixin:OnUpdate()
+function HuntingDressUpFrameMixin:OnUpdate()
   if not self:PlayerActor():IsLoaded() then
     self:ClearScene()
   end
 end
 
-PM_SOURCES = {}
-PM_MISSED = 0
+HUNTING_SOURCES = {}
+HUNTING_MISSED = 0
 function GetSlotSource(index, link)
   local possibleSlots = INVENTORY_TYPES_TO_SLOT[select(9, GetItemInfo(link))]
   if not possibleSlots then
-    PM_MISSED = PM_MISSED + 1
+    HUNTING_MISSED = HUNTING_MISSED + 1
     return
   elseif #possibleSlots > 1 then
-    PMDressUpFrame:ResetPlayer()
+    HuntingDressUpFrame:ResetPlayer()
   end
 
-  local pa = PMDressUpFrame.ModelScene:GetPlayerActor()
+  local pa = HuntingDressUpFrame.ModelScene:GetPlayerActor()
 
   pa:TryOn(link)
 
   for _, slot in ipairs(possibleSlots) do
     local source = pa:GetSlotTransmogSources(slot)
     if source ~= 0 then
-      table.insert(PM_SOURCES, {s = source, index = index})
+      table.insert(HUNTING_SOURCES, {s = source, index = index})
       return
     end
   end
-  PM_MISSED = PM_MISSED + 1
+  HUNTING_MISSED = HUNTING_MISSED + 1
 end
 
-PM_SOURCES = {}
+HUNTING_SOURCES = {}
 
 local function GetFS()
   return AUCTIONATOR_RAW_FULL_SCAN[Auctionator.Variables.GetConnectedRealmRoot()] or {}
@@ -103,7 +103,7 @@ end
 
 function FindSourceID(id)
   local result = {}
-  for index, details in ipairs(PM_SOURCES) do
+  for index, details in ipairs(HUNTING_SOURCES) do
     if details.s == id then
       local entry = GetFS()[details.index]
       print(entry.itemLink)
@@ -116,9 +116,9 @@ function FindSourceID(id)
 end
 
 function BatchStep(pa, start, limit)
-  Auctionator.Debug.Message("MogHunter.BatchStep", start, limit)
+  Auctionator.Debug.Message("Hunting.BatchStep", start, limit)
   if start > #GetFS() then
-    print("READY", start, PM_MISSED, #PM_SOURCES)
+    print("READY", start, HUNTING_MISSED, #HUNTING_SOURCES)
     return
   end
 

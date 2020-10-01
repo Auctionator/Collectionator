@@ -34,19 +34,19 @@ local EVENT_BUS_EVENTS = {
   Auctionator.Cancelling.Events.UndercutScanStart,
 }
 
-PMDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
+HuntingDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
 
-function PMDataProviderMixin:OnLoad()
+function HuntingDataProviderMixin:OnLoad()
   AuctionatorDataProviderMixin.OnLoad(self)
 end
 
-function PMDataProviderMixin:OnShow()
+function HuntingDataProviderMixin:OnShow()
   Auctionator.EventBus:Register(self, EVENT_BUS_EVENTS)
 
   FrameUtil.RegisterFrameForEvents(self, DATA_EVENTS)
 end
 
-function PMDataProviderMixin:OnHide()
+function HuntingDataProviderMixin:OnHide()
   Auctionator.EventBus:Unregister(self, EVENT_BUS_EVENTS)
 
   FrameUtil.UnregisterFrameForEvents(self, DATA_EVENTS)
@@ -60,7 +60,7 @@ local COMPARATORS = {
   undercut = Auctionator.Utilities.StringComparator,
 }
 
-function PMDataProviderMixin:Sort(fieldName, sortDirection)
+function HuntingDataProviderMixin:Sort(fieldName, sortDirection)
   local comparator = COMPARATORS[fieldName](sortDirection, fieldName)
 
   table.sort(self.results, function(left, right)
@@ -70,10 +70,10 @@ function PMDataProviderMixin:Sort(fieldName, sortDirection)
   self.onUpdate(self.results)
 end
 
-function PMDataProviderMixin:OnEvent(eventName, auctionID, ...)
+function HuntingDataProviderMixin:OnEvent(eventName, auctionID, ...)
 end
 
-function PMDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
+function HuntingDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
 end
 
 local function GetFS()
@@ -85,12 +85,12 @@ local function ColorName(link, name)
   return "|c" .. qualityColor .. name .. "|r"
 end
 
-function PMDataProviderMixin:Refresh()
+function HuntingDataProviderMixin:Refresh()
   self:Reset()
 
   local results = {}
 
-  for _, sourceInfo in ipairs(PM_SOURCES) do
+  for _, sourceInfo in ipairs(HUNTING_SOURCES) do
     local info = GetFS()[sourceInfo.index]
     local allClasses = C_TransmogCollection.GetSourceInfo(sourceInfo.s)
     if info.replicateInfo[4] > 1 and not allClasses.isCollected then
@@ -108,14 +108,14 @@ function PMDataProviderMixin:Refresh()
   self:AppendEntries(results, true)
 end
 
-function PMDataProviderMixin:UniqueKey(entry)
+function HuntingDataProviderMixin:UniqueKey(entry)
   return tostring(entry.index)
 end
 
-function PMDataProviderMixin:GetTableLayout()
+function HuntingDataProviderMixin:GetTableLayout()
   return TMOG_TABLE_LAYOUT
 end
 
-function PMDataProviderMixin:GetRowTemplate()
-  return "MogHunterTMogRowTemplate"
+function HuntingDataProviderMixin:GetRowTemplate()
+  return "HuntingTMogRowTemplate"
 end

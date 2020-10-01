@@ -1,17 +1,17 @@
-PMTabMixin = {}
+HuntingTabMixin = {}
 
-function PMTabMixin:OnLoad()
-  Auctionator.Debug.Message("PMTabMixin:OnLoad()")
+function HuntingTabMixin:OnLoad()
+  Auctionator.Debug.Message("HuntingTabMixin:OnLoad()")
   self.ResultsListing:Init(self.DataProvider)
 end
 
-function PMTabMixin:ProcessFSClicked()
-  Auctionator.Debug.Message("PMTabMixin:ProcessFSClicked()")
-  PMDressUpFrame:Process()
+function HuntingTabMixin:ProcessFSClicked()
+  Auctionator.Debug.Message("HuntingTabMixin:ProcessFSClicked()")
+  HuntingDressUpFrame:Process()
 end
 
-function PMTabMixin:CacheTextUpdate()
-  Auctionator.Debug.Message("PMTabMixin:CacheTextUpdate()")
+function HuntingTabMixin:CacheTextUpdate()
+  Auctionator.Debug.Message("HuntingTabMixin:CacheTextUpdate()")
   if Auctionator.Config.Get(Auctionator.Config.Options.CACHE_FULL_SCAN) then
     self.ActivateCache:SetText("Disable Cache")
   else
@@ -19,7 +19,7 @@ function PMTabMixin:CacheTextUpdate()
   end
 end
 
-function PMTabMixin:ActivateCacheToggle()
-  Auctionator.Debug.Message("PMTabMixin:ActivateCache()")
+function HuntingTabMixin:ActivateCacheToggle()
+  Auctionator.Debug.Message("HuntingTabMixin:ActivateCache()")
   Auctionator.Config.Set(Auctionator.Config.Options.CACHE_FULL_SCAN, not Auctionator.Config.Get(Auctionator.Config.Options.CACHE_FULL_SCAN))
 end
