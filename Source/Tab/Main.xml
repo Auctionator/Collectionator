@@ -13,7 +13,7 @@
     </Anchors>
 
     <Frames>
-      <Button inherits="RefreshButtonTemplate">
+      <Button parentKey="RefreshButton" inherits="RefreshButtonTemplate">
         <Anchors>
             <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent" x="-44" y="65"/>
         </Anchors>
@@ -65,6 +65,11 @@
         </Anchors>
       </Frame>
     </Frames>
+    <Layers>
+      <Layer>
+        <FontString parentKey="NoFullScanText" inherits="GameFontNormal" text="No full scan data. A scan is needed on the character you want to use the tab with each time you login."/>
+      </Layer>
+    </Layers>
     <Scripts>
       <OnLoad method="OnLoad"/>
     </Scripts>

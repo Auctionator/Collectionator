@@ -41,6 +41,9 @@ function CollectionatorDataProviderMixin:OnLoad()
     Collectionator.Events.SourceLoadEnd,
   })
 
+  self:GetParent().RefreshButton:Hide()
+  self:GetParent().NoFullScanText:Show()
+
   self.processCountPerUpdate = 500
   self.dirty = false
 end
@@ -54,9 +57,15 @@ end
 function CollectionatorDataProviderMixin:ReceiveEvent(eventName, eventData, eventData2)
   if eventName == Collectionator.Events.SourceLoadStart then
     self.onSearchStarted()
+    self:GetParent().RefreshButton:Hide()
+    self:GetParent().NoFullScanText:Hide()
   elseif eventName == Collectionator.Events.SourceLoadEnd then
     self.sources = eventData
     self.fullScan = eventData2
+
+    if #self.sources > 0 then
+      self:GetParent().RefreshButton:Show()
+    end
 
     self.dirty = true
     if self:IsShown() then
