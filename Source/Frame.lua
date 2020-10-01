@@ -31,10 +31,6 @@ HUNTING_SOURCES = {}
 HUNTING_MISSED = 0
 HUNTING_LEFT = 0
 
-local function GetFS()
-  return AUCTIONATOR_RAW_FULL_SCAN[Auctionator.Variables.GetConnectedRealmRoot()] or {}
-end
-
 HuntingDressUpFrameMixin = {}
 
 function HuntingDressUpFrameMixin:OnLoad()
@@ -51,11 +47,26 @@ function HuntingDressUpFrameMixin:OnLoad()
   self.ModelScene:Hide()
 end
 
-function HuntingDressUpFrameMixin:OnEvent(...)
+function HuntingDressUpFrameMixin:ReceiveEvent(eventName, eventData)
+  if eventName == Auctionator.FullScan.Events.ScanComplete then
+    self.fullScan = eventData
+  end
+end
+
+function HuntingDressUpFrameMixin:OnEvent(event, ...)
   Auctionator.EventBus:RegisterSource(self, "HuntingDressUpFrameMixin")
+  if event == "VARIABLES_LOADED" then
+    Auctionator.EventBus:Register(self, {
+      Auctionator.FullScan.Events.ScanComplete
+    })
+  end
 end
 
 function HuntingDressUpFrameMixin:Process()
+  if #self.fullScan == 0 then
+    return
+  end
+
   Auctionator.EventBus:Fire(
     self,
     Hunting.Events.SourceLoadStart,
@@ -64,7 +75,7 @@ function HuntingDressUpFrameMixin:Process()
 
   self.sources = {}
   self.droppedCount = 0
-  self.leftCount = #GetFS()
+  self.leftCount = #self.fullScan
 
   if self:IsReady() then
     self:BatchStep(1, 500)
@@ -122,15 +133,15 @@ end
 
 function HuntingDressUpFrameMixin:BatchStep(start, limit)
   Auctionator.Debug.Message("HuntingDressUpFrameMixin:BatchStep", start, limit)
-  if start > #GetFS() then
+  if start > #self.fullScan then
     Auctionator.Debug.Message("HuntingDressUpFrameMixin:BatchStep", "READY", start, self.droppedCount, #self.sources)
     return
   end
 
-  for i=start, math.min(limit, #GetFS()) do
-    local link = GetFS()[i].itemLink
+  for i=start, math.min(limit, #self.fullScan) do
+    local link = self.fullScan[i].itemLink
 
-    local item = Item:CreateFromItemID(GetFS()[i].replicateInfo[17])
+    local item = Item:CreateFromItemID(self.fullScan[i].replicateInfo[17])
     item:ContinueOnItemLoad((function(index, link)
       return function()
         if IsDressableItem(link) then
@@ -142,7 +153,8 @@ function HuntingDressUpFrameMixin:BatchStep(start, limit)
           Auctionator.EventBus:Fire(
             self,
             Hunting.Events.SourceLoadEnd,
-            self.sources
+            self.sources,
+            self.fullScan
           )
         end
       end
@@ -158,7 +170,7 @@ function FindSourceID(id)
   local result = {}
   for index, details in ipairs(HuntingDressUpFrame.sources) do
     if details.id == id then
-      local entry = GetFS()[details.index]
+      local entry = self.fullScan[details.index]
       print(entry.itemLink)
       print(
         Auctionator.Utilities.CreateMoneyString(entry.replicateInfo[10]),

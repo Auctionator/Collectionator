@@ -51,11 +51,12 @@ function HuntingDataProviderMixin:OnShow()
   end
 end
 
-function HuntingDataProviderMixin:ReceiveEvent(eventName, eventData)
+function HuntingDataProviderMixin:ReceiveEvent(eventName, eventData, eventData2)
   if eventName == Hunting.Events.SourceLoadStart then
     self.onSearchStarted()
   elseif eventName == Hunting.Events.SourceLoadEnd then
     self.sources = eventData
+    self.fullScan = eventData2
 
     self.dirty = true
     if self:IsShown() then
@@ -79,10 +80,6 @@ function HuntingDataProviderMixin:Sort(fieldName, sortDirection)
   end)
 
   self.onUpdate(self.results)
-end
-
-local function GetFS()
-  return AUCTIONATOR_RAW_FULL_SCAN[Auctionator.Variables.GetConnectedRealmRoot()] or {}
 end
 
 local function ColorName(link, name)
@@ -124,9 +121,6 @@ local function SelectFirstItemIDs(array, fullScan)
   for index, info in ipairs(array) do
     local itemID = fullScan[info.index].replicateInfo[17]
     if haveSeen[itemID] == nil then
-      if index > 1 then
-        print(info.id)
-      end
       haveSeen[itemID] = info
       info.quantity = 1
       table.insert(result, info)
@@ -146,7 +140,7 @@ function HuntingDataProviderMixin:Refresh()
 
   local grouped = GroupedBySourceID(self.sources)
   local filteredOnly = {}
-  local fullScan = GetFS()
+  local fullScan = self.fullScan
 
   if self:GetParent().ShowAllItems:GetChecked() then
     for _, array in pairs(grouped) do
