@@ -1,6 +1,6 @@
 ## Interface: 80300
 ## Title: Collectionator
-## Version: 1
+## Version: AUTO_GENERATED_VERSION
 ## Author: plusmouse
 ## RequiredDeps: Auctionator
 

@@ -1,0 +1,54 @@
+name: Curse Build
+
+on:
+  push:
+    branches:
+    - master
+
+    paths-ignore:
+    - "docs/**"
+    - ".github/workflows/curse.yml"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        path: 'Collectionator'
+    - name: Delete files for curse
+      run: rm -rf Collectionator/README.md Collectionator/.github/ Collectionator/.gitignore Collectionator/.git
+    - name: Generate build number
+      id: buildnumber
+      uses: einaregilsson/build-number@v2 
+      with:
+        token: ${{secrets.github_token}}  
+    - name: Update version
+      uses: jacobtomlinson/gha-find-replace@master
+      with:
+        find: "AUTO_GENERATED_VERSION"
+        replace: "${{steps.buildnumber.outputs.build_number}} (alpha)"
+    - name: Create zip
+      run: zip -r Collectionator-alpha-${{steps.buildnumber.outputs.build_number}}.zip ./Collectionator
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ steps.buildnumber.outputs.build_number }}-alpha
+        release_name: Alpha ${{ steps.buildnumber.outputs.build_number }}
+        draft: false
+        prerelease: false
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./Collectionator-alpha-${{steps.buildnumber.outputs.build_number}}.zip
+        asset_name: Collectionator-alpha-${{steps.buildnumber.outputs.build_number}}.zip
+        asset_content_type: application/zip
