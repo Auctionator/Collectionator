@@ -5,8 +5,6 @@ User guide
 
 2. Go to the "Hunting" tab
 
-3. Click "Enable Cache"
+3. Do a full scan
 
-4. Do a full scan
-
-5. Click "Process FS" in the "Hunting" tab and wait for the items to appear
+4. Click "Process FS" in the "Hunting" tab and wait for the items to appear
