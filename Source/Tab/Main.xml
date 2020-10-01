@@ -2,10 +2,16 @@
   <Frame
     name="HuntingTabFrameTemplate"
     virtual="true"
-    inherits="AuctionatorTabFrameTemplate"
     parentKey="HuntingTabFrame"
     mixin="HuntingTabMixin"
+    hidden="true"
   >
+    <Anchors>
+      <Anchor point="TOP" relativeKey="$parent.CategoriesList" relativePoint="TOP" y="-30"/>
+      <Anchor point="LEFT" x="4"/>
+      <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-4" y="27" />
+    </Anchors>
+
     <Frames>
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Process FS" parentKey="ProcessFS">
         <Anchors>
@@ -53,8 +59,15 @@
 
       <Frame parentKey="ResultsListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="15" y="24"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-20"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="4" y="24"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-20" y="45"/>
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="HistoricalPriceInset" inherits="AuctionatorInsetTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" relativePoint="TOPLEFT" x="-5" y="-25"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ResultsListing" relativePoint="BOTTOMRIGHT"/>
         </Anchors>
       </Frame>
     </Frames>

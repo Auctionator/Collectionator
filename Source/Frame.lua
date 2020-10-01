@@ -123,7 +123,7 @@ end
 function HuntingDressUpFrameMixin:BatchStep(start, limit)
   Auctionator.Debug.Message("HuntingDressUpFrameMixin:BatchStep", start, limit)
   if start > #GetFS() then
-    print("READY", start, self.droppedCount, #self.sources)
+    Auctionator.Debug.Message("HuntingDressUpFrameMixin:BatchStep", "READY", start, self.droppedCount, #self.sources)
     return
   end
 

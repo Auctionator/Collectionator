@@ -7,7 +7,7 @@ local TMOG_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = AUCTIONATOR_L_QUANTITY,
+    headerText = "Choices",
     headerParameters = { "quantity" },
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "quantity" },
@@ -83,14 +83,47 @@ local function ColorName(link, name)
   return "|c" .. qualityColor .. name .. "|r"
 end
 
+local function MergeBySourceID(sources, fullScan)
+  local sourceMap = {}
+  for _, sourceInfo in ipairs(sources) do
+    local id = sourceInfo.id
+    local quantity = fullScan[sourceInfo.index].replicateInfo[3]
+    local price = fullScan[sourceInfo.index].replicateInfo[10]
+
+    if sourceMap[id] == nil then
+      sourceMap[id] = {
+        index = sourceInfo.index,
+        quantity = quantity,
+        price = price,
+      }
+    else
+      sourceMap[id].quantity = sourceMap[id].quantity + quantity
+
+      if price < sourceMap[id].price then
+        sourceMap[id].index = sourceInfo.index
+      end
+    end
+  end
+
+  local result = {}
+
+  for key, value in pairs(sourceMap) do
+    table.insert(result, {id = key, index = value.index, quantity = value.quantity})
+  end
+
+  return result
+end
+
 function HuntingDataProviderMixin:Refresh()
   self:Reset()
   self.onSearchStarted()
   self.dirty = false
 
+  local merged = MergeBySourceID(self.sources, GetFS())
+
   local results = {}
 
-  for _, sourceInfo in ipairs(self.sources) do
+  for _, sourceInfo in ipairs(merged) do
     local info = GetFS()[sourceInfo.index]
     local allClasses = C_TransmogCollection.GetSourceInfo(sourceInfo.id)
     if info.replicateInfo[4] > 1 and not allClasses.isCollected then
@@ -98,7 +131,7 @@ function HuntingDataProviderMixin:Refresh()
         index = sourceInfo.index,
         itemName = ColorName(info.itemLink, info.replicateInfo[1]),
         name = info.replicateInfo[1],
-        quantity = info.replicateInfo[3],
+        quantity = sourceInfo.quantity,
         price = info.replicateInfo[10] or info.replicateInfo[11],
         itemLink = info.itemLink, -- Used for tooltips
         iconTexture = info.replicateInfo[2],
