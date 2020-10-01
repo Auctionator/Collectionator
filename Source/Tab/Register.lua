@@ -1,8 +1,8 @@
 Auctionator.Tabs.Register( {
   name = "CollectingTab",
   textLabel = "Collecting",
-  tabTemplate = "HuntingTabFrameTemplate",
+  tabTemplate = "CollectionatorTabFrameTemplate",
   tabHeader = "Collectionator - Collecting",
-  tabFrameName = "HuntingTabFrame",
+  tabFrameName = "CollectionatorTabFrame",
   tabOrder = 5,
 })

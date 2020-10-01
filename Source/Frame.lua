@@ -27,9 +27,9 @@ local INVENTORY_TYPES_TO_SLOT = {
   ["INVTYPE_TABARD"] = {19},
 }
 
-HuntingDressUpFrameMixin = {}
+CollectionatorDressUpFrameMixin = {}
 
-function HuntingDressUpFrameMixin:OnLoad()
+function CollectionatorDressUpFrameMixin:OnLoad()
   self.sources = {}
   self.droppedCount = 0
   self.leftCount = 0
@@ -43,7 +43,7 @@ function HuntingDressUpFrameMixin:OnLoad()
   self.ModelScene:Hide()
 end
 
-function HuntingDressUpFrameMixin:ReceiveEvent(eventName, eventData)
+function CollectionatorDressUpFrameMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.FullScan.Events.ScanComplete then
     self.dirty = true
     self.fullScan = eventData
@@ -54,8 +54,8 @@ function HuntingDressUpFrameMixin:ReceiveEvent(eventName, eventData)
   end
 end
 
-function HuntingDressUpFrameMixin:OnEvent(event, ...)
-  Auctionator.EventBus:RegisterSource(self, "HuntingDressUpFrameMixin")
+function CollectionatorDressUpFrameMixin:OnEvent(event, ...)
+  Auctionator.EventBus:RegisterSource(self, "CollectionatorDressUpFrameMixin")
   if event == "VARIABLES_LOADED" then
     Auctionator.EventBus:Register(self, {
       Auctionator.FullScan.Events.ScanComplete
@@ -63,13 +63,13 @@ function HuntingDressUpFrameMixin:OnEvent(event, ...)
   end
 end
 
-function HuntingDressUpFrameMixin:OnShow()
+function CollectionatorDressUpFrameMixin:OnShow()
   if self.dirty then
     self:Process()
   end
 end
 
-function HuntingDressUpFrameMixin:Process()
+function CollectionatorDressUpFrameMixin:Process()
   self.dirty = false
 
   if #self.fullScan == 0 then
@@ -78,7 +78,7 @@ function HuntingDressUpFrameMixin:Process()
 
   Auctionator.EventBus:Fire(
     self,
-    Hunting.Events.SourceLoadStart,
+    Collectionator.Events.SourceLoadStart,
     self.sources
   )
 
@@ -91,33 +91,33 @@ function HuntingDressUpFrameMixin:Process()
   end
 end
 
-function HuntingDressUpFrameMixin:ClearScene()
+function CollectionatorDressUpFrameMixin:ClearScene()
   self.ModelScene:ClearScene();
   self.ModelScene:SetViewInsets(0, 0, 0, 0);
   self.ModelScene:TransitionToModelSceneID(290, CAMERA_TRANSITION_TYPE_IMMEDIATE, CAMERA_MODIFICATION_TYPE_DISCARD, true);
   self:ResetPlayer()
 end
 
-function HuntingDressUpFrameMixin:ResetPlayer()
+function CollectionatorDressUpFrameMixin:ResetPlayer()
   SetupPlayerForModelScene(self.ModelScene, nil, false, false);
 end
 
-function HuntingDressUpFrameMixin:PlayerActor()
+function CollectionatorDressUpFrameMixin:PlayerActor()
   return self.ModelScene:GetPlayerActor()
 end
 
-function HuntingDressUpFrameMixin:IsReady()
+function CollectionatorDressUpFrameMixin:IsReady()
   return self:PlayerActor() and self:PlayerActor():IsLoaded()
 end
 
-function HuntingDressUpFrameMixin:OnUpdate()
+function CollectionatorDressUpFrameMixin:OnUpdate()
   if not self:PlayerActor():IsLoaded() then
     self:ClearScene()
   end
 end
 
 
-function HuntingDressUpFrameMixin:GetSlotSource(index, link)
+function CollectionatorDressUpFrameMixin:GetSlotSource(index, link)
   local possibleSlots = INVENTORY_TYPES_TO_SLOT[select(9, GetItemInfo(link))]
   if not possibleSlots then
     self.droppedCount = self.droppedCount + 1
@@ -140,10 +140,10 @@ function HuntingDressUpFrameMixin:GetSlotSource(index, link)
   self.droppedCount = self.droppedCount + 1
 end
 
-function HuntingDressUpFrameMixin:BatchStep(start, limit)
-  Auctionator.Debug.Message("HuntingDressUpFrameMixin:BatchStep", start, limit)
+function CollectionatorDressUpFrameMixin:BatchStep(start, limit)
+  Auctionator.Debug.Message("CollectionatorDressUpFrameMixin:BatchStep", start, limit)
   if start > #self.fullScan then
-    Auctionator.Debug.Message("HuntingDressUpFrameMixin:BatchStep", "READY", start, self.droppedCount, #self.sources)
+    Auctionator.Debug.Message("CollectionatorDressUpFrameMixin:BatchStep", "READY", start, self.droppedCount, #self.sources)
     return
   end
 
@@ -161,7 +161,7 @@ function HuntingDressUpFrameMixin:BatchStep(start, limit)
         if self.leftCount == 0 then
           Auctionator.EventBus:Fire(
             self,
-            Hunting.Events.SourceLoadEnd,
+            Collectionator.Events.SourceLoadEnd,
             self.sources,
             self.fullScan
           )
@@ -177,7 +177,7 @@ end
 
 function FindSourceID(id)
   local result = {}
-  for index, details in ipairs(HuntingDressUpFrame.sources) do
+  for index, details in ipairs(CollectionatorDressUpFrame.sources) do
     if details.id == id then
       local entry = self.fullScan[details.index]
       print(entry.itemLink)

@@ -1,9 +1,9 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame
-    name="HuntingTabFrameTemplate"
+    name="CollectionatorTabFrameTemplate"
     virtual="true"
-    parentKey="HuntingTabFrame"
-    mixin="HuntingTabMixin"
+    parentKey="CollectionatorTabFrame"
+    mixin="CollectionatorTabMixin"
     hidden="true"
   >
     <Anchors>
@@ -24,7 +24,7 @@
         </Scripts>
       </Button>
 
-      <Frame parentKey="DataProvider" mixin="HuntingDataProviderMixin">
+      <Frame parentKey="DataProvider" mixin="CollectionatorDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnUpdate method="OnUpdate"/>

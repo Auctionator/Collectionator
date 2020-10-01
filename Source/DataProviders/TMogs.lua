@@ -31,30 +31,30 @@ local TMOG_TABLE_LAYOUT = {
   },
 }
 
-HuntingDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
+CollectionatorDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
 
-function HuntingDataProviderMixin:OnLoad()
+function CollectionatorDataProviderMixin:OnLoad()
   AuctionatorDataProviderMixin.OnLoad(self)
 
   Auctionator.EventBus:Register(self, {
-    Hunting.Events.SourceLoadStart,
-    Hunting.Events.SourceLoadEnd,
+    Collectionator.Events.SourceLoadStart,
+    Collectionator.Events.SourceLoadEnd,
   })
 
   self.processCountPerUpdate = 500
   self.dirty = false
 end
 
-function HuntingDataProviderMixin:OnShow()
+function CollectionatorDataProviderMixin:OnShow()
   if self.dirty then
     self:Refresh()
   end
 end
 
-function HuntingDataProviderMixin:ReceiveEvent(eventName, eventData, eventData2)
-  if eventName == Hunting.Events.SourceLoadStart then
+function CollectionatorDataProviderMixin:ReceiveEvent(eventName, eventData, eventData2)
+  if eventName == Collectionator.Events.SourceLoadStart then
     self.onSearchStarted()
-  elseif eventName == Hunting.Events.SourceLoadEnd then
+  elseif eventName == Collectionator.Events.SourceLoadEnd then
     self.sources = eventData
     self.fullScan = eventData2
 
@@ -72,7 +72,7 @@ local COMPARATORS = {
   sourceID = Auctionator.Utilities.NumberComparator,
 }
 
-function HuntingDataProviderMixin:Sort(fieldName, sortDirection)
+function CollectionatorDataProviderMixin:Sort(fieldName, sortDirection)
   local comparator = COMPARATORS[fieldName](sortDirection, fieldName)
 
   table.sort(self.results, function(left, right)
@@ -133,7 +133,7 @@ local function SelectFirstItemIDs(array, fullScan)
 end
 
 
-function HuntingDataProviderMixin:Refresh()
+function CollectionatorDataProviderMixin:Refresh()
   self.dirty = false
   self:Reset()
 
@@ -158,7 +158,7 @@ function HuntingDataProviderMixin:Refresh()
       table.insert(filteredOnly, CombineForCheapest(array, fullScan))
     end
   end
-  Auctionator.Debug.Message("HuntingDataProviderMixin:Refresh", "filtered", #filteredOnly)
+  Auctionator.Debug.Message("CollectionatorDataProviderMixin:Refresh", "filtered", #filteredOnly)
 
   local results = {}
 
@@ -189,14 +189,14 @@ function HuntingDataProviderMixin:Refresh()
   self:AppendEntries(results, true)
 end
 
-function HuntingDataProviderMixin:UniqueKey(entry)
+function CollectionatorDataProviderMixin:UniqueKey(entry)
   return tostring(entry.index)
 end
 
-function HuntingDataProviderMixin:GetTableLayout()
+function CollectionatorDataProviderMixin:GetTableLayout()
   return TMOG_TABLE_LAYOUT
 end
 
-function HuntingDataProviderMixin:GetRowTemplate()
-  return "HuntingTMogRowTemplate"
+function CollectionatorDataProviderMixin:GetRowTemplate()
+  return "CollectionatorTMogRowTemplate"
 end

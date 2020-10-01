@@ -1,5 +1,5 @@
 ## Interface: 80300
-## Title: TMog Hunting
+## Title: Collectionator
 ## Version: 1
 ## Author: plusmouse
 ## RequiredDeps: Auctionator

@@ -1,1 +1,1 @@
-Hunting = {}
+Collectionator = {}
