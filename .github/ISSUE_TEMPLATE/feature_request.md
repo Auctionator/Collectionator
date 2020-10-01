@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Auctionator can always be better
+about: Collectionator can always be better
 title: ''
 labels: enhancement
 assignees: ''
