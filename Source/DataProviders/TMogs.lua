@@ -42,7 +42,6 @@ function CollectionatorDataProviderMixin:OnLoad()
   })
 
   self:GetParent().RefreshButton:Hide()
-  self:GetParent().NoFullScanText:Show()
 
   self.processCountPerUpdate = 500
   self.dirty = false
