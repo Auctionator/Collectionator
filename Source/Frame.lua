@@ -41,6 +41,9 @@ function HuntingDressUpFrameMixin:OnLoad()
   self.sources = {}
   self.droppedCount = 0
   self.leftCount = 0
+  FrameUtil.RegisterFrameForEvents(self, {
+    "VARIABLES_LOADED"
+  })
 
   self.mode = "player"
   self:ClearScene()
@@ -48,7 +51,17 @@ function HuntingDressUpFrameMixin:OnLoad()
   self.ModelScene:Hide()
 end
 
+function HuntingDressUpFrameMixin:OnEvent(...)
+  Auctionator.EventBus:RegisterSource(self, "HuntingDressUpFrameMixin")
+end
+
 function HuntingDressUpFrameMixin:Process()
+  Auctionator.EventBus:Fire(
+    self,
+    Hunting.Events.SourceLoadStart,
+    self.sources
+  )
+
   self.sources = {}
   self.droppedCount = 0
   self.leftCount = #GetFS()
@@ -120,9 +133,17 @@ function HuntingDressUpFrameMixin:BatchStep(start, limit)
     local item = Item:CreateFromItemID(GetFS()[i].replicateInfo[17])
     item:ContinueOnItemLoad((function(index, link)
       return function()
-        self.leftCount = self.leftCount - 1
         if IsDressableItem(link) then
           self:GetSlotSource(index, link)
+        end
+
+        self.leftCount = self.leftCount - 1
+        if self.leftCount == 0 then
+          Auctionator.EventBus:Fire(
+            self,
+            Hunting.Events.SourceLoadEnd,
+            self.sources
+          )
         end
       end
     end)(i, link))

@@ -5,6 +5,7 @@
 ## RequiredDeps: Auctionator
 
 Source\Objects.lua
+Source\Events.lua
 Source\Frame.lua
 
 Source\Frame.xml

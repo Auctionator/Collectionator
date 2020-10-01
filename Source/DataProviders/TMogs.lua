@@ -28,7 +28,32 @@ HuntingDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
 function HuntingDataProviderMixin:OnLoad()
   AuctionatorDataProviderMixin.OnLoad(self)
 
+  Auctionator.EventBus:Register(self, {
+    Hunting.Events.SourceLoadStart,
+    Hunting.Events.SourceLoadEnd,
+  })
+
   self.processCountPerUpdate = 500
+  self.dirty = false
+end
+
+function HuntingDataProviderMixin:OnShow()
+  if self.dirty then
+    self:Refresh()
+  end
+end
+
+function HuntingDataProviderMixin:ReceiveEvent(eventName, eventData)
+  if eventName == Hunting.Events.SourceLoadStart then
+    self.onSearchStarted()
+  elseif eventName == Hunting.Events.SourceLoadEnd then
+    self.sources = eventData
+
+    self.dirty = true
+    if self:IsShown() then
+      self:Refresh()
+    end
+  end
 end
 
 local COMPARATORS = {
@@ -61,10 +86,11 @@ end
 function HuntingDataProviderMixin:Refresh()
   self:Reset()
   self.onSearchStarted()
+  self.dirty = false
 
   local results = {}
 
-  for _, sourceInfo in ipairs(HuntingDressUpFrame.sources) do
+  for _, sourceInfo in ipairs(self.sources) do
     local info = GetFS()[sourceInfo.index]
     local allClasses = C_TransmogCollection.GetSourceInfo(sourceInfo.id)
     if info.replicateInfo[4] > 1 and not allClasses.isCollected then
