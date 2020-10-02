@@ -1,8 +1,8 @@
 ## Interface: 80300
-## Title: Collectionator
+## Title: Collectionator (data)
 ## Version: AUTO_GENERATED_VERSION
 ## Author: plusmouse
-## RequiredDeps: Collectionator (data)
+## RequiredDeps: Collectionator
 ## SavedVariables: COLLECTIONATOR_LAST_FULL_SCAN
 
 Source\Frame.lua
