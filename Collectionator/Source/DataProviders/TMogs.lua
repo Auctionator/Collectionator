@@ -7,14 +7,6 @@ local TMOG_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = COLLECTIONATOR_L_SOURCE_ID,
-    headerParameters = { "sourceID" },
-    cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "sourceID" },
-    width = 100
-  },
-  {
-    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerText = COLLECTIONATOR_L_CHOICES,
     headerParameters = { "quantity" },
     cellTemplate = "AuctionatorStringCellTemplate",
@@ -77,7 +69,6 @@ local COMPARATORS = {
   price = Auctionator.Utilities.NumberComparator,
   name = Auctionator.Utilities.StringComparator,
   quantity = Auctionator.Utilities.NumberComparator,
-  sourceID = Auctionator.Utilities.NumberComparator,
 }
 
 function CollectionatorDataProviderMixin:Sort(fieldName, sortDirection)
@@ -190,7 +181,6 @@ function CollectionatorDataProviderMixin:Refresh()
         price = info.replicateInfo[10] or info.replicateInfo[11],
         itemLink = info.itemLink, -- Used for tooltips
         iconTexture = info.replicateInfo[2],
-        sourceID = sourceInfo.id,
       })
     end
   end
