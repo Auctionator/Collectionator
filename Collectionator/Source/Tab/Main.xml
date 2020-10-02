@@ -26,7 +26,7 @@
           <OnClick>self:GetParent():TMogMode()</OnClick>
         </Scripts>
       </Button>
-      <Button parentKey="PetsButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_PETS_BUTTON">
+      <Button parentKey="PetButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_PETS_BUTTON">
         <Size x="70" y="22"/>
         <Anchors>
           <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.TMogButton"/>

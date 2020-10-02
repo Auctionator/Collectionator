@@ -7,7 +7,7 @@ local TMOG_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = "Source ID",
+    headerText = COLLECTIONATOR_L_SOURCE_ID,
     headerParameters = { "sourceID" },
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "sourceID" },
@@ -15,7 +15,7 @@ local TMOG_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = "Choices",
+    headerText = COLLECTIONATOR_L_CHOICES,
     headerParameters = { "quantity" },
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "quantity" },
