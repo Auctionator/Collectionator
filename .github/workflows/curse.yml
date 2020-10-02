@@ -18,8 +18,9 @@ jobs:
     - uses: actions/checkout@v2
       with:
         path: 'Collectionator'
+    - run: cd Collectionator
     - name: Delete files for curse
-      run: rm -rf Collectionator/README.md Collectionator/.github/ Collectionator/.gitignore Collectionator/.git
+      run: rm -rf Collectionator/README.md
     - name: Generate build number
       id: buildnumber
       uses: einaregilsson/build-number@v2 
@@ -31,7 +32,7 @@ jobs:
         find: "AUTO_GENERATED_VERSION"
         replace: "${{steps.buildnumber.outputs.build_number}} (alpha)"
     - name: Create zip
-      run: zip -r Collectionator-alpha-${{steps.buildnumber.outputs.build_number}}.zip ./Collectionator
+      run: zip -r Collectionator-alpha-${{steps.buildnumber.outputs.build_number}}.zip ./Collectionator*
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1

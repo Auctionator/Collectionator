@@ -33,6 +33,7 @@ function CollectionatorDressUpFrameMixin:OnLoad()
   self.sources = {}
   self.droppedCount = 0
   self.leftCount = 0
+
   FrameUtil.RegisterFrameForEvents(self, {
     "VARIABLES_LOADED"
   })
@@ -41,6 +42,8 @@ function CollectionatorDressUpFrameMixin:OnLoad()
   self:ClearScene()
   self:Show()
   self.ModelScene:Hide()
+
+  self.dirty = false
 end
 
 function CollectionatorDressUpFrameMixin:ReceiveEvent(eventName, eventData)
@@ -54,27 +57,30 @@ function CollectionatorDressUpFrameMixin:ReceiveEvent(eventName, eventData)
   end
 end
 
+function CollectionatorDressUpFrameMixin:LoadOldScan()
+  local oldScan = COLLECTIONATOR_LAST_FULL_SCAN
+  if oldScan and oldScan.realm == Auctionator.Variables.GetConnectedRealmRoot() then
+    self.dirty = true
+    self.fullScan = oldScan.db or {}
+  end
+end
+
 function CollectionatorDressUpFrameMixin:OnEvent(event, ...)
   Auctionator.EventBus:RegisterSource(self, "CollectionatorDressUpFrameMixin")
   if event == "VARIABLES_LOADED" then
     Auctionator.EventBus:Register(self, {
       Auctionator.FullScan.Events.ScanComplete
     })
-  end
-end
-
-function CollectionatorDressUpFrameMixin:OnShow()
-  if self.dirty then
-    self:Process()
+    self:LoadOldScan()
   end
 end
 
 function CollectionatorDressUpFrameMixin:Process()
-  self.dirty = false
-
-  if #self.fullScan == 0 then
+  if not self.dirty or #self.fullScan == 0 then
     return
   end
+
+  self.dirty = false
 
   Auctionator.EventBus:Fire(
     self,

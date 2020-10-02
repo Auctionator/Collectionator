@@ -27,6 +27,7 @@
       <Frame parentKey="DataProvider" mixin="CollectionatorDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
+          <OnShow method="OnShow"/>
           <OnUpdate method="OnUpdate"/>
         </Scripts>
       </Frame>
@@ -72,6 +73,7 @@
     </Layers>
     <Scripts>
       <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
     </Scripts>
   </Frame>
 </Ui>
