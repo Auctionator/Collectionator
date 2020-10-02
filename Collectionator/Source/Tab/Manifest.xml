@@ -1,7 +1,8 @@
 <!-- Tabs/Auctionator directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Main.lua" />
-  <Include file="Main.xml"/>
-
   <Script file="Register.lua" />
+
+  <Include file="TMogView.xml"/>
+  <Include file="Main.xml"/>
 </Ui>
