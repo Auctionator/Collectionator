@@ -180,17 +180,3 @@ function CollectionatorDressUpFrameMixin:BatchStep(start, limit)
     self:BatchStep(limit + 1, limit + 1 + (limit-start))
   end)
 end
-
-function FindSourceID(id)
-  local result = {}
-  for index, details in ipairs(CollectionatorDressUpFrame.sources) do
-    if details.id == id then
-      local entry = self.fullScan[details.index]
-      print(entry.itemLink)
-      print(
-        Auctionator.Utilities.CreateMoneyString(entry.replicateInfo[10]),
-        entry.replicateInfo[17]
-      )
-    end
-  end
-end
