@@ -9,9 +9,10 @@ Source\Locales.lua
 
 Source\Objects.lua
 Source\Events.lua
-Source\Frame.lua
 
+Source\Frame.lua
 Source\Frame.xml
+
 Source\Tab\Manifest.xml
 Source\DataProviders\Manifest.xml
 Source\ResultsListing\Manifest.xml
