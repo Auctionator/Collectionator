@@ -23,9 +23,9 @@ local TMOG_TABLE_LAYOUT = {
   },
 }
 
-CollectionatorDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
+CollectionatorTMogDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
 
-function CollectionatorDataProviderMixin:OnLoad()
+function CollectionatorTMogDataProviderMixin:OnLoad()
   AuctionatorDataProviderMixin.OnLoad(self)
 
   Auctionator.EventBus:Register(self, {
@@ -39,13 +39,13 @@ function CollectionatorDataProviderMixin:OnLoad()
   self.dirty = false
 end
 
-function CollectionatorDataProviderMixin:OnShow()
+function CollectionatorTMogDataProviderMixin:OnShow()
   if self.dirty then
     self:Refresh()
   end
 end
 
-function CollectionatorDataProviderMixin:ReceiveEvent(eventName, eventData, eventData2)
+function CollectionatorTMogDataProviderMixin:ReceiveEvent(eventName, eventData, eventData2)
   if eventName == Collectionator.Events.SourceLoadStart then
     self.onSearchStarted()
     self:GetParent().RefreshButton:Hide()
@@ -71,7 +71,7 @@ local COMPARATORS = {
   quantity = Auctionator.Utilities.NumberComparator,
 }
 
-function CollectionatorDataProviderMixin:Sort(fieldName, sortDirection)
+function CollectionatorTMogDataProviderMixin:Sort(fieldName, sortDirection)
   local comparator = COMPARATORS[fieldName](sortDirection, fieldName)
 
   table.sort(self.results, function(left, right)
@@ -132,7 +132,7 @@ local function SelectFirstItemIDs(array, fullScan)
 end
 
 
-function CollectionatorDataProviderMixin:Refresh()
+function CollectionatorTMogDataProviderMixin:Refresh()
   self.dirty = false
   self:Reset()
 
@@ -157,7 +157,7 @@ function CollectionatorDataProviderMixin:Refresh()
       table.insert(filteredOnly, CombineForCheapest(array, fullScan))
     end
   end
-  Auctionator.Debug.Message("CollectionatorDataProviderMixin:Refresh", "filtered", #filteredOnly)
+  Auctionator.Debug.Message("CollectionatorTMogDataProviderMixin:Refresh", "filtered", #filteredOnly)
 
   local results = {}
 
@@ -187,14 +187,14 @@ function CollectionatorDataProviderMixin:Refresh()
   self:AppendEntries(results, true)
 end
 
-function CollectionatorDataProviderMixin:UniqueKey(entry)
+function CollectionatorTMogDataProviderMixin:UniqueKey(entry)
   return tostring(entry.index)
 end
 
-function CollectionatorDataProviderMixin:GetTableLayout()
+function CollectionatorTMogDataProviderMixin:GetTableLayout()
   return TMOG_TABLE_LAYOUT
 end
 
-function CollectionatorDataProviderMixin:GetRowTemplate()
+function CollectionatorTMogDataProviderMixin:GetRowTemplate()
   return "CollectionatorTMogRowTemplate"
 end

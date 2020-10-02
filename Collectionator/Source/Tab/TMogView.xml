@@ -45,7 +45,7 @@
         </Scripts>
       </Button>
 
-      <Frame parentKey="DataProvider" mixin="CollectionatorDataProviderMixin">
+      <Frame parentKey="DataProvider" mixin="CollectionatorTMogDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow"/>
