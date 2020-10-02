@@ -2,7 +2,7 @@
 ## Title: Collectionator
 ## Version: AUTO_GENERATED_VERSION
 ## Author: plusmouse
-## RequiredDeps: Collectionator
+## RequiredDeps: Collectionator (data)
 ## SavedVariables: COLLECTIONATOR_LAST_FULL_SCAN
 
 Source\Frame.lua
