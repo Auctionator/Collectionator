@@ -10,5 +10,4 @@ function CollectionatorTMogViewMixin:OnShow()
 end
 
 function CollectionatorTMogViewMixin:OnHide()
-  CollectionatorDressUpFrame:Abort()
 end
