@@ -1,10 +1,32 @@
-CollectionatorTabMixin = {}
+CollectionatorTabFrameMixin = {}
 
-function CollectionatorTabMixin:OnLoad()
+function CollectionatorTabFrameMixin:OnLoad()
   Auctionator.Debug.Message("CollectionatorTabMixin:OnLoad()")
-  self.ResultsListing:Init(self.DataProvider)
 end
 
-function CollectionatorTabMixin:OnShow()
-  CollectionatorDressUpFrame:Process()
+function CollectionatorTabFrameMixin:OnShow()
+  self:ActivateButtons()
+end
+
+function CollectionatorTabFrameMixin:HideViews()
+  self.TMogView:Hide()
+end
+
+function CollectionatorTabFrameMixin:ActivateButtons()
+  print(self.TMogView:IsShown())
+  self.TMogButton:SetEnabled(not self.TMogView:IsShown())
+  --self.PetButton:SetEnabled(not self.PetView:IsShown())
+end
+
+function CollectionatorTabFrameMixin:PetMode()
+  self:HideViews()
+  --self.PetView:Show()
+  self:ActivateButtons()
+end
+
+function CollectionatorTabFrameMixin:TMogMode()
+  self:HideViews()
+  self.TMogView:Show()
+  --self.PetView:Show()
+  self:ActivateButtons()
 end

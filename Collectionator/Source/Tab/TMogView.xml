@@ -1,7 +1,7 @@
 <Ui>
   <Frame
     name="CollectionatorTMogViewTemplate"
-    mixin="CollectionatorTabMixin"
+    mixin="CollectionatorTMogViewMixin"
     virtual="true"
   >
     <Anchors>
@@ -11,8 +11,29 @@
     <Scripts>
       <OnLoad method="OnLoad"/>
       <OnShow method="OnShow"/>
+      <OnHide method="OnHide"/>
     </Scripts>
     <Frames>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShowAllItems">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_TMOG_SHOW_ALL_SOURCES" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" y="90" x="20"/>
+          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="LEFT" x="300"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="CharacterOnly">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_TMOG_ONLY_THIS_CHARACTER" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ShowAllItems" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="RIGHT" relativeKey="$parent.ShowAllItems" relativePoint="RIGHT"/>
+        </Anchors>
+      </Frame>
       <Button parentKey="RefreshButton" inherits="RefreshButtonTemplate">
         <Anchors>
             <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent" x="-44" y="65"/>
@@ -45,30 +66,10 @@
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ResultsListing" relativePoint="BOTTOMRIGHT"/>
         </Anchors>
       </Frame>
-
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShowAllItems">
-        <KeyValues>
-          <KeyValue key="labelText" value="Show all sources" type="string" />
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" relativePoint="BOTTOMLEFT" y="-10" x="20"/>
-          <Anchor point="RIGHT" relativeKey="$parent.ResultsListing" relativePoint="LEFT" x="300"/>
-        </Anchors>
-      </Frame>
-
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="CharacterOnly">
-        <KeyValues>
-          <KeyValue key="labelText" value="TMogs for this character only" type="string" />
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ShowAllItems" relativePoint="TOPRIGHT" x="20"/>
-          <Anchor point="RIGHT" relativeKey="$parent.ShowAllItems" relativePoint="RIGHT" x="300"/>
-        </Anchors>
-      </Frame>
     </Frames>
     <Layers>
       <Layer>
-        <FontString parentKey="NoFullScanText" inherits="GameFontNormal" text="No full scan data. A scan is needed on the character you want to use the tab with each time you login."/>
+        <FontString parentKey="NoFullScanText" inherits="GameFontNormal" text="COLLECTIONATOR_L_NEED_A_FULL_SCAN"/>
       </Layer>
     </Layers>
   </Frame>

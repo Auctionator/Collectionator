@@ -5,6 +5,7 @@
 ## RequiredDeps: Auctionator
 
 Locales\Manifest.xml
+Source\Locales.lua
 
 Source\Objects.lua
 Source\Events.lua

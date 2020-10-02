@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame
     name="CollectionatorTabFrameTemplate"
+    mixin="CollectionatorTabFrameMixin"
     virtual="true"
     parentKey="CollectionatorTabFrame"
     hidden="true"
@@ -10,8 +11,31 @@
       <Anchor point="LEFT" x="4"/>
       <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-4" y="27" />
     </Anchors>
+    <Scripts>
+      <OnShow method="OnLoad"/>
+      <OnShow method="OnShow"/>
+    </Scripts>
 
     <Frames>
+      <Button parentKey="TMogButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_TMOGS_BUTTON">
+        <Size x="70" y="22"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" y="30" x="300"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():TMogMode()</OnClick>
+        </Scripts>
+      </Button>
+      <Button parentKey="PetsButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_PETS_BUTTON">
+        <Size x="70" y="22"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.TMogButton"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():PetMode()</OnClick>
+        </Scripts>
+      </Button>
+
       <Frame parentKey="TMogView" inherits="CollectionatorTMogViewTemplate">
         <Anchors>
           <Anchor point="TOPLEFT" relativePoint="TOPLEFT" y="-100"/>
