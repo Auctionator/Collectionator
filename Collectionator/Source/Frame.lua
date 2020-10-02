@@ -40,8 +40,6 @@ function CollectionatorDressUpFrameMixin:OnLoad()
 
   self.mode = "player"
   self:ClearScene()
-  self:Show()
-  self.ModelScene:Hide()
 
   self.dirty = false
 end

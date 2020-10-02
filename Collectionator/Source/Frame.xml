@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Frame name="CollectionatorDressUpFrame" toplevel="true" enableMouse="true" parent="UIParent" hidden="true" mixin="CollectionatorDressUpFrameMixin">
+  <Frame name="CollectionatorDressUpFrame" toplevel="true" parent="UIParent" mixin="CollectionatorDressUpFrameMixin">
     <Size x="450" y="545"/>
     <Anchors>
       <Anchor point="TOPLEFT" x="70" y="-104"/>
@@ -8,7 +8,7 @@
       <AbsInset left="0" right="30" top="0" bottom="45"/>
     </HitRectInsets>
     <Frames>
-      <ModelScene parentKey="ModelScene" inherits="NonInteractableModelSceneMixinTemplate">
+      <ModelScene parentKey="ModelScene" hidden="true" inherits="NonInteractableModelSceneMixinTemplate">
         <KeyValues>
           <KeyValue key="normalIntensity" value="0.75" type="number"/>
           <KeyValue key="highlightIntensity" value="1.2" type="number"/>
