@@ -31,7 +31,8 @@ jobs:
         find: "AUTO_GENERATED_VERSION"
         replace: "${{steps.buildnumber.outputs.build_number}} (alpha)"
     - name: Create zip
-      run: cd Collectionator && zip -r ../Collectionator-alpha-${{steps.buildnumber.outputs.build_number}}.zip ./Collectionator* && cd ..
+      run: zip -r ../Collectionator-alpha-${{steps.buildnumber.outputs.build_number}}.zip
+      working-directory: ./Collectionator
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
