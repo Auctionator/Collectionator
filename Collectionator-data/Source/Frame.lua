@@ -10,7 +10,7 @@ function CollectionatorDataFrameMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.FullScan.Events.ScanComplete then
     COLLECTIONATOR_LAST_FULL_SCAN = {
       realm = Auctionator.Variables.GetConnectedRealmRoot(),
-      db = eventData,
+      data = eventData,
     }
   end
 end

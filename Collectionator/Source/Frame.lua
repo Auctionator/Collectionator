@@ -61,7 +61,7 @@ function CollectionatorDressUpFrameMixin:LoadOldScan()
   local oldScan = COLLECTIONATOR_LAST_FULL_SCAN
   if oldScan and oldScan.realm == Auctionator.Variables.GetConnectedRealmRoot() then
     self.dirty = true
-    self.fullScan = oldScan.db or {}
+    self.fullScan = oldScan.data or {}
   end
 end
 
