@@ -34,6 +34,16 @@
           <Anchor point="RIGHT" relativeKey="$parent.ShowAllItems" relativePoint="RIGHT"/>
         </Anchors>
       </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="UniquesOnly">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_TMOG_UNIQUES" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ShowAllItems" relativePoint="TOPRIGHT"/>
+          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="LEFT" x="600"/>
+        </Anchors>
+      </Frame>
       <Button parentKey="RefreshButton" inherits="RefreshButtonTemplate">
         <Anchors>
             <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent" x="-44" y="65"/>

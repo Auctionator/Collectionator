@@ -137,7 +137,14 @@ function CollectionatorDressUpFrameMixin:GetSlotSource(index, link)
   for _, slot in ipairs(possibleSlots) do
     local source = pa:GetSlotTransmogSources(slot)
     if source ~= 0 then
-      table.insert(self.sources, {id = source, index = index})
+      local visual = C_TransmogCollection.GetSourceInfo(source).visualID
+      local set = C_TransmogCollection.GetAllAppearanceSources(visual)
+      if #set == 0 then
+        set = {source}
+      end
+      table.insert(self.sources, {
+        id = source, visual = visual, index = index, set = set
+      })
       return
     end
   end

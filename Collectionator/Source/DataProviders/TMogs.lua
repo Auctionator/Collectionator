@@ -99,6 +99,19 @@ local function GroupedBySourceID(array)
   return results
 end
 
+local function GroupedByVisualID(array)
+  local results = {}
+
+  for _, info in ipairs(array) do
+    if results[info.visual] == nil then
+      results[info.visual] = {}
+    end
+    table.insert(results[info.visual], info)
+  end
+
+  return results
+end
+
 local function SortByPrice(array, fullScan)
   table.sort(array, function(a, b)
     return fullScan[a.index].replicateInfo[10] < fullScan[b.index].replicateInfo[10]
@@ -131,8 +144,8 @@ local function SelectFirstItemIDs(array, fullScan)
   return result
 end
 
-
 function CollectionatorTMogDataProviderMixin:Refresh()
+  local isUniques = self:GetParent().UniquesOnly:GetChecked()
   self.dirty = false
   self:Reset()
 
@@ -142,7 +155,13 @@ function CollectionatorTMogDataProviderMixin:Refresh()
 
   self.onSearchStarted()
 
-  local grouped = GroupedBySourceID(self.sources)
+  local grouped
+  if isUniques then
+    grouped = GroupedByVisualID(self.sources)
+  else
+    grouped = GroupedBySourceID(self.sources)
+  end
+
   local filteredOnly = {}
   local fullScan = self.fullScan
 
@@ -164,12 +183,30 @@ function CollectionatorTMogDataProviderMixin:Refresh()
   for _, sourceInfo in ipairs(filteredOnly) do
     local info = fullScan[sourceInfo.index]
 
-    local check = false
-    if self:GetParent().CharacterOnly:GetChecked() then
-      check = not C_TransmogCollection.PlayerHasTransmogItemModifiedAppearance(sourceInfo.id) and C_TransmogCollection.PlayerKnowsSource(sourceInfo.id)
+    local check = true
+
+    if isUniques then
+      for _, altSource in ipairs(sourceInfo.set) do
+        if self:GetParent().CharacterOnly:GetChecked() then
+          check = check and not C_TransmogCollection.PlayerHasTransmogItemModifiedAppearance(altSource)
+        else
+          local tmogInfo = C_TransmogCollection.GetSourceInfo(altSource)
+          check = check and not tmogInfo.isCollected
+        end
+      end
     else
-      local tmogInfo = C_TransmogCollection.GetSourceInfo(sourceInfo.id)
-      check = not tmogInfo.isCollected and info.replicateInfo[4] > 1
+      if self:GetParent().CharacterOnly:GetChecked() then
+        check = not C_TransmogCollection.PlayerHasTransmogItemModifiedAppearance(sourceInfo.id)
+      else
+        local tmogInfo = C_TransmogCollection.GetSourceInfo(sourceInfo.id)
+        check = not tmogInfo.isCollected
+      end
+    end
+
+    if self:GetParent().CharacterOnly:GetChecked() then
+      check = check and C_TransmogCollection.PlayerKnowsSource(sourceInfo.id)
+    else
+      check = check and info.replicateInfo[4] > 1
     end
 
     if check then
