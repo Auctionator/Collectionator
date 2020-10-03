@@ -13,7 +13,6 @@ function CollectionatorTabFrameMixin:HideViews()
 end
 
 function CollectionatorTabFrameMixin:ActivateButtons()
-  print(self.TMogView:IsShown())
   self.TMogButton:SetEnabled(not self.TMogView:IsShown())
   self.PetButton:Hide()
   --self.PetButton:SetEnabled(not self.PetView:IsShown())

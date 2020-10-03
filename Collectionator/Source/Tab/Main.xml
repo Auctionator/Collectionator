@@ -12,7 +12,7 @@
       <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-4" y="27" />
     </Anchors>
     <Scripts>
-      <OnShow method="OnLoad"/>
+      <OnLoad method="OnLoad"/>
       <OnShow method="OnShow"/>
     </Scripts>
 

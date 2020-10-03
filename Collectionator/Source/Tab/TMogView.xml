@@ -15,6 +15,9 @@
     </Scripts>
     <Frames>
 
+      <Frame inherits="CollectionatorTMogScannerFrameTemplate" parentKey="Scanner">
+      </Frame>
+
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShowAllItems">
         <KeyValues>
           <KeyValue key="labelText" value="COLLECTIONATOR_L_TMOG_SHOW_ALL_SOURCES" type="global" />

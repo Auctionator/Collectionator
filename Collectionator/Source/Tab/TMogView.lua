@@ -6,7 +6,7 @@ function CollectionatorTMogViewMixin:OnLoad()
 end
 
 function CollectionatorTMogViewMixin:OnShow()
-  CollectionatorDressUpFrame:Process()
+  self.Scanner:Process()
 end
 
 function CollectionatorTMogViewMixin:OnHide()

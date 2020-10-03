@@ -1,4 +1,4 @@
 Collectionator.Events = {
-  SourceLoadStart = "hunting_source_start",
-  SourceLoadEnd = "hunting_source_end"
+  SourceLoadStart = "collecting_tmog_source_start",
+  SourceLoadEnd = "collecting_tmog_source_end"
 }

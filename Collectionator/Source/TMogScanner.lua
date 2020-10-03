@@ -27,24 +27,26 @@ local INVENTORY_TYPES_TO_SLOT = {
   ["INVTYPE_TABARD"] = {19},
 }
 
-CollectionatorDressUpFrameMixin = {}
+CollectionatorTMogScannerFrameMixin = {}
 
-function CollectionatorDressUpFrameMixin:OnLoad()
+function CollectionatorTMogScannerFrameMixin:OnLoad()
   self.sources = {}
   self.droppedCount = 0
   self.leftCount = 0
-
-  FrameUtil.RegisterFrameForEvents(self, {
-    "VARIABLES_LOADED"
-  })
 
   self.mode = "player"
   self:ClearScene()
 
   self.dirty = false
+
+  Auctionator.EventBus:RegisterSource(self, "CollectionatorTMogScannerFrameMixin")
+  Auctionator.EventBus:Register(self, {
+    Auctionator.FullScan.Events.ScanComplete
+  })
+  self:LoadOldScan()
 end
 
-function CollectionatorDressUpFrameMixin:ReceiveEvent(eventName, eventData)
+function CollectionatorTMogScannerFrameMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.FullScan.Events.ScanComplete then
     self.dirty = true
     self.fullScan = eventData
@@ -55,7 +57,7 @@ function CollectionatorDressUpFrameMixin:ReceiveEvent(eventName, eventData)
   end
 end
 
-function CollectionatorDressUpFrameMixin:LoadOldScan()
+function CollectionatorTMogScannerFrameMixin:LoadOldScan()
   local oldScan = COLLECTIONATOR_LAST_FULL_SCAN
   if oldScan and oldScan.realm == Auctionator.Variables.GetConnectedRealmRoot() then
     self.dirty = true
@@ -63,17 +65,7 @@ function CollectionatorDressUpFrameMixin:LoadOldScan()
   end
 end
 
-function CollectionatorDressUpFrameMixin:OnEvent(event, ...)
-  Auctionator.EventBus:RegisterSource(self, "CollectionatorDressUpFrameMixin")
-  if event == "VARIABLES_LOADED" then
-    Auctionator.EventBus:Register(self, {
-      Auctionator.FullScan.Events.ScanComplete
-    })
-    self:LoadOldScan()
-  end
-end
-
-function CollectionatorDressUpFrameMixin:Process()
+function CollectionatorTMogScannerFrameMixin:Process()
   if not self.dirty or #self.fullScan == 0 then
     return
   end
@@ -90,38 +82,37 @@ function CollectionatorDressUpFrameMixin:Process()
   self.droppedCount = 0
   self.leftCount = #self.fullScan
 
-  if self:IsReady() then
-    self:BatchStep(1, 500)
-  end
+  assert(self:IsReady())
+  self:BatchStep(1, 500)
 end
 
-function CollectionatorDressUpFrameMixin:ClearScene()
+function CollectionatorTMogScannerFrameMixin:ClearScene()
   self.ModelScene:ClearScene();
   self.ModelScene:SetViewInsets(0, 0, 0, 0);
   self.ModelScene:TransitionToModelSceneID(290, CAMERA_TRANSITION_TYPE_IMMEDIATE, CAMERA_MODIFICATION_TYPE_DISCARD, true);
   self:ResetPlayer()
 end
 
-function CollectionatorDressUpFrameMixin:ResetPlayer()
+function CollectionatorTMogScannerFrameMixin:ResetPlayer()
   SetupPlayerForModelScene(self.ModelScene, nil, false, false);
 end
 
-function CollectionatorDressUpFrameMixin:PlayerActor()
+function CollectionatorTMogScannerFrameMixin:PlayerActor()
   return self.ModelScene:GetPlayerActor()
 end
 
-function CollectionatorDressUpFrameMixin:IsReady()
+function CollectionatorTMogScannerFrameMixin:IsReady()
   return self:PlayerActor() and self:PlayerActor():IsLoaded()
 end
 
-function CollectionatorDressUpFrameMixin:OnUpdate()
+function CollectionatorTMogScannerFrameMixin:OnUpdate()
   if not self:PlayerActor():IsLoaded() then
     self:ClearScene()
   end
 end
 
 
-function CollectionatorDressUpFrameMixin:GetSlotSource(index, link)
+function CollectionatorTMogScannerFrameMixin:GetSlotSource(index, link)
   local possibleSlots = INVENTORY_TYPES_TO_SLOT[select(9, GetItemInfo(link))]
   if not possibleSlots then
     self.droppedCount = self.droppedCount + 1
@@ -151,10 +142,10 @@ function CollectionatorDressUpFrameMixin:GetSlotSource(index, link)
   self.droppedCount = self.droppedCount + 1
 end
 
-function CollectionatorDressUpFrameMixin:BatchStep(start, limit)
-  Auctionator.Debug.Message("CollectionatorDressUpFrameMixin:BatchStep", start, limit)
+function CollectionatorTMogScannerFrameMixin:BatchStep(start, limit)
+  Auctionator.Debug.Message("CollectionatorTMogScannerFrameMixin:BatchStep", start, limit)
   if start > #self.fullScan then
-    Auctionator.Debug.Message("CollectionatorDressUpFrameMixin:BatchStep", "READY", start, self.droppedCount, #self.sources)
+    Auctionator.Debug.Message("CollectionatorTMogScannerFrameMixin:BatchStep", "READY", start, self.droppedCount, #self.sources)
     return
   end
 

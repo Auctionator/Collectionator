@@ -1,28 +1,10 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Frame name="CollectionatorDressUpFrame" toplevel="true" parent="UIParent" mixin="CollectionatorDressUpFrameMixin">
-    <Size x="450" y="545"/>
-    <Anchors>
-      <Anchor point="TOPLEFT" x="70" y="-104"/>
-    </Anchors>
-    <HitRectInsets>
-      <AbsInset left="0" right="30" top="0" bottom="45"/>
-    </HitRectInsets>
+  <Frame name="CollectionatorTMogScannerFrameTemplate" virtual="true" mixin="CollectionatorTMogScannerFrameMixin">
     <Frames>
-      <ModelScene parentKey="ModelScene" hidden="true" inherits="NonInteractableModelSceneMixinTemplate">
-        <KeyValues>
-          <KeyValue key="normalIntensity" value="0.75" type="number"/>
-          <KeyValue key="highlightIntensity" value="1.2" type="number"/>
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" x="7" y="-63"/>
-          <Anchor point="BOTTOMRIGHT" x="-9" y="28"/>
-        </Anchors>
-      </ModelScene>
+      <ModelScene parentKey="ModelScene" hidden="true" inherits="NonInteractableModelSceneMixinTemplate"/>
     </Frames>
     <Scripts>
       <OnLoad method="OnLoad"/>
-      <OnEvent method="OnEvent"/>
-      <OnUpdate method="OnUpdate"/>
     </Scripts>
   </Frame>
 </Ui>
