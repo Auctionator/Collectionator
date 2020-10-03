@@ -1,4 +1,5 @@
 <!-- DataProviders directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="TMogs.lua"/>
+  <Script file="Pets.lua"/>
 </Ui>

@@ -11,9 +11,8 @@ Source\Objects.lua
 Source\Events.lua
 
 
-Source\TMogScanner.lua
-Source\TMogScanner.xml
-
+Source\Scanner\Manifest.xml
 Source\Tab\Manifest.xml
+Source\Utilities\ColorName.lua
 Source\DataProviders\Manifest.xml
 Source\ResultsListing\Manifest.xml

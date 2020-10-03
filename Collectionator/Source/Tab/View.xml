@@ -1,0 +1,52 @@
+<Ui>
+  <Frame
+    name="CollectionatorViewTemplate"
+    mixin="CollectionatorViewMixin"
+    virtual="true"
+  >
+    <Anchors>
+      <Anchor point="TOPLEFT" relativePoint="TOPLEFT"/>
+      <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
+    </Anchors>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+    </Scripts>
+    <Frames>
+
+      <Button parentKey="RefreshButton" inherits="RefreshButtonTemplate">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent" x="-44" y="65"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent().DataProvider:Refresh()
+          </OnClick>
+        </Scripts>
+      </Button>
+
+      <Frame parentKey="ResultsListing" inherits="AuctionatorResultsListingTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="20" y="24"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-20" y="45"/>
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="ResultsListingInset" inherits="AuctionatorInsetTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" relativePoint="TOPLEFT" x="-24" y="-25"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ResultsListing" relativePoint="BOTTOMRIGHT"/>
+        </Anchors>
+      </Frame>
+    </Frames>
+    <Layers>
+      <Layer>
+        <FontString parentKey="NoFullScanText" inherits="GameFontNormal" text="COLLECTIONATOR_L_NEED_A_FULL_SCAN">
+          <Anchors>
+            <Anchor point="CENTER" relativeKey="$parent.ResultsListing" relativePoint="CENTER"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

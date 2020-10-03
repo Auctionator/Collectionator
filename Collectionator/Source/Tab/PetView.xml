@@ -1,0 +1,24 @@
+<Ui>
+  <Frame
+    name="CollectionatorPetViewTemplate"
+    mixin="CollectionatorPetViewMixin"
+    inherits="CollectionatorViewTemplate"
+    virtual="true"
+  >
+    <Scripts>
+      <OnHide method="OnHide"/>
+    </Scripts>
+    <Frames>
+      <Frame inherits="CollectionatorPetScannerFrameTemplate" parentKey="Scanner">
+      </Frame>
+
+      <Frame parentKey="DataProvider" mixin="CollectionatorPetDataProviderMixin">
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnShow method="OnShow"/>
+          <OnUpdate method="OnUpdate"/>
+        </Scripts>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

@@ -74,11 +74,6 @@ function CollectionatorTMogDataProviderMixin:Sort(fieldName, sortDirection)
   self.onUpdate(self.results)
 end
 
-local function ColorName(link, name)
-  local qualityColor = Auctionator.Utilities.GetQualityColorFromLink(link)
-  return "|c" .. qualityColor .. name .. "|r"
-end
-
 local function GroupedBySourceID(array)
   local results = {}
 
@@ -228,7 +223,7 @@ function CollectionatorTMogDataProviderMixin:Refresh()
     if self:TMogPossessionCheck(sourceInfo, info) then
       table.insert(results, {
         index = sourceInfo.index,
-        itemName = ColorName(info.itemLink, info.replicateInfo[1]),
+        itemName = Collectionator.Utilities.ColorName(info.itemLink, info.replicateInfo[1]),
         name = info.replicateInfo[1],
         quantity = sourceInfo.quantity,
         price = info.replicateInfo[10] or info.replicateInfo[11],

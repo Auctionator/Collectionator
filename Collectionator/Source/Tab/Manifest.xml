@@ -3,8 +3,12 @@
   <Script file="Register.lua" />
 
   <Script file="Main.lua" />
+  <Include file="View.lua"/>
   <Include file="TMogView.lua"/>
+  <Include file="PetView.lua"/>
 
+  <Include file="View.xml"/>
   <Include file="TMogView.xml"/>
+  <Include file="PetView.xml"/>
   <Include file="Main.xml"/>
 </Ui>

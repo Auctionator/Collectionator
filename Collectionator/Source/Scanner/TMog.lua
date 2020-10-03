@@ -74,8 +74,7 @@ function CollectionatorTMogScannerFrameMixin:Process()
 
   Auctionator.EventBus:Fire(
     self,
-    Collectionator.Events.SourceLoadStart,
-    self.sources
+    Collectionator.Events.SourceLoadStart
   )
 
   self.sources = {}
