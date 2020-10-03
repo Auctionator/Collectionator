@@ -83,6 +83,46 @@ function CollectionatorPetDataProviderMixin:Sort(fieldName, sortDirection)
   self.onUpdate(self.results)
 end
 
+local function UniquePetKey(petInfo, info)
+  return petInfo.id .. " " .. petInfo.level .. " " .. info.replicateInfo[4]
+end
+local function GroupedByIDLevelAndQuality(array, fullScan)
+  local results = {}
+
+  for _, info in ipairs(array) do
+    local key = UniquePetKey(info, fullScan[info.index])
+    if results[key] == nil then
+      results[key] = {}
+    end
+    table.insert(results[key], info)
+  end
+
+  return results
+end
+
+local function SortByPrice(array, fullScan)
+  table.sort(array, function(a, b)
+    return fullScan[a.index].replicateInfo[10] < fullScan[b.index].replicateInfo[10]
+  end)
+end
+local function CombineForCheapest(array, fullScan)
+  SortByPrice(array, fullScan)
+
+  array[1].quantity = #array
+
+  return array[1]
+end
+
+function CollectionatorPetDataProviderMixin:ExtractWantedIDs(grouped)
+  local result = {}
+
+  for _, array in pairs(grouped) do
+    table.insert(result, CombineForCheapest(array, self.fullScan))
+  end
+
+  return result
+end
+
 function CollectionatorPetDataProviderMixin:Refresh()
   self.dirty = false
   self:Reset()
@@ -91,19 +131,27 @@ function CollectionatorPetDataProviderMixin:Refresh()
     return
   end
 
+  local filtered = self:ExtractWantedIDs(GroupedByIDLevelAndQuality(self.pets, self.fullScan))
   local results = {}
 
   self.onSearchStarted()
 
   -- Filter pets
-  for _, petInfo in ipairs(self.pets) do
+  for _, petInfo in ipairs(filtered) do
     local info = self.fullScan[petInfo.index]
-    if petInfo.amountOwned == 0 then
+    local check = true
+    if not self:GetParent().IncludeCollected:GetChecked() then
+      check = check and petInfo.amountOwned == 0
+    end
+    if self:GetParent().Level25:GetChecked() then
+      check = check and petInfo.level == 25
+    end
+    if check then
       table.insert(results, {
         index = petInfo.index,
         itemName = Collectionator.Utilities.ColorName(info.itemLink, info.replicateInfo[1]),
         name = info.replicateInfo[1],
-        quantity = petInfo.amountOwned,--petInfo.quantity,
+        quantity = petInfo.quantity,
         level = petInfo.level,
         price = info.replicateInfo[10] or info.replicateInfo[11],
         itemLink = info.itemLink, -- Used for tooltips

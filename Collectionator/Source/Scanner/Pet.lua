@@ -59,9 +59,6 @@ function CollectionatorPetScannerFrameMixin:GetPetInfo(index, link)
   local amountOwned = 0
   if ownedString ~= nil then
     amountOwned = tonumber(string.match(ownedString, "(%d)/%d"))
-    if amountOwned == nil then
-      print("os", ownedString)
-    end
   end
 
   table.insert(self.pets, {

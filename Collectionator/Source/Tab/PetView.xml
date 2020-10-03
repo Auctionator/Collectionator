@@ -12,6 +12,25 @@
       <Frame inherits="CollectionatorPetScannerFrameTemplate" parentKey="Scanner">
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="IncludeCollected">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_PET_INCLUDE_COLLECTED" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" y="90" x="20"/>
+          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="LEFT" x="300"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="Level25">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_PET_LEVEL_25" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.IncludeCollected" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="RIGHT" relativeKey="$parent.IncludeCollected" relativePoint="RIGHT"/>
+        </Anchors>
+      </Frame>
       <Frame parentKey="DataProvider" mixin="CollectionatorPetDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
