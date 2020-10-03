@@ -7,13 +7,14 @@ curl  -i \
 """metadata={
   changelog: \"\",
   displayName: \"$1\",
-  gameVersions: [517],
+  gameVersions: [7717],
   releaseType: \"release\",
   relations: {
     projects: [{
       slug: \"auctionator\",
-      type: [ \"requiredDependency\", ]
+      type: \"requiredDependency\"
     }]
   }
 }"""\
-      -F "file=@$2"
+      -F "file=@$2" \
+    "https://wow.curseforge.com/api/projects/410818/upload-file/"

@@ -7,10 +7,8 @@
 Locales\Manifest.xml
 Source\Locales.lua
 
-
 Source\Objects.lua
 Source\Events.lua
-
 
 Source\TMogScanner.lua
 Source\TMogScanner.xml
