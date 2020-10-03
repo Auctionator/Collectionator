@@ -64,4 +64,4 @@ jobs:
         asset_name: Collectionator-alpha-${{steps.buildnumber.outputs.build_number}}.zip
         asset_content_type: application/zip
     - name: Curseforge Upload
-      run: ./Collectionator/.github/workflows/upload.sh "Alpha ${{steps.buildnumber.outputs.build_number}}" "Collectionator-alpha-${{steps.buildnumber.outputs.build_number}}.zip" "${{secrets.plusmouse_curseforge}}"
+      run: ./.github/workflows/upload.sh "Alpha ${{steps.buildnumber.outputs.build_number}}" "Collectionator-alpha-${{steps.buildnumber.outputs.build_number}}.zip" "${{secrets.plusmouse_curseforge}}"
