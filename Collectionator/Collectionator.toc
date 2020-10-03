@@ -10,7 +10,6 @@ Source\Locales.lua
 Source\Objects.lua
 Source\Events.lua
 
-
 Source\Scanner\Manifest.xml
 Source\Tab\Manifest.xml
 Source\Utilities\ColorName.lua
