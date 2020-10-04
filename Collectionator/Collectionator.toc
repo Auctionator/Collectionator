@@ -5,14 +5,5 @@
 ## RequiredDeps: Auctionator
 
 Locales\Manifest.xml
-Source\Locales.lua
 
-Source\Objects.lua
-Source\Events.lua
-
-
-Source\Scanner\Manifest.xml
-Source\Tab\Manifest.xml
-Source\Utilities\ColorName.lua
-Source\DataProviders\Manifest.xml
-Source\ResultsListing\Manifest.xml
+Source\Manifest.xml

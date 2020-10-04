@@ -42,7 +42,7 @@
         </Anchors>
       </Frame>
 
-      <Frame parentKey="PetView" inherits="CollectionatorPetViewTemplate" hidden="true">
+      <Frame parentKey="PetView" inherits="CollectionatorPetViewTemplate">
         <Anchors>
           <Anchor point="TOPLEFT" relativePoint="TOPLEFT" y="-100"/>
         </Anchors>

@@ -27,7 +27,7 @@ function CollectionatorPetScannerFrameMixin:ReceiveEvent(eventName, eventData)
     self.dirty = true
     self.fullScan = eventData
 
-    if self:IsShown() then
+    if self:IsVisible() then
       self:Process()
     end
   end

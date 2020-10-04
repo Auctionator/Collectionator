@@ -1,11 +1,10 @@
-<!-- Tabs/Auctionator directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Register.lua" />
 
   <Script file="Main.lua" />
-  <Include file="View.lua"/>
-  <Include file="TMogView.lua"/>
-  <Include file="PetView.lua"/>
+  <Script file="View.lua"/>
+  <Script file="TMogView.lua"/>
+  <Script file="PetView.lua"/>
 
   <Include file="View.xml"/>
   <Include file="TMogView.xml"/>

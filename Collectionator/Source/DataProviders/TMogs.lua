@@ -45,6 +45,7 @@ end
 
 function CollectionatorTMogDataProviderMixin:ReceiveEvent(eventName, eventData, eventData2)
   if eventName == Collectionator.Events.SourceLoadStart then
+    self:Reset()
     self.onSearchStarted()
     self:GetParent().NoFullScanText:Hide()
   elseif eventName == Collectionator.Events.SourceLoadEnd then
@@ -52,7 +53,7 @@ function CollectionatorTMogDataProviderMixin:ReceiveEvent(eventName, eventData, 
     self.fullScan = eventData2
 
     self.dirty = true
-    if self:IsShown() then
+    if self:IsVisible() then
       self:Refresh()
     end
   end
@@ -232,7 +233,6 @@ function CollectionatorTMogDataProviderMixin:Refresh()
       })
     end
   end
-  print("adding #results", #results)
   self:AppendEntries(results, true)
 end
 

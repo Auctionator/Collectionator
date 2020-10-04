@@ -53,6 +53,7 @@ end
 
 function CollectionatorPetDataProviderMixin:ReceiveEvent(eventName, eventData, eventData2)
   if eventName == Collectionator.Events.PetLoadStart then
+    self:Reset()
     self.onSearchStarted()
     self:GetParent().NoFullScanText:Hide()
   elseif eventName == Collectionator.Events.PetLoadEnd then
@@ -60,7 +61,7 @@ function CollectionatorPetDataProviderMixin:ReceiveEvent(eventName, eventData, e
     self.fullScan = eventData2
 
     self.dirty = true
-    if self:IsShown() then
+    if self:IsVisible() then
       self:Refresh()
     end
   end
