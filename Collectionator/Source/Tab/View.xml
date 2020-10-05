@@ -46,6 +46,11 @@
             <Anchor point="CENTER" relativeKey="$parent.ResultsListing" relativePoint="CENTER"/>
           </Anchors>
         </FontString>
+        <FontString parentKey="ShowingXResultsText" inherits="GameFontHighlight" text="COLLECTIONATOR_L_SHOWING_X_RESULTS">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="175" y="-6"/>
+          </Anchors>
+        </FontString>
       </Layer>
     </Layers>
   </Frame>

@@ -35,6 +35,7 @@ function CollectionatorTMogDataProviderMixin:OnLoad()
 
   self.processCountPerUpdate = 500
   self.dirty = false
+  self.sources = {}
 end
 
 function CollectionatorTMogDataProviderMixin:OnShow()
@@ -48,6 +49,7 @@ function CollectionatorTMogDataProviderMixin:ReceiveEvent(eventName, eventData, 
     self:Reset()
     self.onSearchStarted()
     self:GetParent().NoFullScanText:Hide()
+    self:GetParent().ShowingXResultsText:Hide()
   elseif eventName == Collectionator.Events.SourceLoadEnd then
     self.sources = eventData
     self.fullScan = eventData2
@@ -195,7 +197,7 @@ function CollectionatorTMogDataProviderMixin:Refresh()
   self.dirty = false
   self:Reset()
 
-  if self.sources == nil or #self.sources == 0 then
+  if #self.sources == 0 then
     return
   end
 
@@ -233,6 +235,10 @@ function CollectionatorTMogDataProviderMixin:Refresh()
       })
     end
   end
+
+  self:GetParent().ShowingXResultsText:SetText(COLLECTIONATOR_L_SHOWING_X_RESULTS:format(#results))
+  self:GetParent().ShowingXResultsText:Show()
+
   self:AppendEntries(results, true)
 end
 

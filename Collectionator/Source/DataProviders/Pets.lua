@@ -43,6 +43,7 @@ function CollectionatorPetDataProviderMixin:OnLoad()
 
   self.processCountPerUpdate = 500
   self.dirty = false
+  self.pets = {}
 end
 
 function CollectionatorPetDataProviderMixin:OnShow()
@@ -56,6 +57,7 @@ function CollectionatorPetDataProviderMixin:ReceiveEvent(eventName, eventData, e
     self:Reset()
     self.onSearchStarted()
     self:GetParent().NoFullScanText:Hide()
+    self:GetParent().ShowingXResultsText:Hide()
   elseif eventName == Collectionator.Events.PetLoadEnd then
     self.pets = eventData
     self.fullScan = eventData2
@@ -128,14 +130,14 @@ function CollectionatorPetDataProviderMixin:Refresh()
   self.dirty = false
   self:Reset()
 
-  if self.pets == nil or #self.pets == 0 then
+  if #self.pets == 0 then
     return
   end
 
+  self.onSearchStarted()
+
   local filtered = self:ExtractWantedIDs(GroupedByIDLevelAndQuality(self.pets, self.fullScan))
   local results = {}
-
-  self.onSearchStarted()
 
   -- Filter pets
   for _, petInfo in ipairs(filtered) do
@@ -160,6 +162,9 @@ function CollectionatorPetDataProviderMixin:Refresh()
       })
     end
   end
+
+  self:GetParent().ShowingXResultsText:SetText(COLLECTIONATOR_L_SHOWING_X_RESULTS:format(#results))
+  self:GetParent().ShowingXResultsText:Show()
 
   self:AppendEntries(results, true)
 end
