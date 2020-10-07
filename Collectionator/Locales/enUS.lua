@@ -16,6 +16,7 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["TAB"] = "Collecting"
   L["TAB_HEADER"] = "Collectionator - Collecting"
   L["PROFESSION"] = "Profession"
+  L["LEVEL_REQUIRED"] = "Level Required"
 
   return L
 end

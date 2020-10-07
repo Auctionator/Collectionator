@@ -133,7 +133,8 @@ function CollectionatorTMogScannerFrameMixin:GetSlotSource(index, link)
         set = {source}
       end
       table.insert(self.sources, {
-        id = source, visual = visual, index = index, set = set
+        id = source, visual = visual, index = index, set = set,
+        levelRequired = select(5, GetItemInfo(link)),
       })
       return
     end

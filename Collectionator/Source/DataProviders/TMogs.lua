@@ -7,6 +7,14 @@ local TMOG_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerText = COLLECTIONATOR_L_LEVEL_REQUIRED,
+    headerParameters = { "levelRequired" },
+    cellTemplate = "AuctionatorStringCellTemplate",
+    cellParameters = { "levelRequired" },
+    width = 120
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerText = COLLECTIONATOR_L_CHOICES,
     headerParameters = { "quantity" },
     cellTemplate = "AuctionatorStringCellTemplate",
@@ -65,6 +73,7 @@ local COMPARATORS = {
   price = Auctionator.Utilities.NumberComparator,
   name = Auctionator.Utilities.StringComparator,
   quantity = Auctionator.Utilities.NumberComparator,
+  levelRequired = Auctionator.Utilities.NumberComparator,
 }
 
 function CollectionatorTMogDataProviderMixin:Sort(fieldName, sortDirection)
@@ -229,6 +238,7 @@ function CollectionatorTMogDataProviderMixin:Refresh()
         itemName = Collectionator.Utilities.ColorName(info.itemLink, info.replicateInfo[1]),
         name = info.replicateInfo[1],
         quantity = sourceInfo.quantity,
+        levelRequired = sourceInfo.levelRequired,
         price = info.replicateInfo[10] or info.replicateInfo[11],
         itemLink = info.itemLink, -- Used for tooltips
         iconTexture = info.replicateInfo[2],
