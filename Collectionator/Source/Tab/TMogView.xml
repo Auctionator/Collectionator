@@ -13,23 +13,13 @@
       <Frame inherits="CollectionatorTMogScannerFrameTemplate" parentKey="Scanner">
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShowAllItems">
-        <KeyValues>
-          <KeyValue key="labelText" value="COLLECTIONATOR_L_TMOG_SHOW_ALL_SOURCES" type="global" />
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" y="90" x="20"/>
-          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="LEFT" x="300"/>
-        </Anchors>
-      </Frame>
-
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="CharacterOnly">
         <KeyValues>
           <KeyValue key="labelText" value="COLLECTIONATOR_L_TMOG_ONLY_THIS_CHARACTER" type="global" />
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ShowAllItems" relativePoint="BOTTOMLEFT"/>
-          <Anchor point="RIGHT" relativeKey="$parent.ShowAllItems" relativePoint="RIGHT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" y="90" x="20"/>
+          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="LEFT" x="300"/>
         </Anchors>
       </Frame>
 
@@ -38,7 +28,7 @@
           <KeyValue key="labelText" value="COLLECTIONATOR_L_TMOG_UNIQUES" type="global" />
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ShowAllItems" relativePoint="TOPRIGHT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.CharacterOnly" relativePoint="TOPRIGHT"/>
           <Anchor point="RIGHT" relativeKey="$parent" relativePoint="LEFT" x="600"/>
         </Anchors>
       </Frame>

@@ -125,38 +125,11 @@ local function CombineForCheapest(array, fullScan)
   return array[1]
 end
 
-local function SelectFirstItemIDs(array, fullScan)
-  SortByPrice(array, fullScan)
-
-  local haveSeen = {}
-  local result = {}
-  for index, info in ipairs(array) do
-    local itemID = fullScan[info.index].replicateInfo[17]
-    if haveSeen[itemID] == nil then
-      haveSeen[itemID] = info
-      info.quantity = 1
-      table.insert(result, info)
-    else
-      haveSeen[itemID].quantity = haveSeen[itemID].quantity + 1
-    end
-  end
-
-  return result
-end
-
 function CollectionatorTMogDataProviderMixin:ExtractWantedIDs(grouped)
   local result = {}
 
-  if self:GetParent().ShowAllItems:GetChecked() then
-    for _, array in pairs(grouped) do
-      for _, item in ipairs(SelectFirstItemIDs(array, self.fullScan)) do
-        table.insert(result, item)
-      end
-    end
-  else
-    for _, array in pairs(grouped) do
-      table.insert(result, CombineForCheapest(array, self.fullScan))
-    end
+  for _, array in pairs(grouped) do
+    table.insert(result, CombineForCheapest(array, self.fullScan))
   end
 
   return result
