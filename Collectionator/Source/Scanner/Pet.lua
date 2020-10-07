@@ -61,8 +61,12 @@ function CollectionatorPetScannerFrameMixin:GetPetInfo(index, link)
     amountOwned = tonumber(string.match(ownedString, "(%d)/%d"))
   end
 
+  local petInfo = {C_PetJournal.GetPetInfoBySpeciesID(id)}
+
   table.insert(self.pets, {
     id = id,
+    petType = petInfo[3],
+    fromProfession = string.match(petInfo[5], BATTLE_PET_SOURCE_4),
     level = Auctionator.Utilities.GetPetLevelFromLink(link),
     index = index,
     amountOwned = amountOwned,

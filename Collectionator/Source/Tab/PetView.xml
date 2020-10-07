@@ -31,6 +31,16 @@
           <Anchor point="RIGHT" relativeKey="$parent.IncludeCollected" relativePoint="RIGHT"/>
         </Anchors>
       </Frame>
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ProfessionOnly">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_PROFESSION" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.IncludeCollected" relativePoint="TOPRIGHT"/>
+          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="LEFT" x="600"/>
+        </Anchors>
+      </Frame>
+
       <Frame parentKey="DataProvider" mixin="CollectionatorPetDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>

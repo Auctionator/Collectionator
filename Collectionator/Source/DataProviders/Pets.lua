@@ -149,6 +149,9 @@ function CollectionatorPetDataProviderMixin:Refresh()
     if self:GetParent().Level25:GetChecked() then
       check = check and petInfo.level == 25
     end
+    if self:GetParent().ProfessionOnly:GetChecked() then
+      check = check and petInfo.fromProfession
+    end
     if check then
       table.insert(results, {
         index = petInfo.index,
