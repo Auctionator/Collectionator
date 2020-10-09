@@ -112,29 +112,6 @@ local function GroupedByVisualID(array)
   return results
 end
 
-local function SortByPrice(array, fullScan)
-  table.sort(array, function(a, b)
-    return fullScan[a.index].replicateInfo[10] < fullScan[b.index].replicateInfo[10]
-  end)
-end
-local function CombineForCheapest(array, fullScan)
-  SortByPrice(array, fullScan)
-
-  array[1].quantity = #array
-
-  return array[1]
-end
-
-function CollectionatorTMogDataProviderMixin:ExtractWantedIDs(grouped)
-  local result = {}
-
-  for _, array in pairs(grouped) do
-    table.insert(result, CombineForCheapest(array, self.fullScan))
-  end
-
-  return result
-end
-
 function CollectionatorTMogDataProviderMixin:UniquesPossessionCheck(sourceInfo)
   local check = true
   for _, altSource in ipairs(sourceInfo.set) do
@@ -194,7 +171,7 @@ function CollectionatorTMogDataProviderMixin:Refresh()
     grouped = GroupedBySourceID(self.sources)
   end
 
-  local filteredOnly = self:ExtractWantedIDs(grouped)
+  local filteredOnly = Collectionator.Utilities.ExtractWantedItems(grouped, self.fullScan)
 
   Auctionator.Debug.Message("CollectionatorTMogDataProviderMixin:Refresh", "filtered", #filteredOnly)
 

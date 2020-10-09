@@ -103,28 +103,6 @@ local function GroupedByIDLevelAndQuality(array, fullScan)
   return results
 end
 
-local function SortByPrice(array, fullScan)
-  table.sort(array, function(a, b)
-    return fullScan[a.index].replicateInfo[10] < fullScan[b.index].replicateInfo[10]
-  end)
-end
-local function CombineForCheapest(array, fullScan)
-  SortByPrice(array, fullScan)
-
-  array[1].quantity = #array
-
-  return array[1]
-end
-
-function CollectionatorPetDataProviderMixin:ExtractWantedIDs(grouped)
-  local result = {}
-
-  for _, array in pairs(grouped) do
-    table.insert(result, CombineForCheapest(array, self.fullScan))
-  end
-
-  return result
-end
 
 function CollectionatorPetDataProviderMixin:Refresh()
   self.dirty = false
@@ -136,7 +114,7 @@ function CollectionatorPetDataProviderMixin:Refresh()
 
   self.onSearchStarted()
 
-  local filtered = self:ExtractWantedIDs(GroupedByIDLevelAndQuality(self.pets, self.fullScan))
+  local filtered = Collectionator.Utilities.ExtractWantedItems(GroupedByIDLevelAndQuality(self.pets, self.fullScan), self.fullScan)
   local results = {}
 
   -- Filter pets
