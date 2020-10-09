@@ -1,10 +1,10 @@
-local function SortByPrice(array, fullScan)
+local function SortByPriceAscending(array, fullScan)
   table.sort(array, function(a, b)
     return fullScan[a.index].replicateInfo[10] < fullScan[b.index].replicateInfo[10]
   end)
 end
 local function CombineForCheapest(array, fullScan)
-  SortByPrice(array, fullScan)
+  SortByPriceAscending(array, fullScan)
 
   array[1].quantity = #array
 

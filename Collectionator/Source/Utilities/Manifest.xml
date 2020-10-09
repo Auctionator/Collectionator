@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="ColorName.lua" />
   <Script file="ExtractWantedItems.lua" />
+  <Script file="SortByPrice.lua" />
 </Ui>

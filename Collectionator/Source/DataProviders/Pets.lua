@@ -147,6 +147,7 @@ function CollectionatorPetDataProviderMixin:Refresh()
   self:GetParent().ShowingXResultsText:SetText(COLLECTIONATOR_L_SHOWING_X_RESULTS:format(#results))
   self:GetParent().ShowingXResultsText:Show()
 
+  Collectionator.Utilities.SortByPrice(results, self.fullScan)
   self:AppendEntries(results, true)
 end
 
