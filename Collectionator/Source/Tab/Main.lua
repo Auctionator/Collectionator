@@ -12,11 +12,13 @@ end
 function CollectionatorTabFrameMixin:HideViews()
   self.TMogView:Hide()
   self.PetView:Hide()
+  self.ToyView:Hide()
 end
 
 function CollectionatorTabFrameMixin:ActivateButtons()
   self.TMogButton:SetEnabled(not self.TMogView:IsShown())
   self.PetButton:SetEnabled(not self.PetView:IsShown())
+  self.ToyButton:SetEnabled(not self.ToyView:IsShown())
 end
 
 function CollectionatorTabFrameMixin:PetMode()
@@ -28,5 +30,11 @@ end
 function CollectionatorTabFrameMixin:TMogMode()
   self:HideViews()
   self.TMogView:Show()
+  self:ActivateButtons()
+end
+
+function CollectionatorTabFrameMixin:ToyMode()
+  self:HideViews()
+  self.ToyView:Show()
   self:ActivateButtons()
 end

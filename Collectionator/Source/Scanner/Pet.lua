@@ -48,7 +48,7 @@ function CollectionatorPetScannerFrameMixin:Process()
   self.pets = {}
   self.leftCount = #self.fullScan
 
-  self:BatchStep(1, 500)
+  self:BatchStep(1, Collectionator.Constants.SCAN_STEP_SIZE)
 end
 
 function CollectionatorPetScannerFrameMixin:GetPetInfo(index, link)

@@ -5,7 +5,7 @@
     virtual="true"
   >
     <Anchors>
-      <Anchor point="TOPLEFT" relativePoint="TOPLEFT"/>
+      <Anchor point="TOPLEFT" relativePoint="TOPLEFT" y="-100"/>
       <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
     </Anchors>
     <Scripts>

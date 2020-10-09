@@ -2,6 +2,9 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="TMog.lua" />
   <Script file="Pet.lua" />
+  <Script file="Toy.lua" />
+
   <Include file="TMog.xml"/>
   <Include file="Pet.xml"/>
+  <Include file="Toy.xml"/>
 </Ui>

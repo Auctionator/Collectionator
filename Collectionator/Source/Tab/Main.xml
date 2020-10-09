@@ -35,18 +35,21 @@
           <OnClick>self:GetParent():PetMode()</OnClick>
         </Scripts>
       </Button>
-
-      <Frame parentKey="TMogView" inherits="CollectionatorTMogViewTemplate">
+      <Button parentKey="ToyButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_TOYS_BUTTON">
+        <Size x="70" y="22"/>
         <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" y="-100"/>
+          <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.PetButton"/>
         </Anchors>
-      </Frame>
+        <Scripts>
+          <OnClick>self:GetParent():ToyMode()</OnClick>
+        </Scripts>
+      </Button>
 
-      <Frame parentKey="PetView" inherits="CollectionatorPetViewTemplate">
-        <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" y="-100"/>
-        </Anchors>
-      </Frame>
+      <Frame parentKey="TMogView" inherits="CollectionatorTMogViewTemplate"/>
+
+      <Frame parentKey="PetView" inherits="CollectionatorPetViewTemplate"/>
+
+      <Frame parentKey="ToyView" inherits="CollectionatorToyViewTemplate"/>
     </Frames>
   </Frame>
 </Ui>

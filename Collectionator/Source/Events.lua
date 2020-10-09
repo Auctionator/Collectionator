@@ -4,4 +4,7 @@ Collectionator.Events = {
 
   PetLoadStart = "collecting_pets_start",
   PetLoadEnd = "collecting_pets_end",
+
+  ToyLoadStart = "collecting_toys_start",
+  ToyLoadEnd = "collecting_toys_end",
 }
