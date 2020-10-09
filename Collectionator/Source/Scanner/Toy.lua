@@ -70,20 +70,23 @@ function CollectionatorToyScannerFrameMixin:BatchStep(start, limit)
   end
 
   for i=start, math.min(limit, #self.fullScan) do
-    if C_ToyBox.GetToyInfo(self.fullScan[i].replicateInfo[17]) then
-      self:GetToyInfo(i)
-    end
+    local item = Item:CreateFromItemID(self.fullScan[i].replicateInfo[17])
+    item:ContinueOnItemLoad(function()
+      if C_ToyBox.GetToyInfo(self.fullScan[i].replicateInfo[17]) then
+        self:GetToyInfo(i)
+      end
 
-    self.leftCount = self.leftCount - 1
-  end
+      self.leftCount = self.leftCount - 1
 
-  if self.leftCount == 0 then
-    Auctionator.EventBus:Fire(
-      self,
-      Collectionator.Events.ToyLoadEnd,
-      self.toys,
-      self.fullScan
-    )
+      if self.leftCount == 0 then
+        Auctionator.EventBus:Fire(
+          self,
+          Collectionator.Events.ToyLoadEnd,
+          self.toys,
+          self.fullScan
+        )
+      end
+    end)
   end
 
   C_Timer.After(0.01, function()
