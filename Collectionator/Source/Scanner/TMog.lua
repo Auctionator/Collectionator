@@ -82,7 +82,7 @@ function CollectionatorTMogScannerFrameMixin:Process()
   self.leftCount = #self.fullScan
 
   assert(self:IsReady())
-  self:BatchStep(1, Collectionator.Constants.SCAN_STEP_SIZE)
+  self:BatchStep(1, Collectionator.Constants.TMOG_SCAN_STEP_SIZE)
 end
 
 function CollectionatorTMogScannerFrameMixin:ClearScene()
