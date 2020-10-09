@@ -1,13 +1,9 @@
 <Ui>
   <Frame
     name="CollectionatorPetViewTemplate"
-    mixin="CollectionatorPetViewMixin"
     inherits="CollectionatorViewTemplate"
     virtual="true"
   >
-    <Scripts>
-      <OnHide method="OnHide"/>
-    </Scripts>
     <Frames>
       <Frame inherits="CollectionatorPetScannerFrameTemplate" parentKey="Scanner">
       </Frame>

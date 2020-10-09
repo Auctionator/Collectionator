@@ -1,13 +1,9 @@
 <Ui>
   <Frame
     name="CollectionatorTMogViewTemplate"
-    mixin="CollectionatorTMogViewMixin"
     inherits="CollectionatorViewTemplate"
     virtual="true"
   >
-    <Scripts>
-      <OnHide method="OnHide"/>
-    </Scripts>
     <Frames>
 
       <Frame inherits="CollectionatorTMogScannerFrameTemplate" parentKey="Scanner">

@@ -2,7 +2,6 @@ CollectionatorPetScannerFrameMixin = {}
 
 function CollectionatorPetScannerFrameMixin:OnLoad()
   self.pets = {}
-  self.droppedCount = 0
   self.leftCount = 0
 
   self.dirty = false
@@ -47,7 +46,6 @@ function CollectionatorPetScannerFrameMixin:Process()
   )
 
   self.pets = {}
-  self.droppedCount = 0
   self.leftCount = #self.fullScan
 
   self:BatchStep(1, 500)
