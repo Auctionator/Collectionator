@@ -152,6 +152,14 @@ function CollectionatorTMogDataProviderMixin:TMogPossessionCheck(sourceInfo, auc
   end
 end
 
+local function GetPrice(replicateInfo)
+  if replicateInfo[10] == 0 then
+    return math.max(replicateInfo[11], replicateInfo[8])
+  else
+    return replicateInfo[10]
+  end
+end
+
 function CollectionatorTMogDataProviderMixin:Refresh()
   self.dirty = false
   self:Reset()
@@ -189,7 +197,7 @@ function CollectionatorTMogDataProviderMixin:Refresh()
         name = info.replicateInfo[1],
         quantity = sourceInfo.quantity,
         levelRequired = sourceInfo.levelRequired,
-        price = info.replicateInfo[10] or info.replicateInfo[11],
+        price = GetPrice(info.replicateInfo),
         itemLink = info.itemLink, -- Used for tooltips
         iconTexture = info.replicateInfo[2],
       })
