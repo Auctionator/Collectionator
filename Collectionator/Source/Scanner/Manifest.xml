@@ -1,5 +1,6 @@
 <!-- Tabs/Auctionator directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="Scanner.lua" />
   <Script file="TMog.lua" />
   <Script file="Pet.lua" />
   <Script file="Toy.lua" />
