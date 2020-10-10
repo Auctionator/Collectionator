@@ -1,8 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame name="CollectionatorTMogScannerFrameTemplate" virtual="true" mixin="CollectionatorTMogScannerFrameMixin">
-    <Frames>
-      <ModelScene parentKey="ModelScene" hidden="true" inherits="NonInteractableModelSceneMixinTemplate"/>
-    </Frames>
     <Scripts>
       <OnLoad method="OnLoad"/>
     </Scripts>
