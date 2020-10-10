@@ -48,7 +48,7 @@ function CollectionatorToyScannerFrameMixin:Process()
   self.toys = {}
   self.leftCount = #self.fullScan
 
-  self:BatchStep(1, Collectionator.Constants.SCAN_STEP_SIZE)
+  self:BatchStep(1, Collectionator.Constants.TOY_SCAN_STEP_SIZE)
 end
 
 function CollectionatorToyScannerFrameMixin:GetToyInfo(index)
