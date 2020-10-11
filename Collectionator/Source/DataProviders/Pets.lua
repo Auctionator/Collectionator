@@ -108,10 +108,6 @@ function CollectionatorPetDataProviderMixin:Refresh()
   self.dirty = false
   self:Reset()
 
-  if #self.pets == 0 then
-    return
-  end
-
   self.onSearchStarted()
 
   local filtered = Collectionator.Utilities.ExtractWantedItems(GroupedByIDLevelAndQuality(self.pets, self.fullScan), self.fullScan)

@@ -96,10 +96,6 @@ function CollectionatorToyDataProviderMixin:Refresh()
   self.dirty = false
   self:Reset()
 
-  if #self.toys == 0 then
-    return
-  end
-
   self.onSearchStarted()
 
   local filtered = Collectionator.Utilities.ExtractWantedItems(GroupedByID(self.toys, self.fullScan), self.fullScan)

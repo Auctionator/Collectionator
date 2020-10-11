@@ -142,10 +142,6 @@ function CollectionatorTMogDataProviderMixin:Refresh()
   self.dirty = false
   self:Reset()
 
-  if #self.sources == 0 then
-    return
-  end
-
   self.onSearchStarted()
 
   local grouped

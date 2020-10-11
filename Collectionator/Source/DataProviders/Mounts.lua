@@ -96,10 +96,6 @@ function CollectionatorMountDataProviderMixin:Refresh()
   self.dirty = false
   self:Reset()
 
-  if #self.mounts == 0 then
-    return
-  end
-
   self.onSearchStarted()
 
   local filtered = Collectionator.Utilities.ExtractWantedItems(GroupedByID(self.mounts, self.fullScan), self.fullScan)
