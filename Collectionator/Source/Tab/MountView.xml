@@ -1,0 +1,21 @@
+<Ui>
+  <Frame
+    name="CollectionatorMountViewTemplate"
+    inherits="CollectionatorViewTemplate"
+    virtual="true"
+  >
+    <Frames>
+
+      <Frame inherits="CollectionatorMountScannerFrameTemplate" parentKey="Scanner">
+      </Frame>
+
+      <Frame parentKey="DataProvider" mixin="CollectionatorMountDataProviderMixin">
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnShow method="OnShow"/>
+          <OnUpdate method="OnUpdate"/>
+        </Scripts>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

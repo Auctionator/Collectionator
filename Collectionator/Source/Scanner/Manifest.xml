@@ -4,8 +4,10 @@
   <Script file="TMog.lua" />
   <Script file="Pet.lua" />
   <Script file="Toy.lua" />
+  <Script file="Mount.lua" />
 
   <Include file="TMog.xml"/>
   <Include file="Pet.xml"/>
   <Include file="Toy.xml"/>
+  <Include file="Mount.xml"/>
 </Ui>

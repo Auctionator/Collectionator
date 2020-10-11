@@ -7,4 +7,7 @@ Collectionator.Events = {
 
   ToyLoadStart = "collecting_toys_start",
   ToyLoadEnd = "collecting_toys_end",
+
+  MountLoadStart = "collecting_mounts_start",
+  MountLoadEnd = "collecting_mounts_end",
 }

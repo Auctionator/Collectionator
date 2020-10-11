@@ -3,4 +3,5 @@
   <Script file="TMogs.lua"/>
   <Script file="Pets.lua"/>
   <Script file="Toys.lua"/>
+  <Script file="Mounts.lua"/>
 </Ui>
