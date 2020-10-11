@@ -5,7 +5,7 @@ function CollectionatorTMogScannerFrameMixin:OnLoad()
 
   self.SCAN_START_EVENT = Collectionator.Events.SourceLoadStart
   self.SCAN_END_EVENT = Collectionator.Events.SourceLoadEnd
-  self.SCAN_STEP =  750
+  self.SCAN_STEP =  Collectionator.Constants.TMOG_SCAN_STEP_SIZE
 end
 
 function CollectionatorTMogScannerFrameMixin:GetSourceName()
@@ -21,9 +21,18 @@ function CollectionatorTMogScannerFrameMixin:GetItem(index, link, scanInfo)
     if #set == 0 then
       set = {source}
     end
+
+    local uniqueCollected = false
+    for _, altSource in ipairs(set) do
+      uniqueCollected = uniqueCollected or C_TransmogCollection.GetSourceInfo(altSource).isCollected
+    end
+
     return {
-      id = source, visual = visual, index = index, set = set,
+      id = source, visual = visual, index = index,
       levelRequired = select(5, GetItemInfo(link)),
+      isCollected = C_TransmogCollection.GetSourceInfo(source).isCollected,
+      uniqueCollected = uniqueCollected,
+      playerCanLearn = C_TransmogCollection.PlayerKnowsSource(source),
     }
 
   else
