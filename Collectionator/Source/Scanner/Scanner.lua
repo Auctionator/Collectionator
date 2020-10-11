@@ -55,6 +55,9 @@ function CollectionatorScannerFrameMixin:GetItem(index, link)
   return {}
 end
 
+function CollectionatorScannerFrameMixin:Cleanup()
+end
+
 function CollectionatorScannerFrameMixin:BatchStep(start, limit)
   Auctionator.Debug.Message("CollectionatorScannerFrameMixin:BatchStep", start, limit)
   if start > #self.fullScan then
@@ -79,6 +82,7 @@ function CollectionatorScannerFrameMixin:BatchStep(start, limit)
             Auctionator.EventBus:Fire(
               self, self.SCAN_END_EVENT, self.results, self.fullScan
             )
+            self:Cleanup()
           end
         end
       end)(i, link))
@@ -90,6 +94,7 @@ function CollectionatorScannerFrameMixin:BatchStep(start, limit)
     Auctionator.EventBus:Fire(
       self, self.SCAN_END_EVENT, self.results, self.fullScan
     )
+    self:Cleanup()
   end
 
   C_Timer.After(0.01, function()

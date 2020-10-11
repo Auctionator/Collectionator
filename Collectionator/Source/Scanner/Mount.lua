@@ -5,7 +5,7 @@ function CollectionatorMountScannerFrameMixin:OnLoad()
 
   self.SCAN_START_EVENT = Collectionator.Events.MountLoadStart
   self.SCAN_END_EVENT = Collectionator.Events.MountLoadEnd
-  self.SCAN_STEP =  1000
+  self.SCAN_STEP =  Collectionator.Constants.MOUNT_SCAN_STEP_SIZE
 end
 
 function CollectionatorMountScannerFrameMixin:GetSourceName()

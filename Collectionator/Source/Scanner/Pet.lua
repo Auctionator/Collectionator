@@ -5,7 +5,7 @@ function CollectionatorPetScannerFrameMixin:OnLoad()
 
   self.SCAN_START_EVENT = Collectionator.Events.PetLoadStart
   self.SCAN_END_EVENT = Collectionator.Events.PetLoadEnd
-  self.SCAN_STEP =  2000
+  self.SCAN_STEP =  Collectionator.Constants.PET_SCAN_STEP_SIZE
 end
 
 function CollectionatorPetScannerFrameMixin:GetSourceName()
