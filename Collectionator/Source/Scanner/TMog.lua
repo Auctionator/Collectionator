@@ -17,6 +17,10 @@ function CollectionatorTMogScannerFrameMixin:Cleanup()
   self.isCollectedCache = {}
 end
 
+function CollectionatorTMogScannerFrameMixin:FilterLink(link)
+  return select(2, C_TransmogCollection.GetItemInfo(link))
+end
+
 function CollectionatorTMogScannerFrameMixin:GetItem(index, link, scanInfo)
   local _, source = C_TransmogCollection.GetItemInfo(link)
 
