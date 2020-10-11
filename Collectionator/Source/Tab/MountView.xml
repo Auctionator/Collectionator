@@ -9,6 +9,16 @@
       <Frame inherits="CollectionatorMountScannerFrameTemplate" parentKey="Scanner">
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="IncludeCollected">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_MOUNT_INCLUDE_COLLECTED" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" y="90" x="20"/>
+          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="LEFT" x="300"/>
+        </Anchors>
+      </Frame>
+
       <Frame parentKey="DataProvider" mixin="CollectionatorMountDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>

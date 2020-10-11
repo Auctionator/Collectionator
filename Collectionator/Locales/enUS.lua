@@ -12,6 +12,7 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["PET_LEVEL_25"] = "Show level 25 pets only"
   L["TOY_INCLUDE_COLLECTED"] = "Include collected toys"
   L["TOY_INCLUDE_UNUSABLE"] = "Include unusable toys"
+  L["MOUNT_INCLUDE_COLLECTED"] = "Include collected mounts"
   L["SHOWING_X_RESULTS"] = "Showing %s results"
 
   L["NEED_A_FULL_SCAN"] = "No full scan data. For the search to work the last full scan must have taken place on this realm."

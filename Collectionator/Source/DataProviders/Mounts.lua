@@ -105,7 +105,12 @@ function CollectionatorMountDataProviderMixin:Refresh()
   for _, mountInfo in ipairs(filtered) do
     local info = self.fullScan[mountInfo.index]
 
-    if mountInfo.usable then
+    local check = true
+    if not self:GetParent().IncludeCollected:GetChecked() then
+      check = mountInfo.usable
+    end
+
+    if check then
       table.insert(results, {
         index = mountInfo.index,
         itemName = Collectionator.Utilities.ColorName(info.itemLink, info.replicateInfo[1]),
