@@ -20,7 +20,7 @@
         </Anchors>
         <Scripts>
           <OnClick>
-            self:GetParent().DataProvider:Refresh()
+            self:GetParent():Refresh()
           </OnClick>
         </Scripts>
       </Button>

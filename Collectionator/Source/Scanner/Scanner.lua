@@ -32,6 +32,14 @@ function CollectionatorScannerFrameMixin:LoadOldScan()
   end
 end
 
+function CollectionatorScannerFrameMixin:Refresh()
+  if self.leftCount == 0 then
+    self.dirty = true
+    self:Process()
+  end
+end
+
+
 function CollectionatorScannerFrameMixin:Process()
   if not self.dirty or #self.fullScan == 0 then
     return
