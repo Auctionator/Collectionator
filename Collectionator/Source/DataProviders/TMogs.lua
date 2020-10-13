@@ -112,18 +112,40 @@ local function GroupedByVisualID(array)
   return results
 end
 
+function CollectionatorTMogDataProviderMixin:UniquesPossessionCheck(sourceInfo)
+  local check = true
+  for _, altSource in ipairs(sourceInfo.set) do
+    if self:GetParent().CharacterOnly:GetChecked() then
+      check = check and not C_TransmogCollection.PlayerHasTransmogItemModifiedAppearance(altSource)
+    else
+      local tmogInfo = C_TransmogCollection.GetSourceInfo(altSource)
+      check = check and not tmogInfo.isCollected
+    end
+  end
+  return check
+end
+
+function CollectionatorTMogDataProviderMixin:CompletionistPossessionCheck(sourceInfo)
+  if self:GetParent().CharacterOnly:GetChecked() then
+    return not C_TransmogCollection.PlayerHasTransmogItemModifiedAppearance(sourceInfo.id)
+  else
+    local tmogInfo = C_TransmogCollection.GetSourceInfo(sourceInfo.id)
+    return not tmogInfo.isCollected
+  end
+end
+
 function CollectionatorTMogDataProviderMixin:TMogPossessionCheck(sourceInfo, auctionInfo)
   local check = true
 
   if self:GetParent().UniquesOnly:GetChecked() then
-    check = not sourceInfo.uniqueCollected
+    check = self:UniquesPossessionCheck(sourceInfo)
   else
-    check = not sourceInfo.isCollected
+    check = self:CompletionistPossessionCheck(sourceInfo)
   end
 
   if self:GetParent().CharacterOnly:GetChecked() then
     --Check that the character can use the gear
-    return check and sourceInfo.playerCanLearn
+    return check and C_TransmogCollection.PlayerKnowsSource(sourceInfo.id)
   else
     --This causes junk gear to be ignored
     return check and auctionInfo.replicateInfo[4] > 1
