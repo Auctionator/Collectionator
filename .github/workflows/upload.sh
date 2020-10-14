@@ -7,7 +7,7 @@ curl  -i \
 """metadata={
   changelog: \"\",
   displayName: \"$1\",
-  gameVersions: [7717],
+  gameVersions: [7971],
   releaseType: \"release\",
   relations: {
     projects: [{
