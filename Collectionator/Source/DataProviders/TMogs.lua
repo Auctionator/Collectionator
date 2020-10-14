@@ -115,23 +115,15 @@ end
 function CollectionatorTMogDataProviderMixin:UniquesPossessionCheck(sourceInfo)
   local check = true
   for _, altSource in ipairs(sourceInfo.set) do
-    if self:GetParent().CharacterOnly:GetChecked() then
-      check = check and not C_TransmogCollection.PlayerHasTransmogItemModifiedAppearance(altSource)
-    else
-      local tmogInfo = C_TransmogCollection.GetSourceInfo(altSource)
-      check = check and not tmogInfo.isCollected
-    end
+    local tmogInfo = C_TransmogCollection.GetSourceInfo(altSource)
+    check = check and not tmogInfo.isCollected
   end
   return check
 end
 
 function CollectionatorTMogDataProviderMixin:CompletionistPossessionCheck(sourceInfo)
-  if self:GetParent().CharacterOnly:GetChecked() then
-    return not C_TransmogCollection.PlayerHasTransmogItemModifiedAppearance(sourceInfo.id)
-  else
-    local tmogInfo = C_TransmogCollection.GetSourceInfo(sourceInfo.id)
-    return not tmogInfo.isCollected
-  end
+  local tmogInfo = C_TransmogCollection.GetSourceInfo(sourceInfo.id)
+  return not tmogInfo.isCollected
 end
 
 function CollectionatorTMogDataProviderMixin:TMogPossessionCheck(sourceInfo, auctionInfo)
