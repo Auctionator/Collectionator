@@ -22,6 +22,8 @@
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="UniquesOnly">
         <KeyValues>
           <KeyValue key="labelText" value="COLLECTIONATOR_L_TMOG_UNIQUES" type="global" />
+          <KeyValue key="tooltipTitleText" value="COLLECTIONATOR_L_TMOG_UNIQUES_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="COLLECTIONATOR_L_TMOG_UNIQUES_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.CharacterOnly" relativePoint="TOPRIGHT"/>
