@@ -137,6 +137,9 @@ function CollectionatorTMogDataProviderMixin:TMogFilterCheck(sourceInfo, auction
     check = check and self:GetParent().WeaponFilter.filters[sourceInfo.weapon]
   end
 
+  local searchString = self:GetParent().TextFilter:GetText()
+  check = check and string.match(string.lower(auctionInfo.replicateInfo[1]), string.lower(searchString))
+
   if self:GetParent().UniquesOnly:GetChecked() then
     check = check and self:UniquesPossessionCheck(sourceInfo)
   else

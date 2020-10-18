@@ -11,7 +11,7 @@
 
       <DropDownToggleButton parentKey="ArmorFilter" inherits="CollectionatorFilterDropDownTemplate" mixin="CollectionatorArmorFilterMixin" text="COLLECTIONATOR_L_ARMOR">
         <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="40" y="70"/>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="40" y="85"/>
         </Anchors>
       </DropDownToggleButton>
 
@@ -20,6 +20,14 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.ArmorFilter" relativePoint="TOPRIGHT" x="25"/>
         </Anchors>
       </DropDownToggleButton>
+
+      <EditBox parentKey="TextFilter" autoFocus="false" historyLines="1" bytes="64" inherits="SearchBoxTemplate">
+        <Size x="220" y="22"/>
+        <Anchors>
+          <Anchor point="TOP" relativePoint="TOP" y="54"/>
+          <Anchor point="LEFT" relativeKey="$parent.WeaponFilter" relativePoint="LEFT" x="6"/>
+        </Anchors>
+      </EditBox>
 
       <DropDownToggleButton parentKey="QualityFilter" inherits="CollectionatorFilterDropDownTemplate" mixin="CollectionatorQualityFilterMixin" text="COLLECTIONATOR_L_QUALITY">
         <Anchors>
@@ -32,7 +40,7 @@
           <KeyValue key="labelText" value="COLLECTIONATOR_L_TMOG_ONLY_THIS_CHARACTER" type="global" />
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="20" x="20"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="4" x="20"/>
           <Anchor point="RIGHT" relativeKey="$parent.QualityFilter" relativePoint="RIGHT" x="300"/>
         </Anchors>
       </Frame>
@@ -44,7 +52,7 @@
           <KeyValue key="tooltipText" value="COLLECTIONATOR_L_TMOG_UNIQUES_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="-10" x="20"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="-26" x="20"/>
           <Anchor point="RIGHT" relativeKey="$parent.QualityFilter" relativePoint="RIGHT" x="300"/>
         </Anchors>
       </Frame>
