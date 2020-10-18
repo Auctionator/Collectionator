@@ -3,7 +3,9 @@
 
   <Script file="Main.lua" />
   <Script file="View.lua"/>
+  <Include file="Filters.lua"/>
 
+  <Include file="Filters.xml"/>
   <Include file="View.xml"/>
   <Include file="TMogView.xml"/>
   <Include file="PetView.xml"/>

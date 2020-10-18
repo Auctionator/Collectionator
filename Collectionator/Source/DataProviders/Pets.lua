@@ -113,6 +113,14 @@ function CollectionatorPetDataProviderMixin:Refresh()
   local filtered = Collectionator.Utilities.ExtractWantedItems(GroupedByIDLevelAndQuality(self.pets, self.fullScan), self.fullScan)
   local results = {}
 
+  local minLevel = self:GetParent().LevelFilter:GetMin()
+  if minLevel == 0 then
+    minLevel = 1
+  end
+  local maxLevel = self:GetParent().LevelFilter:GetMax() or 25
+  if maxLevel == 0 then
+    maxLevel = 25
+  end
   -- Filter pets
   for _, petInfo in ipairs(filtered) do
     local info = self.fullScan[petInfo.index]
@@ -120,12 +128,14 @@ function CollectionatorPetDataProviderMixin:Refresh()
     if not self:GetParent().IncludeCollected:GetChecked() then
       check = check and petInfo.amountOwned == 0
     end
-    if self:GetParent().Level25:GetChecked() then
-      check = check and petInfo.level == 25
-    end
     if self:GetParent().ProfessionOnly:GetChecked() then
       check = check and petInfo.fromProfession
     end
+
+    check = self:GetParent().TypeFilter.filters[petInfo.petType]
+    check = check and petInfo.level >= minLevel
+    check = check and petInfo.level <= maxLevel
+    check = check and self:GetParent().QualityFilter.filters[info.replicateInfo[4]]
     if check then
       table.insert(results, {
         index = petInfo.index,

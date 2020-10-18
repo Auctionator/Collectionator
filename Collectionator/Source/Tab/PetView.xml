@@ -8,34 +8,47 @@
       <Frame inherits="CollectionatorPetScannerFrameTemplate" parentKey="Scanner">
       </Frame>
 
+      <DropDownToggleButton parentKey="TypeFilter" inherits="CollectionatorFilterDropDownTemplate" mixin="CollectionatorPetSpeciesFilterMixin" text="COLLECTIONATOR_L_TYPE">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="40" y="70"/>
+        </Anchors>
+      </DropDownToggleButton>
+
+      <DropDownToggleButton parentKey="QualityFilter" inherits="CollectionatorFilterDropDownTemplate" mixin="CollectionatorQualityFilterMixin" text="COLLECTIONATOR_L_QUALITY">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TypeFilter" relativePoint="TOPRIGHT" x="25"/>
+        </Anchors>
+      </DropDownToggleButton>
+
+      <Frame parentKey="LevelFilter" inherits="AuctionatorConfigurationMinMaxFrame">
+        <KeyValues>
+          <KeyValue key="titleText" value="AUCTIONATOR_L_LEVEL" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="10" x="20"/>
+        </Anchors>
+      </Frame>
+
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="IncludeCollected">
         <KeyValues>
           <KeyValue key="labelText" value="COLLECTIONATOR_L_PET_INCLUDE_COLLECTED" type="global" />
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" y="90" x="20"/>
-          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="LEFT" x="300"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.LevelFilter" relativePoint="TOPRIGHT" y="10" x="20"/>
+          <Anchor point="RIGHT" relativeKey="$parent.LevelFilter" relativePoint="RIGHT" x="300"/>
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="Level25">
-        <KeyValues>
-          <KeyValue key="labelText" value="COLLECTIONATOR_L_PET_LEVEL_25" type="global" />
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.IncludeCollected" relativePoint="BOTTOMLEFT"/>
-          <Anchor point="RIGHT" relativeKey="$parent.IncludeCollected" relativePoint="RIGHT"/>
-        </Anchors>
-      </Frame>
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ProfessionOnly">
         <KeyValues>
           <KeyValue key="labelText" value="COLLECTIONATOR_L_PROFESSION" type="global" />
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.IncludeCollected" relativePoint="TOPRIGHT"/>
-          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="LEFT" x="600"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.LevelFilter" relativePoint="TOPRIGHT" y="-20" x="20"/>
+          <Anchor point="RIGHT" relativeKey="$parent.LevelFilter" relativePoint="RIGHT" x="300"/>
         </Anchors>
       </Frame>
+
 
       <Frame parentKey="DataProvider" mixin="CollectionatorPetDataProviderMixin">
         <Scripts>
