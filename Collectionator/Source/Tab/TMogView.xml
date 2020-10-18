@@ -32,6 +32,11 @@
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ArmorFilter" relativePoint="TOPLEFT" x="6" y="-60"/>
         </Anchors>
+        <Scripts>
+          <OnEnterPressed>
+            self:GetParent():Refresh()
+          </OnEnterPressed>
+        </Scripts>
       </EditBox>
 
       <Frame parentKey="LevelFilter" inherits="AuctionatorConfigurationMinMaxFrame">
