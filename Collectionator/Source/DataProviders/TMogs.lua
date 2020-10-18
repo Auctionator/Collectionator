@@ -140,10 +140,12 @@ function CollectionatorTMogDataProviderMixin:TMogFilterCheck(sourceInfo, auction
   local searchString = self:GetParent().TextFilter:GetText()
   check = check and string.match(string.lower(auctionInfo.replicateInfo[1]), string.lower(searchString))
 
-  if self:GetParent().UniquesOnly:GetChecked() then
-    check = check and self:UniquesPossessionCheck(sourceInfo)
-  else
-    check = check and self:CompletionistPossessionCheck(sourceInfo)
+  if not self:GetParent().IncludeCollected:GetChecked() then
+    if self:GetParent().UniquesOnly:GetChecked() then
+      check = check and self:UniquesPossessionCheck(sourceInfo)
+    else
+      check = check and self:CompletionistPossessionCheck(sourceInfo)
+    end
   end
 
   if self:GetParent().CharacterOnly:GetChecked() then

@@ -57,6 +57,16 @@
         </Anchors>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="IncludeCollected">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_TMOG_COLLECTED" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="-56" x="20"/>
+          <Anchor point="RIGHT" relativeKey="$parent.QualityFilter" relativePoint="RIGHT" x="300"/>
+        </Anchors>
+      </Frame>
+
       <Frame parentKey="DataProvider" mixin="CollectionatorTMogDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
