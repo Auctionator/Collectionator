@@ -21,19 +21,27 @@
         </Anchors>
       </DropDownToggleButton>
 
-      <EditBox parentKey="TextFilter" autoFocus="false" historyLines="1" bytes="64" inherits="SearchBoxTemplate">
-        <Size x="220" y="22"/>
-        <Anchors>
-          <Anchor point="TOP" relativePoint="TOP" y="54"/>
-          <Anchor point="LEFT" relativeKey="$parent.WeaponFilter" relativePoint="LEFT" x="6"/>
-        </Anchors>
-      </EditBox>
-
       <DropDownToggleButton parentKey="QualityFilter" inherits="CollectionatorFilterDropDownTemplate" mixin="CollectionatorQualityFilterMixin" text="COLLECTIONATOR_L_QUALITY">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.WeaponFilter" relativePoint="TOPRIGHT" x="25"/>
         </Anchors>
       </DropDownToggleButton>
+
+      <EditBox parentKey="TextFilter" autoFocus="false" historyLines="1" bytes="64" inherits="SearchBoxTemplate">
+        <Size x="180" y="22"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ArmorFilter" relativePoint="TOPLEFT" x="6" y="-60"/>
+        </Anchors>
+      </EditBox>
+
+      <Frame parentKey="LevelFilter" inherits="AuctionatorConfigurationMinMaxFrame">
+        <KeyValues>
+          <KeyValue key="titleText" value="AUCTIONATOR_L_LEVEL" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="BOTTOMLEFT" x="-48" y="-5"/>
+        </Anchors>
+      </Frame>
 
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="CharacterOnly">
         <KeyValues>
