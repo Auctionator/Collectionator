@@ -2,7 +2,17 @@ CollectionatorFilterDropDownMixin = {}
 local function CollectionatorFilterDropDownMenu_Initialize(self)
   local filterButton = self:GetParent()
 
-  local filters = PET_TYPES
+  local info = UIDropDownMenu_CreateInfo()
+  info.text = AUCTIONATOR_L_NONE
+  info.value = nil
+  info.isNotRadio = true
+  info.checked = false
+  info.func = function(button)
+    filterButton:ToggleNone()
+    ToggleDropDownMenu(1, nil, self, self:GetParent(), 9, 3)
+  end
+  UIDropDownMenu_AddButton(info)
+
   for filter, _ in pairs(filterButton.filters) do
     local info = UIDropDownMenu_CreateInfo()
     info.text = filterButton:GetFilterName(filter)
@@ -39,13 +49,26 @@ function CollectionatorFilterDropDownMixin:Reset()
   end
 end
 
+function CollectionatorFilterDropDownMixin:ToggleNone()
+  local anyTrue = false
+  for filter, _ in pairs(self.filters) do
+    anyTrue = anyTrue or self.filters[filter]
+  end
+
+  if anyTrue then
+    for filter, _ in pairs(self.filters) do
+      self.filters[filter] = false
+    end
+  else
+    self:Reset()
+  end
+end
+
 function CollectionatorFilterDropDownMixin:ToggleFilter(name)
   self.filters[name] = not self.filters[name]
 end
 
 function CollectionatorFilterDropDownMixin:OnClick()
-	local level = 1
-	local value = nil
 	ToggleDropDownMenu(1, nil, self.DropDown, self, 9, 3)
 	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
 end

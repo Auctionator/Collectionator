@@ -125,6 +125,7 @@ function CollectionatorPetDataProviderMixin:Refresh()
   for _, petInfo in ipairs(filtered) do
     local info = self.fullScan[petInfo.index]
     local check = true
+
     if not self:GetParent().IncludeCollected:GetChecked() then
       check = check and petInfo.amountOwned == 0
     end
@@ -132,10 +133,13 @@ function CollectionatorPetDataProviderMixin:Refresh()
       check = check and petInfo.fromProfession
     end
 
-    check = self:GetParent().TypeFilter.filters[petInfo.petType]
+    check = check and self:GetParent().TypeFilter.filters[petInfo.petType]
+
     check = check and petInfo.level >= minLevel
     check = check and petInfo.level <= maxLevel
+
     check = check and self:GetParent().QualityFilter.filters[info.replicateInfo[4]]
+
     if check then
       table.insert(results, {
         index = petInfo.index,
