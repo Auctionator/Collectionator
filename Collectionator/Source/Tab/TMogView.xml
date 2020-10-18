@@ -9,13 +9,31 @@
       <Frame inherits="CollectionatorTMogScannerFrameTemplate" parentKey="Scanner">
       </Frame>
 
+      <DropDownToggleButton parentKey="ArmorFilter" inherits="CollectionatorFilterDropDownTemplate" mixin="CollectionatorArmorFilterMixin" text="COLLECTIONATOR_L_ARMOR">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="40" y="70"/>
+        </Anchors>
+      </DropDownToggleButton>
+
+      <DropDownToggleButton parentKey="WeaponFilter" inherits="CollectionatorFilterDropDownTemplate" mixin="CollectionatorWeaponFilterMixin" text="COLLECTIONATOR_L_WEAPON">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ArmorFilter" relativePoint="TOPRIGHT" x="25"/>
+        </Anchors>
+      </DropDownToggleButton>
+
+      <DropDownToggleButton parentKey="QualityFilter" inherits="CollectionatorFilterDropDownTemplate" mixin="CollectionatorQualityFilterMixin" text="COLLECTIONATOR_L_QUALITY">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.WeaponFilter" relativePoint="TOPRIGHT" x="25"/>
+        </Anchors>
+      </DropDownToggleButton>
+
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="CharacterOnly">
         <KeyValues>
           <KeyValue key="labelText" value="COLLECTIONATOR_L_TMOG_ONLY_THIS_CHARACTER" type="global" />
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" y="90" x="20"/>
-          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="LEFT" x="300"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="20" x="20"/>
+          <Anchor point="RIGHT" relativeKey="$parent.QualityFilter" relativePoint="RIGHT" x="300"/>
         </Anchors>
       </Frame>
 
@@ -26,8 +44,8 @@
           <KeyValue key="tooltipText" value="COLLECTIONATOR_L_TMOG_UNIQUES_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.CharacterOnly" relativePoint="TOPRIGHT"/>
-          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="LEFT" x="600"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="-10" x="20"/>
+          <Anchor point="RIGHT" relativeKey="$parent.QualityFilter" relativePoint="RIGHT" x="300"/>
         </Anchors>
       </Frame>
 

@@ -13,7 +13,7 @@ local function CollectionatorFilterDropDownMenu_Initialize(self)
   end
   UIDropDownMenu_AddButton(info)
 
-  for filter, _ in pairs(filterButton.filters) do
+  for _, filter in ipairs(filterButton:GetFilters()) do
     local info = UIDropDownMenu_CreateInfo()
     info.text = filterButton:GetFilterName(filter)
     info.value = nil
@@ -102,4 +102,28 @@ end
 function CollectionatorQualityFilterMixin:GetFilterName(filter)
   local filterName = _G["ITEM_QUALITY" .. filter .. "_DESC"]
   return ITEM_QUALITY_COLORS[filter].color:WrapTextInColorCode(filterName)
+end
+
+CollectionatorArmorFilterMixin = CreateFromMixins(CollectionatorFilterDropDownMixin)
+
+function CollectionatorArmorFilterMixin:GetFilters()
+  return {
+    0, 1, 2, 3, 4, 5, 6
+  }
+end
+
+function CollectionatorArmorFilterMixin:GetFilterName(filter)
+  return GetItemSubClassInfo(4, filter)
+end
+
+CollectionatorWeaponFilterMixin = CreateFromMixins(CollectionatorFilterDropDownMixin)
+
+function CollectionatorWeaponFilterMixin:GetFilters()
+  return {
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+  }
+end
+
+function CollectionatorWeaponFilterMixin:GetFilterName(filter)
+  return GetItemSubClassInfo(2, filter)
 end

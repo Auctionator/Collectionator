@@ -21,12 +21,25 @@ function CollectionatorTMogScannerFrameMixin:GetItem(index, link, scanInfo)
 
   if source ~= nil then
     local visual = C_TransmogCollection.GetSourceInfo(source).visualID
+
     local set = C_TransmogCollection.GetAllAppearanceSources(visual)
     if #set == 0 then
       set = {source}
     end
+
+    local armorType = -1
+    local weaponType = -1
+
+    local itemInfo = {GetItemInfo(link)}
+    if itemInfo[12] == 4 then
+      armorType = itemInfo[13]
+    elseif itemInfo[12] == 2 then
+      weaponType = itemInfo[13]
+    end
+
     return {
       id = source, visual = visual, index = index, set = set,
+      armor = armorType, weapon = weaponType,
       levelRequired = select(5, GetItemInfo(link)),
     }
 

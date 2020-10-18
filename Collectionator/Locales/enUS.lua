@@ -17,6 +17,8 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["SHOWING_X_RESULTS"] = "Showing %s results"
   L["TYPE"] = "Type"
   L["QUALITY"] = "Quality"
+  L["ARMOR"] = "Armor"
+  L["WEAPON"] = "Weapon"
 
   L["NEED_A_FULL_SCAN"] = "No full scan data. For the search to work the last full scan must have taken place on this realm."
   L["CHOICES"] = "Choices"

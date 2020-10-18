@@ -126,13 +126,21 @@ function CollectionatorTMogDataProviderMixin:CompletionistPossessionCheck(source
   return not tmogInfo.isCollected
 end
 
-function CollectionatorTMogDataProviderMixin:TMogPossessionCheck(sourceInfo, auctionInfo)
+function CollectionatorTMogDataProviderMixin:TMogFilterCheck(sourceInfo, auctionInfo)
   local check = true
 
-  if self:GetParent().UniquesOnly:GetChecked() then
-    check = self:UniquesPossessionCheck(sourceInfo)
+  check = check and self:GetParent().QualityFilter.filters[auctionInfo.replicateInfo[4]]
+
+  if sourceInfo.armor ~= -1 then
+    check = check and self:GetParent().ArmorFilter.filters[sourceInfo.armor]
   else
-    check = self:CompletionistPossessionCheck(sourceInfo)
+    check = check and self:GetParent().WeaponFilter.filters[sourceInfo.weapon]
+  end
+
+  if self:GetParent().UniquesOnly:GetChecked() then
+    check = check and self:UniquesPossessionCheck(sourceInfo)
+  else
+    check = check and self:CompletionistPossessionCheck(sourceInfo)
   end
 
   if self:GetParent().CharacterOnly:GetChecked() then
@@ -178,7 +186,7 @@ function CollectionatorTMogDataProviderMixin:Refresh()
 
     local check = true
 
-    if self:TMogPossessionCheck(sourceInfo, info) then
+    if self:TMogFilterCheck(sourceInfo, info) then
       table.insert(results, {
         index = sourceInfo.index,
         itemName = Collectionator.Utilities.ColorName(info.itemLink, info.replicateInfo[1]),
