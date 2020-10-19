@@ -129,12 +129,12 @@ end
 function CollectionatorTMogDataProviderMixin:TMogFilterCheck(sourceInfo, auctionInfo)
   local check = true
 
-  check = check and self:GetParent().QualityFilter.filters[auctionInfo.replicateInfo[4]]
+  check = check and self:GetParent().QualityFilter:GetValue(auctionInfo.replicateInfo[4])
 
   if sourceInfo.armor ~= -1 then
-    check = check and self:GetParent().ArmorFilter.filters[sourceInfo.armor]
+    check = check and self:GetParent().ArmorFilter:GetValue(sourceInfo.armor)
   else
-    check = check and self:GetParent().WeaponFilter.filters[sourceInfo.weapon]
+    check = check and self:GetParent().WeaponFilter:GetValue(sourceInfo.weapon)
   end
 
   local searchString = self:GetParent().TextFilter:GetText()
@@ -160,8 +160,8 @@ function CollectionatorTMogDataProviderMixin:TMogFilterCheck(sourceInfo, auction
     --Check that the character can use the gear
     return check and C_TransmogCollection.PlayerKnowsSource(sourceInfo.id)
   else
-    --This causes junk gear to be ignored
-    return check and auctionInfo.replicateInfo[4] > 1
+    --Would check for junk gear here, but the QualityFilter filters it out
+    return check
   end
 end
 

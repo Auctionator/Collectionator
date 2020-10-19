@@ -6,7 +6,6 @@ function CollectionatorTabFrameMixin:OnLoad()
 end
 
 function CollectionatorTabFrameMixin:OnShow()
-  self:TMogMode()
   self:ActivateButtons()
 end
 

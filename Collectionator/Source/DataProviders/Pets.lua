@@ -133,12 +133,15 @@ function CollectionatorPetDataProviderMixin:Refresh()
       check = check and petInfo.fromProfession
     end
 
-    check = check and self:GetParent().TypeFilter.filters[petInfo.petType]
+    check = check and self:GetParent().TypeFilter:GetValue(petInfo.petType)
+
+    local searchString = self:GetParent().TextFilter:GetText()
+    check = check and string.match(string.lower(info.replicateInfo[1]), string.lower(searchString))
 
     check = check and petInfo.level >= minLevel
     check = check and petInfo.level <= maxLevel
 
-    check = check and self:GetParent().QualityFilter.filters[info.replicateInfo[4]]
+    check = check and self:GetParent().QualityFilter:GetValue(info.replicateInfo[4])
 
     if check then
       table.insert(results, {

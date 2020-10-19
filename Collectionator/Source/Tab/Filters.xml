@@ -29,4 +29,13 @@
       <OnClick method="OnClick"/>
     </Scripts>
   </DropDownToggleButton>
+
+  <EditBox name="CollectionatorFilterSearchBoxTemplate" autoFocus="false" historyLines="1" bytes="64" inherits="SearchBoxTemplate" virtual="true">
+    <Size x="180" y="22"/>
+    <Scripts>
+      <OnEnterPressed>
+        self:GetParent():Refresh()
+      </OnEnterPressed>
+    </Scripts>
+  </EditBox>
 </Ui>

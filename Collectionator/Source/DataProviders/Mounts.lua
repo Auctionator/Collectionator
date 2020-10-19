@@ -110,6 +110,9 @@ function CollectionatorMountDataProviderMixin:Refresh()
       check = mountInfo.usable
     end
 
+    local searchString = self:GetParent().TextFilter:GetText()
+    check = check and string.match(string.lower(info.replicateInfo[1]), string.lower(searchString))
+
     if check then
       table.insert(results, {
         index = mountInfo.index,

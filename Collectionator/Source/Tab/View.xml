@@ -14,6 +14,12 @@
     </Scripts>
     <Frames>
 
+      <EditBox parentKey="TextFilter" inherits="CollectionatorFilterSearchBoxTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="46" y="25"/>
+        </Anchors>
+      </EditBox>
+
       <Button parentKey="RefreshButton" inherits="RefreshButtonTemplate">
         <Anchors>
             <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent" x="-44" y="65"/>

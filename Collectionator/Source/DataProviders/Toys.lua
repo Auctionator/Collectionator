@@ -115,6 +115,9 @@ function CollectionatorToyDataProviderMixin:Refresh()
       check = check and toyInfo.usable
     end
 
+    local searchString = self:GetParent().TextFilter:GetText()
+    check = check and string.match(string.lower(info.replicateInfo[1]), string.lower(searchString))
+
     if check then
       table.insert(results, {
         index = toyInfo.index,

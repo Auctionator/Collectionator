@@ -18,13 +18,17 @@ local function CollectionatorFilterDropDownMenu_Initialize(self)
     info.text = filterButton:GetFilterName(filter)
     info.value = nil
     info.isNotRadio = true
-    info.checked = filterButton.filters[filter]
+    info.checked = filterButton:GetValue(filter)
     info.keepShownOnClick = 1
     info.func = function(button)
       filterButton:ToggleFilter(filter)
     end
     UIDropDownMenu_AddButton(info)
   end
+end
+
+function CollectionatorFilterDropDownMixin:GetValue(filter)
+  return self.filters[filter]
 end
 
 function CollectionatorFilterDropDownMixin:GetFilters()
