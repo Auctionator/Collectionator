@@ -27,6 +27,12 @@
         </Anchors>
       </DropDownToggleButton>
 
+      <DropDownToggleButton parentKey="SlotFilter" inherits="CollectionatorFilterDropDownTemplate" mixin="CollectionatorSlotFilterMixin" text="COLLECTIONATOR_L_SLOT">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="40" y="54"/>
+        </Anchors>
+      </DropDownToggleButton>
+
       <Frame parentKey="LevelFilter" inherits="AuctionatorConfigurationMinMaxFrame">
         <KeyValues>
           <KeyValue key="titleText" value="AUCTIONATOR_L_LEVEL" type="global"/>

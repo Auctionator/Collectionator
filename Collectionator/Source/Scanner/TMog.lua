@@ -20,7 +20,9 @@ function CollectionatorTMogScannerFrameMixin:GetItem(index, link, scanInfo)
   local _, source = C_TransmogCollection.GetItemInfo(link)
 
   if source ~= nil then
-    local visual = C_TransmogCollection.GetSourceInfo(source).visualID
+    local sourceInfo = C_TransmogCollection.GetSourceInfo(source)
+    local inventorySlot = C_Transmog.GetSlotForInventoryType(sourceInfo.invType)
+    local visual = sourceInfo.visualID
 
     local set = C_TransmogCollection.GetAllAppearanceSources(visual)
     if #set == 0 then
@@ -39,7 +41,7 @@ function CollectionatorTMogScannerFrameMixin:GetItem(index, link, scanInfo)
 
     return {
       id = source, visual = visual, index = index, set = set,
-      armor = armorType, weapon = weaponType,
+      armor = armorType, weapon = weaponType, slot = inventorySlot,
       levelRequired = select(5, GetItemInfo(link)),
     }
 

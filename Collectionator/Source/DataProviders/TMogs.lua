@@ -131,6 +131,8 @@ function CollectionatorTMogDataProviderMixin:TMogFilterCheck(sourceInfo, auction
 
   check = check and self:GetParent().QualityFilter:GetValue(auctionInfo.replicateInfo[4])
 
+  check = check and self:GetParent().SlotFilter:GetValue(sourceInfo.slot)
+
   if sourceInfo.armor ~= -1 then
     check = check and self:GetParent().ArmorFilter:GetValue(sourceInfo.armor)
   else

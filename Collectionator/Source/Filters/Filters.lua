@@ -131,3 +131,37 @@ end
 function CollectionatorWeaponFilterMixin:GetFilterName(filter)
   return GetItemSubClassInfo(2, filter)
 end
+
+local SLOTS = {
+  1, 3, 4, 5, 6, 7, 8, 9, 10, 16, 17, 15, 19
+}
+
+local SLOTS_TO_NAME = {
+  INVTYPE_HEAD,
+  INVTYPE_NECK,
+  INVTYPE_SHOULDER,
+  INVTYPE_BODY,
+  INVTYPE_CHEST,
+  INVTYPE_WAIST,
+  INVTYPE_LEGS,
+  INVTYPE_FEET,
+  INVTYPE_WRIST,
+  INVTYPE_HAND,
+  nil,
+  nil,
+  nil,
+  nil,
+  INVTYPE_CLOAK,
+  INVTYPE_WEAPONMAINHAND,
+  INVTYPE_WEAPONOFFHAND,
+  nil,
+  INVTYPE_TABARD
+}
+
+CollectionatorSlotFilterMixin = CreateFromMixins(CollectionatorFilterDropDownMixin)
+function CollectionatorSlotFilterMixin:GetFilters()
+  return SLOTS
+end
+function CollectionatorSlotFilterMixin:GetFilterName(filter)
+  return SLOTS_TO_NAME[filter]
+end

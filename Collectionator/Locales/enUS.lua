@@ -17,6 +17,7 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["MOUNT_INCLUDE_COLLECTED"] = "Include collected mounts"
   L["SHOWING_X_RESULTS"] = "Showing %s results"
   L["TYPE"] = "Type"
+  L["SLOT"] = "Slot"
   L["QUALITY"] = "Quality"
   L["ARMOR"] = "Armor"
   L["WEAPON"] = "Weapon"
