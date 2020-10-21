@@ -21,13 +21,13 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["QUALITY"] = "Quality"
   L["ARMOR"] = "Armor"
   L["WEAPON"] = "Weapon"
+  L["FROM_PROFESSION_ONLY"] = "From profession only"
 
   L["NEED_A_FULL_SCAN"] = "No full scan data. For the search to work the last full scan must have taken place on this realm."
   L["CHOICES"] = "Choices"
 
   L["TAB"] = "Collecting"
   L["TAB_HEADER"] = "Collectionator - Collecting"
-  L["PROFESSION"] = "Profession"
   L["LEVEL_REQUIRED"] = "Level Required"
 
   return L

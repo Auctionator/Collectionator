@@ -109,9 +109,23 @@ function CollectionatorMountDataProviderMixin:Refresh()
     if not self:GetParent().IncludeCollected:GetChecked() then
       check = mountInfo.usable
     end
+    if self:GetParent().ProfessionOnly:GetChecked() then
+      check = check and mountInfo.fromProfession
+    end
+    check = check and self:GetParent().TypeFilter:GetValue(mountInfo.mountType)
+
+    check = check and self:GetParent().QualityFilter:GetValue(info.replicateInfo[4])
 
     local searchString = self:GetParent().TextFilter:GetText()
     check = check and string.match(string.lower(info.replicateInfo[1]), string.lower(searchString))
+
+    local minLevel = self:GetParent().LevelFilter:GetMin()
+    local maxLevel = self:GetParent().LevelFilter:GetMax()
+    if maxLevel == 0 then
+      maxLevel = 60
+    end
+
+    check = check and mountInfo.levelRequired >= minLevel and mountInfo.levelRequired <= maxLevel
 
     if check then
       table.insert(results, {

@@ -165,3 +165,21 @@ end
 function CollectionatorSlotFilterMixin:GetFilterName(filter)
   return SLOTS_TO_NAME[filter]
 end
+
+local MOUNT_TYPES = {
+  230, 248, 254
+}
+
+local MOUNT_TYPES_TO_NAME = {
+  [230] = "Ground", 
+  [248] = "Flying", 
+  [254] = "Swimming"
+}
+
+CollectionatorMountTypeFilterMixin = CreateFromMixins(CollectionatorFilterDropDownMixin)
+function CollectionatorMountTypeFilterMixin:GetFilters()
+  return MOUNT_TYPES
+end
+function CollectionatorMountTypeFilterMixin:GetFilterName(filter)
+  return MOUNT_TYPES_TO_NAME[filter]
+end

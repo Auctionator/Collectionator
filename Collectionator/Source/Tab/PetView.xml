@@ -41,7 +41,7 @@
 
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ProfessionOnly">
         <KeyValues>
-          <KeyValue key="labelText" value="COLLECTIONATOR_L_PROFESSION" type="global" />
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_FROM_PROFESSION_ONLY" type="global" />
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.LevelFilter" relativePoint="TOPRIGHT" y="-20" x="20"/>
