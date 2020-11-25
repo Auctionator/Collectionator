@@ -74,8 +74,7 @@ function CollectionatorScannerFrameMixin:BatchStep(start, limit)
     local link = self.fullScan[i].itemLink
 
     if self:FilterLink(link) then
-      local item = Item:CreateFromItemID(self.fullScan[i].replicateInfo[17])
-      item:ContinueOnItemLoad((function(index, link)
+      ItemEventListener:AddCallback(self.fullScan[i].replicateInfo[17], (function(index, link)
         return function()
           local result = self:GetItem(index, link, self.fullScan[index])
           if result ~= nil then
