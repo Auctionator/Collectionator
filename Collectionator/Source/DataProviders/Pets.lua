@@ -151,6 +151,7 @@ function CollectionatorPetDataProviderMixin:Refresh()
       table.insert(results, {
         index = petInfo.index,
         itemName = Collectionator.Utilities.ColorName(info.itemLink, petInfo.name),
+        name = petInfo.name,
         names = petInfo.allNames,
         quantity = petInfo.quantity,
         level = petInfo.level,

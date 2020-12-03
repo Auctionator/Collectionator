@@ -196,6 +196,7 @@ function CollectionatorTMogDataProviderMixin:Refresh()
       table.insert(results, {
         index = sourceInfo.index,
         itemName = Collectionator.Utilities.ColorName(info.itemLink, info.replicateInfo[1]),
+        name = info.replicateInfo[1],
         names = sourceInfo.allNames,
         quantity = sourceInfo.quantity,
         levelRequired = sourceInfo.levelRequired,
