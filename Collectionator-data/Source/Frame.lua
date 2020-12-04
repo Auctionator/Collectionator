@@ -7,7 +7,7 @@ function CollectionatorDataFrameMixin:OnLoad()
 end
 
 function CollectionatorDataFrameMixin:ReceiveEvent(eventName, eventData)
-  if eventName == Auctionator.FullScan.Events.ScanComplete then
+  if eventName == Collectionator.FullScan.Events.ScanComplete then
     COLLECTIONATOR_LAST_FULL_SCAN = {
       realm = Auctionator.Variables.GetConnectedRealmRoot(),
       data = eventData,
@@ -18,7 +18,7 @@ end
 function CollectionatorDataFrameMixin:OnEvent(event, ...)
   if event == "VARIABLES_LOADED" then
     Auctionator.EventBus:Register(self, {
-      Auctionator.FullScan.Events.ScanComplete
+      Collectionator.FullScan.Events.ScanComplete
     })
   end
 end

@@ -30,5 +30,10 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["TAB_HEADER"] = "Collectionator - Collecting"
   L["LEVEL_REQUIRED"] = "Level Required"
 
+  L["NEXT_SCAN_MESSAGE"] = "A full scan may be started in %s minutes and %s seconds."
+  L["COMPLETED_SCAN"] = "Completed scan."
+  L["SCAN_FAILED"] = "Failed to scan."
+  L["SCAN"] = "Scan"
+
   return L
 end

@@ -61,6 +61,18 @@
       <Frame parentKey="ToyView" inherits="CollectionatorToyViewTemplate"/>
 
       <Frame parentKey="MountView" inherits="CollectionatorMountViewTemplate"/>
+
+      <Frame parentKey="FullScan"  inherits="CollectionatorFullScanFrameTemplate"/>
+
+      <Button parentKey="FullScanButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_SCAN">
+        <Size x="70" y="22"/>
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-20" y="30"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent().FullScan:InitiateScan()</OnClick>
+        </Scripts>
+      </Button>
     </Frames>
   </Frame>
 </Ui>

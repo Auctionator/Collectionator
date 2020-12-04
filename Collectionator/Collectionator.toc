@@ -2,6 +2,7 @@
 ## Title: Collectionator
 ## Version: AUTO_GENERATED_VERSION
 ## Author: plusmouse
+## SavedVariables: COLLECTIONATOR_SCAN_TIME
 ## RequiredDeps: Auctionator
 
 Locales\Manifest.xml

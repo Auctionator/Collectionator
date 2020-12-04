@@ -8,13 +8,13 @@ function CollectionatorScannerFrameMixin:OnLoad()
 
   Auctionator.EventBus:RegisterSource(self, self.GetSourceName())
   Auctionator.EventBus:Register(self, {
-    Auctionator.FullScan.Events.ScanComplete
+    Collectionator.FullScan.Events.ScanComplete
   })
   self:LoadOldScan()
 end
 
 function CollectionatorScannerFrameMixin:ReceiveEvent(eventName, eventData)
-  if eventName == Auctionator.FullScan.Events.ScanComplete then
+  if eventName == Collectionator.FullScan.Events.ScanComplete then
     self.dirty = true
     self.fullScan = eventData
 

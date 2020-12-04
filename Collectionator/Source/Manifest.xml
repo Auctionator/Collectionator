@@ -4,6 +4,7 @@
   <Script file="Events.lua" />
   <Script file="Constants.lua" />
 
+  <Include file="FullScan\Manifest.xml"/>
   <Include file="Scanner\Manifest.xml"/>
   <Include file="Filters\Manifest.xml"/>
   <Include file="Tab\Manifest.xml"/>

@@ -1,3 +1,4 @@
 Collectionator = {
   Utilities = {},
+  FullScan = {},
 }
