@@ -172,6 +172,12 @@ function CollectionatorPetDataProviderMixin:GetTableLayout()
   return PET_TABLE_LAYOUT
 end
 
+Auctionator.Config.Create("COLLECTIONATOR_COLUMNS_PET", "collectionator_columns_pet", {})
+
+function CollectionatorPetDataProviderMixin:GetColumnHideStates()
+  return Auctionator.Config.Get(Auctionator.Config.Options.COLLECTIONATOR_COLUMNS_PET)
+end
+
 function CollectionatorPetDataProviderMixin:GetRowTemplate()
   return "CollectionatorTMogRowTemplate"
 end

@@ -230,6 +230,12 @@ function CollectionatorTMogDataProviderMixin:GetTableLayout()
   return TMOG_TABLE_LAYOUT
 end
 
+Auctionator.Config.Create("COLLECTIONATOR_COLUMNS_TMOG", "collectionator_columns_tmog", {})
+
+function CollectionatorTMogDataProviderMixin:GetColumnHideStates()
+  return Auctionator.Config.Get(Auctionator.Config.Options.COLLECTIONATOR_COLUMNS_TMOG)
+end
+
 function CollectionatorTMogDataProviderMixin:GetRowTemplate()
   return "CollectionatorTMogRowTemplate"
 end

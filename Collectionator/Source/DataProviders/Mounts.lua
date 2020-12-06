@@ -155,6 +155,12 @@ function CollectionatorMountDataProviderMixin:GetTableLayout()
   return MOUNT_TABLE_LAYOUT
 end
 
+Auctionator.Config.Create("COLLECTIONATOR_COLUMNS_MOUNT", "collectionator_columns_mount", {})
+
+function CollectionatorMountDataProviderMixin:GetColumnHideStates()
+  return Auctionator.Config.Get(Auctionator.Config.Options.COLLECTIONATOR_COLUMNS_MOUNT)
+end
+
 function CollectionatorMountDataProviderMixin:GetRowTemplate()
   return "CollectionatorTMogRowTemplate"
 end
