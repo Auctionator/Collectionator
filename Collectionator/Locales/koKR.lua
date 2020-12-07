@@ -1,4 +1,4 @@
-AUCTIONATOR_LOCALES.koKR = function()
+COLLECTIONATOR_LOCALES.koKR = function()
   local L = {}
 
   --@localization(locale="koKR", format="lua_additive_table")@
