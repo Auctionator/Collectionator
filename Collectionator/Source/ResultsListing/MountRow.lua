@@ -1,8 +1,6 @@
 CollectionatorMountRowMixin = CreateFromMixins(CollectionatorRowMixin)
 
 function CollectionatorMountRowMixin:DoSearch()
-  self:RegisterEvent("ITEM_SEARCH_RESULTS_UPDATED")
-
   local itemID = GetItemInfoInstant(self.rowData.itemLink)
 
   local itemKey = C_AuctionHouse.MakeItemKey(itemID)
@@ -11,21 +9,13 @@ function CollectionatorMountRowMixin:DoSearch()
   Auctionator.AH.SendSearchQuery(itemKey, Collectionator.Constants.ITEM_SORTS, true)
 end
 
-function CollectionatorMountRowMixin:OnEvent(eventName, itemKey)
-  self:UnregisterEvent("ITEM_SEARCH_RESULTS_UPDATED")
-
+function CollectionatorMountRowMixin:GetSearchResult(itemKey)
   for index = 1, C_AuctionHouse.GetNumItemSearchResults(itemKey) do
     local info = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
     if GetItemInfoInstant(info.itemLink) == self.expectedItemID then
-      Auctionator.EventBus
-        :RegisterSource(self, "CollectionatorMountRowMixin")
-        :Fire(self, Collectionator.Events.ShowBuyoutOptions, info, self.rowData)
-        :UnregisterSource(self)
-      return
+      return info
     end
   end
-  Auctionator.EventBus
-    :RegisterSource(self, "CollectionatorMountRowMixin")
-    :Fire(self, Collectionator.Events.ShowBuyoutOptions, nil, self.rowData)
-    :UnregisterSource(self)
+
+  return nil
 end

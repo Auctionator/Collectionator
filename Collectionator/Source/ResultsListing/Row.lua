@@ -16,6 +16,7 @@ function CollectionatorRowMixin:OnClick(button, ...)
   if IsModifiedClick("DRESSUP") then
     DressUpLink(self.rowData.itemLink);
   else
+    self:RegisterEvent("ITEM_SEARCH_RESULTS_UPDATED")
     self:DoSearch()
   end
 end
@@ -26,6 +27,16 @@ function CollectionatorRowMixin:DoSearch()
 end
 
 -- Override
+function CollectionatorRowMixin:GetSearchResult(itemKey)
+  Auctionator.Debug.Message("CollectionatorRowMixin:GetResult")
+end
+
 function CollectionatorRowMixin:OnEvent(eventName, itemKey)
   Auctionator.Debug.Message("CollectionatorRowMixin:OnEvent")
+  self:UnregisterEvent("ITEM_SEARCH_RESULTS_UPDATED")
+
+  Auctionator.EventBus
+    :RegisterSource(self, "CollectionatorRowMixin")
+    :Fire(self, Collectionator.Events.ShowBuyoutOptions, self:GetSearchResult(itemKey), self.rowData)
+    :UnregisterSource(self)
 end
