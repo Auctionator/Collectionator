@@ -3,12 +3,10 @@
   <Script file="Row.lua" />
   <Script file="TMogRow.lua" />
   <Script file="PetRow.lua" />
-  <Script file="ToyRow.lua" />
-  <Script file="MountRow.lua" />
+  <Script file="ToyMountRow.lua" />
 
   <Include file="Row.xml"/>
   <Include file="TMogRow.xml" />
   <Include file="PetRow.xml" />
-  <Include file="ToyRow.xml" />
-  <Include file="MountRow.xml" />
+  <Include file="ToyMountRow.xml" />
 </Ui>
