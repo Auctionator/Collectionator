@@ -64,6 +64,8 @@
 
       <Frame parentKey="FullScan"  inherits="CollectionatorFullScanFrameTemplate"/>
 
+      <Frame parentKey="BuyoutDropDown" inherits="CollectionatorBuyoutDropDownTemplate" hidden="true"/>
+
       <Button parentKey="FullScanButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_SCAN">
         <Size x="70" y="22"/>
         <Anchors>

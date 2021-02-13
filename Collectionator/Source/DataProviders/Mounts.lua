@@ -162,5 +162,5 @@ function CollectionatorMountDataProviderMixin:GetColumnHideStates()
 end
 
 function CollectionatorMountDataProviderMixin:GetRowTemplate()
-  return "CollectionatorTMogRowTemplate"
+  return "CollectionatorMountRowTemplate"
 end

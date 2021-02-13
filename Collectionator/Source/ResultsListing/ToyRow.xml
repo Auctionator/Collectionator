@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame
-    name="CollectionatorTMogRowTemplate"
-    mixin="CollectionatorTMogRowMixin"
+    name="CollectionatorToyRowTemplate"
+    mixin="CollectionatorToyRowMixin"
     inherits="CollectionatorRowTemplate"
     virtual="true"
     />

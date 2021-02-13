@@ -1,31 +1,31 @@
-CollectionatorTMogRowMixin = CreateFromMixins(CollectionatorRowMixin)
+CollectionatorToyRowMixin = CreateFromMixins(CollectionatorRowMixin)
 
-function CollectionatorTMogRowMixin:DoSearch()
+function CollectionatorToyRowMixin:DoSearch()
   self:RegisterEvent("ITEM_SEARCH_RESULTS_UPDATED")
 
-  local sorts = Collectionator.Constants.ITEM_SORTS
   local itemID = GetItemInfoInstant(self.rowData.itemLink)
 
-  local itemKey = {itemID = itemID, itemLevel = 0, itemSuffix = 0, battlePetSpeciesID = 0}
+  local itemKey = C_AuctionHouse.MakeItemKey(itemID)
 
-  Auctionator.AH.SendSellSearchQuery(itemKey, sorts, true)
+  self.expectedItemID = itemID
+  Auctionator.AH.SendSearchQuery(itemKey, Collectionator.Constants.ITEM_SORTS, true)
 end
 
-function CollectionatorTMogRowMixin:OnEvent(eventName, itemKey)
+function CollectionatorToyRowMixin:OnEvent(eventName, itemKey)
   self:UnregisterEvent("ITEM_SEARCH_RESULTS_UPDATED")
 
   for index = 1, C_AuctionHouse.GetNumItemSearchResults(itemKey) do
     local info = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
-    if info.itemLink == self.rowData.itemLink then
+    if GetItemInfoInstant(info.itemLink) == self.expectedItemID then
       Auctionator.EventBus
-        :RegisterSource(self, "CollectionatorTMogRowMixin")
+        :RegisterSource(self, "CollectionatorToyRowMixin")
         :Fire(self, Collectionator.Events.ShowBuyoutOptions, info, self.rowData)
         :UnregisterSource(self)
       return
     end
   end
   Auctionator.EventBus
-    :RegisterSource(self, "CollectionatorTMogRowMixin")
+    :RegisterSource(self, "CollectionatorToyRowMixin")
     :Fire(self, Collectionator.Events.ShowBuyoutOptions, nil, self.rowData)
     :UnregisterSource(self)
 end

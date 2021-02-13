@@ -2,6 +2,7 @@
   <Script file="Register.lua" />
 
   <Script file="Main.lua" />
+  <Script file="BuyoutDropDown.lua"/>
   <Script file="View.lua"/>
 
   <Include file="View.xml"/>
@@ -9,5 +10,6 @@
   <Include file="PetView.xml"/>
   <Include file="ToyView.xml"/>
   <Include file="MountView.xml"/>
+  <Include file="BuyoutDropDown.xml"/>
   <Include file="Main.xml"/>
 </Ui>
