@@ -20,4 +20,25 @@
       <OnEvent method="OnEvent"/>
     </Scripts>
   </Frame>
+
+  <Frame
+    name="CollectionatorTMogRowTemplate"
+    mixin="CollectionatorTMogRowMixin"
+    inherits="CollectionatorRowTemplate"
+    virtual="true"
+    />
+
+  <Frame
+    name="CollectionatorPetRowTemplate"
+    mixin="CollectionatorPetRowMixin"
+    inherits="CollectionatorRowTemplate"
+    virtual="true"
+    />
+
+  <Frame
+    name="CollectionatorToyMountRowTemplate"
+    mixin="CollectionatorToyMountRowMixin"
+    inherits="CollectionatorRowTemplate"
+    virtual="true"
+    />
 </Ui>

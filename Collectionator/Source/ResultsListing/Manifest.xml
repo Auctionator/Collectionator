@@ -1,12 +1,6 @@
 <!-- Tabs/Auctionator directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Row.lua" />
-  <Script file="TMogRow.lua" />
-  <Script file="PetRow.lua" />
-  <Script file="ToyMountRow.lua" />
 
   <Include file="Row.xml"/>
-  <Include file="TMogRow.xml" />
-  <Include file="PetRow.xml" />
-  <Include file="ToyMountRow.xml" />
 </Ui>

@@ -3,5 +3,4 @@
   <Script file="Message.lua" />
   <Script file="ExtractWantedItems.lua" />
   <Script file="SortByPrice.lua" />
-  <Script file="GetIdenticalLinkItem.lua" />
 </Ui>
