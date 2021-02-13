@@ -108,7 +108,7 @@ function CollectionatorToyDataProviderMixin:Refresh()
     local check = true
 
     if not self:GetParent().IncludeCollected:GetChecked() then
-      check = check and not toyInfo.owned
+      check = check and not PlayerHasToy(toyInfo.id)
     end
 
     if not self:GetParent().IncludeUnusable:GetChecked() then

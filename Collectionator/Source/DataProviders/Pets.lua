@@ -127,7 +127,12 @@ function CollectionatorPetDataProviderMixin:Refresh()
     local check = true
 
     if not self:GetParent().IncludeCollected:GetChecked() then
-      check = check and petInfo.amountOwned == 0
+      local ownedString = C_PetJournal.GetOwnedBattlePetString(petInfo.id)
+      local amountOwned = 0
+      if ownedString ~= nil then
+        amountOwned = tonumber(string.match(ownedString, "(%d)/%d"))
+      end
+      check = check and (amountOwned == 0)
     end
     if self:GetParent().ProfessionOnly:GetChecked() then
       check = check and petInfo.fromProfession

@@ -18,12 +18,6 @@ end
 
 function CollectionatorPetScannerFrameMixin:GetItem(index, link, scanInfo)
   local id = tonumber(string.match(link, "battlepet:(%d+):"))
-  local ownedString = C_PetJournal.GetOwnedBattlePetString(id)
-  local amountOwned = 0
-  if ownedString ~= nil then
-    amountOwned = tonumber(string.match(ownedString, "(%d)/%d"))
-  end
-
   local petInfo = {C_PetJournal.GetPetInfoBySpeciesID(id)}
 
   return {
@@ -32,6 +26,5 @@ function CollectionatorPetScannerFrameMixin:GetItem(index, link, scanInfo)
     fromProfession = string.match(petInfo[5], BATTLE_PET_SOURCE_4),
     level = Auctionator.Utilities.GetPetLevelFromLink(link),
     index = index,
-    amountOwned = amountOwned,
   }
 end

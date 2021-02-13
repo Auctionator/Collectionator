@@ -21,7 +21,7 @@ function CollectionatorToyScannerFrameMixin:GetItem(index, link, scanInfo)
 
   return {
     index = index,
-    owned = PlayerHasToy(toyID),
+    id = toyID,
     usable = C_ToyBox.IsToyUsable(toyID),
   }
 end

@@ -24,7 +24,6 @@ function CollectionatorMountScannerFrameMixin:GetItem(index, link, scanInfo)
   return {
     index = index,
     id = mountID,
-    usable = not select(11, C_MountJournal.GetMountInfoByID(mountID)),
     fromProfession = sourceType == 4, --Sourced from a profession
     mountType = mountType,
     levelRequired = select(5, GetItemInfo(link)),

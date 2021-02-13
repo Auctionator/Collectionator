@@ -107,7 +107,7 @@ function CollectionatorMountDataProviderMixin:Refresh()
 
     local check = true
     if not self:GetParent().IncludeCollected:GetChecked() then
-      check = mountInfo.usable
+      check = not select(11, C_MountJournal.GetMountInfoByID(mountInfo.id))
     end
     if self:GetParent().ProfessionOnly:GetChecked() then
       check = check and mountInfo.fromProfession
