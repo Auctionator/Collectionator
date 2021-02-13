@@ -35,5 +35,9 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["SCAN_FAILED"] = "Failed to scan."
   L["SCAN"] = "Scan"
 
+  L["EXACT_ITEM_UNAVAILABLE"] = "Exact item unavailable"
+  L["BID_REQUIRED"] = "Bid Required"
+  L["BUYOUT"] = "Buyout"
+
   return L
 end

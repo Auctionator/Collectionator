@@ -179,5 +179,5 @@ function CollectionatorPetDataProviderMixin:GetColumnHideStates()
 end
 
 function CollectionatorPetDataProviderMixin:GetRowTemplate()
-  return "CollectionatorTMogRowTemplate"
+  return "CollectionatorPetRowTemplate"
 end

@@ -154,5 +154,5 @@ end
 
 
 function CollectionatorToyDataProviderMixin:GetRowTemplate()
-  return "CollectionatorTMogRowTemplate"
+  return "CollectionatorToyMountRowTemplate"
 end

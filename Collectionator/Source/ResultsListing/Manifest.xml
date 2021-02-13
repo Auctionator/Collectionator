@@ -1,6 +1,6 @@
 <!-- Tabs/Auctionator directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Script file="TMogRow.lua" />
+  <Script file="Row.lua" />
 
-  <Include file="TMogRow.xml"/>
+  <Include file="Row.xml"/>
 </Ui>
