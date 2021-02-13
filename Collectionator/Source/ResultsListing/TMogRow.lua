@@ -8,12 +8,5 @@ function CollectionatorTMogRowMixin:StartSearch()
 end
 
 function CollectionatorTMogRowMixin:GetSearchResult(itemKey)
-  for index = 1, C_AuctionHouse.GetNumItemSearchResults(itemKey) do
-    local info = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
-    if info.itemLink == self.rowData.itemLink then
-      return info
-    end
-  end
-
-  return nil
+  return Collectionator.Utilities.GetIdenticalLinkItem(self.rowData.itemLink, itemKey)
 end
