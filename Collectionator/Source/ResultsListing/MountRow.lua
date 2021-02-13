@@ -1,8 +1,7 @@
 CollectionatorMountRowMixin = CreateFromMixins(CollectionatorRowMixin)
 
-function CollectionatorMountRowMixin:DoSearch()
+function CollectionatorMountRowMixin:StartSearch()
   local itemID = GetItemInfoInstant(self.rowData.itemLink)
-
   local itemKey = C_AuctionHouse.MakeItemKey(itemID)
 
   self.expectedItemID = itemID

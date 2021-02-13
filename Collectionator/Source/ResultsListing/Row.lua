@@ -17,13 +17,13 @@ function CollectionatorRowMixin:OnClick(button, ...)
     DressUpLink(self.rowData.itemLink);
   else
     self:RegisterEvent("ITEM_SEARCH_RESULTS_UPDATED")
-    self:DoSearch()
+    self:StartSearch()
   end
 end
 
 -- Override
-function CollectionatorRowMixin:DoSearch()
-  Auctionator.Debug.Message("CollectionatorRowMixin:DoSearch")
+function CollectionatorRowMixin:StartSearch()
+  Auctionator.Debug.Message("CollectionatorRowMixin:StartSearch")
 end
 
 -- Override

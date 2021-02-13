@@ -1,6 +1,6 @@
 CollectionatorToyRowMixin = CreateFromMixins(CollectionatorRowMixin)
 
-function CollectionatorToyRowMixin:DoSearch()
+function CollectionatorToyRowMixin:StartSearch()
   local itemID = GetItemInfoInstant(self.rowData.itemLink)
   local itemKey = C_AuctionHouse.MakeItemKey(itemID)
 
