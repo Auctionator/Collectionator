@@ -7,6 +7,14 @@ local function CombineForCheapest(array, fullScan)
   SortByPriceAscending(array, fullScan)
 
   array[1].quantity = #array
+  array[1].allNames = {}
+  for index, item in ipairs(array) do
+    local name = fullScan[item.index].replicateInfo[1]
+    if tIndexOf(array[1].allNames, name) == nil then
+      table.insert(array[1].allNames, fullScan[item.index].replicateInfo[1])
+    end
+  end
+
 
   return array[1]
 end

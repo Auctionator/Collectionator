@@ -28,7 +28,7 @@ function CollectionatorBuyoutDropDownMixin:Initialize()
     confirmInfo.text = COLLECTIONATOR_L_BID_REQUIRED .. " " Auctionator.Utilities.CreateMoneyString(self.auctionInfo.bidAmount)
     confirmInfo.disabled = true
   else
-    confirmInfo.text = COLLECTIONATOR_L_BUYOUT .. ": " .. Auctionator.Utilities.CreateMoneyString(self.auctionInfo.buyoutAmount)
+    confirmInfo.text = COLLECTIONATOR_L_BUYOUT .. " " .. Auctionator.Utilities.CreateMoneyString(self.auctionInfo.buyoutAmount)
 
     confirmInfo.disabled = false
     confirmInfo.func = function()
@@ -36,24 +36,36 @@ function CollectionatorBuyoutDropDownMixin:Initialize()
       PlaySound(SOUNDKIT.IG_MAINMENU_OPEN)
     end
   end
+  confirmInfo.tooltipTitle = COLLECTIONATOR_L_BUYOUT
+  confirmInfo.tooltipText = COLLECTIONATOR_L_BUYOUT_TOOLTIP
+  confirmInfo.tooltipOnButton = 1
 
   local searchInfo = UIDropDownMenu_CreateInfo()
   searchInfo.notCheckable = 1
-  searchInfo.text = AUCTIONATOR_L_SEARCH .. ": |T" .. self.rowData.iconTexture .. ":0|t " .. self.rowData.itemName
-
+  searchInfo.text = COLLECTIONATOR_L_SEARCH_FOR_ALTERNATIVES
   searchInfo.disabled = false
+  searchInfo.tooltipTitle = COLLECTIONATOR_L_ALTERNATIVE_OPTIONS
+  searchInfo.tooltipText = COLLECTIONATOR_L_SEARCH_FOR_ALTERNATIVES_TOOLTIP
+  searchInfo.tooltipOnButton = 1
+
+  local names = self.rowData.names or {self.rowData.name}
   searchInfo.func = function()
-    Auctionator.API.v1.MultiSearchExact("Collectionator", {self.rowData.name})
+    Auctionator.API.v1.MultiSearchExact("Collectionator", names)
   end
+
+  local titleInfo = UIDropDownMenu_CreateInfo()
+  titleInfo.isTitle = true
+  titleInfo.notCheckable = 1
+  titleInfo.text = Collectionator.Utilities.ColorName(self.rowData.itemLink, names[1])
+  titleInfo.justifyH = "CENTER"
+  titleInfo.icon = self.rowData.iconTexture
 
   local cancelInfo = UIDropDownMenu_CreateInfo()
   cancelInfo.notCheckable = 1
   cancelInfo.text = AUCTIONATOR_L_CANCEL
-
   cancelInfo.disabled = false
-  cancelInfo.func = function()
-  end
 
+  UIDropDownMenu_AddButton(titleInfo)
   UIDropDownMenu_AddButton(confirmInfo)
   UIDropDownMenu_AddButton(searchInfo)
   UIDropDownMenu_AddButton(cancelInfo)
