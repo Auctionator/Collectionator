@@ -38,6 +38,7 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["EXACT_ITEM_UNAVAILABLE"] = "Exact item unavailable"
   L["BID_REQUIRED"] = "Bid Required"
   L["BUYOUT"] = "Buyout"
+  L["SEARCH_FOR_ALTERNATIVES"] = "Search for alternatives"
 
   return L
 end

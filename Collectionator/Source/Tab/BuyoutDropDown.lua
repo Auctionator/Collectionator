@@ -28,7 +28,7 @@ function CollectionatorBuyoutDropDownMixin:Initialize()
     confirmInfo.text = COLLECTIONATOR_L_BID_REQUIRED .. " " Auctionator.Utilities.CreateMoneyString(self.auctionInfo.bidAmount)
     confirmInfo.disabled = true
   else
-    confirmInfo.text = COLLECTIONATOR_L_BUYOUT .. ": " .. Auctionator.Utilities.CreateMoneyString(self.auctionInfo.buyoutAmount)
+    confirmInfo.text = COLLECTIONATOR_L_BUYOUT .. " " .. Auctionator.Utilities.CreateMoneyString(self.auctionInfo.buyoutAmount)
 
     confirmInfo.disabled = false
     confirmInfo.func = function()
@@ -37,24 +37,29 @@ function CollectionatorBuyoutDropDownMixin:Initialize()
     end
   end
 
-  local allNames = self.rowData.names or {self.rowData.name}
   local searchInfo = UIDropDownMenu_CreateInfo()
   searchInfo.notCheckable = 1
-  searchInfo.text = AUCTIONATOR_L_SEARCH .. ": " .. allNames[1]
-
+  searchInfo.text = COLLECTIONATOR_L_SEARCH_FOR_ALTERNATIVES
   searchInfo.disabled = false
+
+  local names = self.rowData.names or {self.rowData.name}
   searchInfo.func = function()
-    Auctionator.API.v1.MultiSearchExact("Collectionator", allNames)
+    Auctionator.API.v1.MultiSearchExact("Collectionator", names)
   end
+
+  local titleInfo = UIDropDownMenu_CreateInfo()
+  titleInfo.isTitle = true
+  titleInfo.notCheckable = 1
+  titleInfo.text = names[1]
+  titleInfo.justifyH = "CENTER"
+  titleInfo.icon = self.rowData.iconTexture
 
   local cancelInfo = UIDropDownMenu_CreateInfo()
   cancelInfo.notCheckable = 1
   cancelInfo.text = AUCTIONATOR_L_CANCEL
-
   cancelInfo.disabled = false
-  cancelInfo.func = function()
-  end
 
+  UIDropDownMenu_AddButton(titleInfo)
   UIDropDownMenu_AddButton(confirmInfo)
   UIDropDownMenu_AddButton(searchInfo)
   UIDropDownMenu_AddButton(cancelInfo)
