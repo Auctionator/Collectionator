@@ -43,7 +43,7 @@ function CollectionatorPetScannerFrameMixin:GetItem(index, link, scanInfo)
       fromProfession = string.match(petInfo[5], BATTLE_PET_SOURCE_4),
       level = 1,
       index = index,
-      name = petInfo[1],
+      name = petInfo[1] .. GRAY_FONT_COLOR:WrapTextInColorCode("; " .. scanInfo.replicateInfo[1]),
     }
   end
 end
