@@ -15,6 +15,8 @@ function CollectionatorRowMixin:OnClick(button, ...)
 
   if IsModifiedClick("DRESSUP") then
     DressUpLink(self.rowData.itemLink);
+  elseif IsModifiedClick("CHATLINK") then
+    ChatEdit_InsertLink(self.rowData.itemLink)
   else
     self:RegisterEvent("ITEM_SEARCH_RESULTS_UPDATED")
     self:StartSearch()
