@@ -151,8 +151,8 @@ function CollectionatorPetDataProviderMixin:Refresh()
     if check then
       table.insert(results, {
         index = petInfo.index,
-        itemName = Collectionator.Utilities.ColorName(info.itemLink, info.replicateInfo[1]),
-        name = info.replicateInfo[1],
+        itemName = Collectionator.Utilities.ColorName(info.itemLink, petInfo.name),
+        names = petInfo.allNames,
         quantity = petInfo.quantity,
         level = petInfo.level,
         price = info.replicateInfo[10] or info.replicateInfo[11],

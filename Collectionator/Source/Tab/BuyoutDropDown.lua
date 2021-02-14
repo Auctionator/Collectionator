@@ -37,13 +37,19 @@ function CollectionatorBuyoutDropDownMixin:Initialize()
     end
   end
 
-  local searchInfo = UIDropDownMenu_CreateInfo()
-  searchInfo.notCheckable = 1
-  searchInfo.text = AUCTIONATOR_L_SEARCH .. ": |T" .. self.rowData.iconTexture .. ":0|t " .. self.rowData.itemName
+  UIDropDownMenu_AddButton(confirmInfo)
 
-  searchInfo.disabled = false
-  searchInfo.func = function()
-    Auctionator.API.v1.MultiSearchExact("Collectionator", {self.rowData.name})
+  for index, name in ipairs(self.rowData.names or {self.rowData.name}) do
+    local searchInfo = UIDropDownMenu_CreateInfo()
+    searchInfo.notCheckable = 1
+    searchInfo.text = AUCTIONATOR_L_SEARCH .. ": " .. name
+
+    searchInfo.disabled = false
+    searchInfo.func = function()
+      Auctionator.API.v1.MultiSearchExact("Collectionator", {name})
+    end
+
+    UIDropDownMenu_AddButton(searchInfo)
   end
 
   local cancelInfo = UIDropDownMenu_CreateInfo()
@@ -54,8 +60,6 @@ function CollectionatorBuyoutDropDownMixin:Initialize()
   cancelInfo.func = function()
   end
 
-  UIDropDownMenu_AddButton(confirmInfo)
-  UIDropDownMenu_AddButton(searchInfo)
   UIDropDownMenu_AddButton(cancelInfo)
 end
 
