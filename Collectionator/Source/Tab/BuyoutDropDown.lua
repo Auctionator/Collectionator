@@ -36,11 +36,17 @@ function CollectionatorBuyoutDropDownMixin:Initialize()
       PlaySound(SOUNDKIT.IG_MAINMENU_OPEN)
     end
   end
+  confirmInfo.tooltipTitle = COLLECTIONATOR_L_BUYOUT
+  confirmInfo.tooltipText = COLLECTIONATOR_L_BUYOUT_TOOLTIP
+  confirmInfo.tooltipOnButton = 1
 
   local searchInfo = UIDropDownMenu_CreateInfo()
   searchInfo.notCheckable = 1
   searchInfo.text = COLLECTIONATOR_L_SEARCH_FOR_ALTERNATIVES
   searchInfo.disabled = false
+  searchInfo.tooltipTitle = COLLECTIONATOR_L_ALTERNATIVE_OPTIONS
+  searchInfo.tooltipText = COLLECTIONATOR_L_SEARCH_FOR_ALTERNATIVES_TOOLTIP
+  searchInfo.tooltipOnButton = 1
 
   local names = self.rowData.names or {self.rowData.name}
   searchInfo.func = function()
@@ -50,7 +56,7 @@ function CollectionatorBuyoutDropDownMixin:Initialize()
   local titleInfo = UIDropDownMenu_CreateInfo()
   titleInfo.isTitle = true
   titleInfo.notCheckable = 1
-  titleInfo.text = names[1]
+  titleInfo.text = Collectionator.Utilities.ColorName(self.rowData.itemLink, names[1])
   titleInfo.justifyH = "CENTER"
   titleInfo.icon = self.rowData.iconTexture
 

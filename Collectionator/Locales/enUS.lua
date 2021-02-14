@@ -39,6 +39,9 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["BID_REQUIRED"] = "Bid Required"
   L["BUYOUT"] = "Buyout"
   L["SEARCH_FOR_ALTERNATIVES"] = "Search for alternatives"
+  L["BUYOUT_TOOLTIP"] = "This is the lowest price, using the last scan to select the cheapest option, and a quick search to get the latest price."
+  L["ALTERNATIVE_OPTIONS"] = "Alternative options"
+  L["SEARCH_FOR_ALTERNATIVES_TOOLTIP"] = "View all the options you can buy, including those not the cheapest."
 
   return L
 end
