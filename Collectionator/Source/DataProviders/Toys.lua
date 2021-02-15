@@ -77,28 +77,13 @@ function CollectionatorToyDataProviderMixin:Sort(fieldName, sortDirection)
   self.onUpdate(self.results)
 end
 
-local function GroupedByID(array, fullScan)
-  local results = {}
-
-  for _, info in ipairs(array) do
-    local id = fullScan[info.index].replicateInfo[17]
-    if results[id] == nil then
-      results[id] = {}
-    end
-    table.insert(results[id], info)
-  end
-
-  return results
-end
-
-
 function CollectionatorToyDataProviderMixin:Refresh()
   self.dirty = false
   self:Reset()
 
   self.onSearchStarted()
 
-  local filtered = Collectionator.Utilities.ExtractWantedItems(GroupedByID(self.toys, self.fullScan), self.fullScan)
+  local filtered = Collectionator.Utilities.ExtractWantedItems(Collectionator.Utilities.GroupedByID(self.toys, self.fullScan), self.fullScan)
   local results = {}
 
   -- Filter toys

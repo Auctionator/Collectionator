@@ -77,31 +77,16 @@ function CollectionatorMountDataProviderMixin:Sort(fieldName, sortDirection)
   self.onUpdate(self.results)
 end
 
-local function GroupedByID(array, fullScan)
-  local results = {}
-
-  for _, info in ipairs(array) do
-    local id = fullScan[info.index].replicateInfo[17]
-    if results[id] == nil then
-      results[id] = {}
-    end
-    table.insert(results[id], info)
-  end
-
-  return results
-end
-
-
 function CollectionatorMountDataProviderMixin:Refresh()
   self.dirty = false
   self:Reset()
 
   self.onSearchStarted()
 
-  local filtered = Collectionator.Utilities.ExtractWantedItems(GroupedByID(self.mounts, self.fullScan), self.fullScan)
+  local filtered = Collectionator.Utilities.ExtractWantedItems(Collectionator.Utilities.GroupedByID(self.mounts, self.fullScan), self.fullScan)
   local results = {}
 
-  -- Filter toys
+  -- Filter mounts
   for _, mountInfo in ipairs(filtered) do
     local info = self.fullScan[mountInfo.index]
 
