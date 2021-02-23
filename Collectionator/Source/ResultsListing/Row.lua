@@ -69,7 +69,7 @@ CollectionatorPetRowMixin = CreateFromMixins(CollectionatorRowMixin)
 
 function CollectionatorPetRowMixin:StartSearch()
   local itemKey
-  local auctionatorDBKey = Auctionator.Utilities.ItemKeyFromLink(self.rowData.itemLink)
+  local auctionatorDBKey = (Auctionator.Utilities.BasicDBKeyFromLink or Auctionator.Utilities.ItemKeyFromLink)(self.rowData.itemLink)
   local _, petID = strsplit(":", auctionatorDBKey)
   if petID ~= nil then
     -- Use that an Auctionator database key for a pet has the format p:[speciesID]
