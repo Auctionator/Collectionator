@@ -109,7 +109,7 @@ function CollectionatorToyDataProviderMixin:Refresh()
         itemName = Collectionator.Utilities.ColorName(info.itemLink, info.replicateInfo[1]),
         name = info.replicateInfo[1],
         quantity = toyInfo.quantity,
-        price = info.replicateInfo[10] or info.replicateInfo[11],
+        price = Collectionator.Utilities.GetPrice(info.replicateInfo),
         itemLink = info.itemLink, -- Used for tooltips
         iconTexture = info.replicateInfo[2],
       })

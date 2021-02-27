@@ -167,14 +167,6 @@ function CollectionatorTMogDataProviderMixin:TMogFilterCheck(sourceInfo, auction
   end
 end
 
-local function GetPrice(replicateInfo)
-  if replicateInfo[10] == 0 then
-    return math.max(replicateInfo[11], replicateInfo[8])
-  else
-    return replicateInfo[10]
-  end
-end
-
 function CollectionatorTMogDataProviderMixin:Refresh()
   self.dirty = false
   self:Reset()
@@ -208,7 +200,7 @@ function CollectionatorTMogDataProviderMixin:Refresh()
         names = sourceInfo.allNames,
         quantity = sourceInfo.quantity,
         levelRequired = sourceInfo.levelRequired,
-        price = GetPrice(info.replicateInfo),
+        price = Collectionator.Utilities.GetPrice(info.replicateInfo),
         itemLink = info.itemLink, -- Used for tooltips
         iconTexture = info.replicateInfo[2],
       })

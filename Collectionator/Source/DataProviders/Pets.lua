@@ -155,7 +155,7 @@ function CollectionatorPetDataProviderMixin:Refresh()
         names = petInfo.allNames,
         quantity = petInfo.quantity,
         level = petInfo.level,
-        price = info.replicateInfo[10] or info.replicateInfo[11],
+        price = Collectionator.Utilities.GetPrice(info.replicateInfo),
         itemLink = info.itemLink, -- Used for tooltips
         iconTexture = info.replicateInfo[2],
       })
