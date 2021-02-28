@@ -52,6 +52,16 @@ local function GetIdenticalLinkItem(itemLink, itemKey)
   return nil
 end
 
+local function GetSameItemID(itemID, itemKey)
+  for index = 1, C_AuctionHouse.GetNumItemSearchResults(itemKey) do
+    local info = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
+    if GetItemInfoInstant(info.itemLink) == itemID then
+      return info
+    end
+  end
+  return nil
+end
+
 CollectionatorTMogRowMixin = CreateFromMixins(CollectionatorRowMixin)
 
 function CollectionatorTMogRowMixin:StartSearch()
@@ -72,9 +82,11 @@ function CollectionatorPetRowMixin:StartSearch()
   local auctionatorDBKey = (Auctionator.Utilities.BasicDBKeyFromLink or Auctionator.Utilities.ItemKeyFromLink)(self.rowData.itemLink)
   local _, petID = strsplit(":", auctionatorDBKey)
   if petID ~= nil then
+    self.cagedSearch = true
     -- Use that an Auctionator database key for a pet has the format p:[speciesID]
     itemKey = C_AuctionHouse.MakeItemKey(Auctionator.Constants.PET_CAGE_ID, 0, 0, tonumber(petID))
   else
+    self.cagedSearch = false
     -- Use that any other DB key is of the format [item-id]
     itemKey = C_AuctionHouse.MakeItemKey(tonumber(auctionatorDBKey))
   end
@@ -83,7 +95,13 @@ function CollectionatorPetRowMixin:StartSearch()
 end
 
 function CollectionatorPetRowMixin:GetSearchResult(itemKey)
-  return GetIdenticalLinkItem(self.rowData.itemLink, itemKey)
+  if self.cagedSearch then
+    return GetIdenticalLinkItem(self.rowData.itemLink, itemKey)
+
+  else
+    local itemID = GetItemInfoInstant(self.rowData.itemLink)
+    return GetSameItemID(itemID, itemKey)
+  end
 end
 
 CollectionatorToyMountRowMixin = CreateFromMixins(CollectionatorRowMixin)
@@ -97,12 +115,5 @@ function CollectionatorToyMountRowMixin:StartSearch()
 end
 
 function CollectionatorToyMountRowMixin:GetSearchResult(itemKey)
-  for index = 1, C_AuctionHouse.GetNumItemSearchResults(itemKey) do
-    local info = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
-    if GetItemInfoInstant(info.itemLink) == self.expectedItemID then
-      return info
-    end
-  end
-
-  return nil
+  return GetSameItemID(self.expectedItemID, itemKey)
 end
