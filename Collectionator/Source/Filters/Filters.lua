@@ -171,9 +171,9 @@ local MOUNT_TYPES = {
 }
 
 local MOUNT_TYPES_TO_NAME = {
-  [230] = "Ground", 
-  [248] = "Flying", 
-  [254] = "Swimming"
+  [230] = COLLECTIONATOR_L_MOUNT_GROUND,
+  [248] = COLLECTIONATOR_L_MOUNT_FLYING,
+  [254] = COLLECTIONATOR_L_MOUNT_SWIMMING
 }
 
 CollectionatorMountTypeFilterMixin = CreateFromMixins(CollectionatorFilterDropDownMixin)
