@@ -62,8 +62,6 @@
 
       <Frame parentKey="MountView" inherits="CollectionatorMountViewTemplate"/>
 
-      <Frame parentKey="FullScan"  inherits="CollectionatorFullScanFrameTemplate"/>
-
       <Frame parentKey="BuyoutDropDown" inherits="CollectionatorBuyoutDropDownTemplate" hidden="true"/>
 
       <Button parentKey="FullScanButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_SCAN">
@@ -72,9 +70,16 @@
           <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-20" y="30"/>
         </Anchors>
         <Scripts>
-          <OnClick>self:GetParent().FullScan:InitiateScan()</OnClick>
+          <OnClick>Auctionator.State.FullScanFrameRef:InitiateScan()</OnClick>
         </Scripts>
       </Button>
+
+      <Frame inherits="AuctionatorFullScanStatusTemplate">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent.FullScanButton" relativePoint="TOPLEFT" x="-13"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.FullScanButton" relativePoint="TOPRIGHT"/>
+        </Anchors>
+      </Frame>
     </Frames>
   </Frame>
 </Ui>
