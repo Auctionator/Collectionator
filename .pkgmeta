@@ -1,0 +1,10 @@
+package-as: Collectionator
+ignore:
+  - LICENSE
+  - README.md
+  - scripts
+move-folders:
+  Collectionator/Collectionator: Collectionator
+  Collectionator/Collectionator-data: Collectionator-data
+required-dependencies:
+  - auctionator

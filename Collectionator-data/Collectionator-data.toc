@@ -1,6 +1,6 @@
 ## Interface: 90005
 ## Title: Collectionator (data)
-## Version: AUTO_GENERATED_VERSION
+## Version: @project-version@
 ## Author: plusmouse
 ## RequiredDeps: Collectionator
 ## SavedVariables: COLLECTIONATOR_LAST_FULL_SCAN
