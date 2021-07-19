@@ -41,10 +41,19 @@ function CollectionatorRowMixin:OnEvent(eventName, itemKey)
     :UnregisterSource(self)
 end
 
+-- Since 9.1 crafted items include the GUID of the crafter in the item link,
+-- this removes it so that we can match even when the crafter doesn't.
+local function RemovePlayerGUID(itemLink)
+  if string.find(itemLink, "Player") then
+    return string.gsub(itemLink, "Player[^:]+", "")
+  end
+  return itemLink
+end
+
 local function GetIdenticalLinkItem(itemLink, itemKey)
   for index = 1, C_AuctionHouse.GetNumItemSearchResults(itemKey) do
     local info = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
-    if info.itemLink == itemLink then
+    if RemovePlayerGUID(info.itemLink) == itemLink then
       return info
     end
   end
