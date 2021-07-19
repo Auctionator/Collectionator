@@ -42,10 +42,10 @@ function CollectionatorRowMixin:OnEvent(eventName, itemKey)
 end
 
 -- Since 9.1 crafted items include the GUID of the crafter in the item link,
--- this removes it so that we can match even when the crafter doesn't.
+-- this removes it so that we can match irrespective of who crafted it.
 local function RemovePlayerGUID(itemLink)
-  if string.find(itemLink, "Player") then
-    return string.gsub(itemLink, "Player[^:]+", "")
+  if string.find(itemLink, ":Player[^: ]+:") then
+    return string.gsub(itemLink, ":Player[^: ]+:", "::")
   end
   return itemLink
 end
