@@ -41,7 +41,6 @@ function CollectionatorPetDataProviderMixin:OnLoad()
     Collectionator.Events.PetLoadEnd,
   })
 
-  self.processCountPerUpdate = 500
   self.dirty = false
   self.pets = {}
 end

@@ -41,7 +41,6 @@ function CollectionatorTMogDataProviderMixin:OnLoad()
     Collectionator.Events.SourceLoadEnd,
   })
 
-  self.processCountPerUpdate = 500
   self.dirty = false
   self.sources = {}
 end

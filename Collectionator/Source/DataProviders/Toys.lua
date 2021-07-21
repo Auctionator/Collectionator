@@ -33,7 +33,6 @@ function CollectionatorToyDataProviderMixin:OnLoad()
     Collectionator.Events.ToyLoadEnd,
   })
 
-  self.processCountPerUpdate = 500
   self.dirty = false
   self.toys = {}
 end

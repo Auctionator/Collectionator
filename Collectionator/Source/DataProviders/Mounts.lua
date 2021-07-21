@@ -33,7 +33,6 @@ function CollectionatorMountDataProviderMixin:OnLoad()
     Collectionator.Events.MountLoadEnd,
   })
 
-  self.processCountPerUpdate = 500
   self.dirty = false
   self.mounts = {}
 end
