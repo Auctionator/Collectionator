@@ -2,6 +2,8 @@ name: Curse Build
 
 on:
   push:
+    branches:
+    - main
     tags:
     - '*'
 
