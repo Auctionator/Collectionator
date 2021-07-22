@@ -140,7 +140,7 @@ function CollectionatorPetDataProviderMixin:Refresh()
     check = check and self:GetParent().TypeFilter:GetValue(petInfo.petType)
 
     local searchString = self:GetParent().TextFilter:GetText()
-    check = check and string.match(string.lower(info.replicateInfo[1]), string.lower(searchString))
+    check = check and string.find(string.lower(info.replicateInfo[1]), string.lower(searchString), 1, true)
 
     check = check and petInfo.level >= minLevel
     check = check and petInfo.level <= maxLevel

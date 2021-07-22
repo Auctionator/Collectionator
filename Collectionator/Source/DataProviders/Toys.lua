@@ -100,7 +100,7 @@ function CollectionatorToyDataProviderMixin:Refresh()
     end
 
     local searchString = self:GetParent().TextFilter:GetText()
-    check = check and string.match(string.lower(info.replicateInfo[1]), string.lower(searchString))
+    check = check and string.find(string.lower(info.replicateInfo[1]), string.lower(searchString), 1, true)
 
     if check then
       table.insert(results, {

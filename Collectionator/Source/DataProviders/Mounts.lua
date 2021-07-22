@@ -101,7 +101,7 @@ function CollectionatorMountDataProviderMixin:Refresh()
     check = check and self:GetParent().QualityFilter:GetValue(info.replicateInfo[4])
 
     local searchString = self:GetParent().TextFilter:GetText()
-    check = check and string.match(string.lower(info.replicateInfo[1]), string.lower(searchString))
+    check = check and string.find(string.lower(info.replicateInfo[1]), string.lower(searchString), 1, true)
 
     local minLevel = self:GetParent().LevelFilter:GetMin()
     local maxLevel = self:GetParent().LevelFilter:GetMax()

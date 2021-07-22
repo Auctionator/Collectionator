@@ -139,7 +139,7 @@ function CollectionatorTMogDataProviderMixin:TMogFilterCheck(sourceInfo, auction
   end
 
   local searchString = self:GetParent().TextFilter:GetText()
-  check = check and string.match(string.lower(auctionInfo.replicateInfo[1]), string.lower(searchString))
+  check = check and string.find(string.lower(auctionInfo.replicateInfo[1]), string.lower(searchString), 1, true)
 
   local minLevel = self:GetParent().LevelFilter:GetMin()
   local maxLevel = self:GetParent().LevelFilter:GetMax()
