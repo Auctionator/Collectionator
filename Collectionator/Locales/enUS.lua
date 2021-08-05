@@ -49,7 +49,7 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["SEARCH_FOR_ALTERNATIVES_TOOLTIP"] = "View all the options you can buy, including those not the cheapest."
 
   L["IS_USABLE"] = "Is usable?"
-  L["ON_PREVIOUS_CHARACTERS"] = "on all previously seen characters"
+  L["ON_PREVIOUS_CHARACTERS"] = "on any previously seen characters"
   L["ON_REALM_AND_FACTION"] = "on your characters in this realm and faction"
   L["IGNORE_USABILITY"] = "ignore usability"
 

@@ -30,7 +30,7 @@
               <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-180" />
             </Anchors>
             <KeyValues>
-              <KeyValue key="labelText" value="on all previously seen characters" type="string"/>
+              <KeyValue key="labelText" value="COLLECTIONATOR_L_ON_PREVIOUS_CHARACTERS" type="global"/>
               <KeyValue key="value" value="1" type="number"/>
             </KeyValues>
           </Frame>
