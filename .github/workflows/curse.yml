@@ -16,6 +16,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - run: ./GetRecipesToSpellIDs/do-all.sh
     - uses: BigWigsMods/packager@master
       with:
         args: -p 410818 -a XrNkwBNa
