@@ -94,7 +94,8 @@ function CollectionatorRecipeDataProviderMixin:Refresh()
     local searchString = self:GetParent().TextFilter:GetText()
     check = check and string.find(string.lower(info.replicateInfo[1]), string.lower(searchString), 1, true)
 
-    check = check and (COLLECTIONATOR_COULD_KNOW_RECIPE[recipeInfo.id] ~= nil), (not COLLECTIONATOR_KNOWN_RECIPES[recipeInfo.id] == nil)
+    check = check and COLLECTIONATOR_RECIPES_CACHE.couldKnow[recipeInfo.id] ~= nil
+    check = check and COLLECTIONATOR_RECIPES_CACHE.known[recipeInfo.id] == nil
 
     if self:GetParent().RealmAndFactionOnly:GetChecked() then
       check = check and tIndexOf(COLLECTIONATOR_COULD_KNOW_RECIPE[recipeInfo.id], Collectionator.Utilities.GetRealmAndFaction()) ~= nil

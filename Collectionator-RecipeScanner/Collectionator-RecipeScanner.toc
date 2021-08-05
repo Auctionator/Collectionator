@@ -1,9 +1,0 @@
-## Interface: 90100
-## Title: Collectionator (accountwide recipe scanner)
-## Version: @project-version@
-## Author: plusmouse
-## RequiredDeps: Collectionator
-## SavedVariables: COLLECTIONATOR_KNOWN_RECIPES, COLLECTIONATOR_COULD_KNOW_RECIPE
-
-Source\Frame.lua
-Source\Frame.xml

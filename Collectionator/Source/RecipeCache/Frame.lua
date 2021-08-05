@@ -1,13 +1,13 @@
-Collectionator_RecipeScannerFrameMixin = {}
+CollectionatorRecipeCacheFrameMixin = {}
 
-function Collectionator_RecipeScannerFrameMixin:OnLoad()
+function CollectionatorRecipeCacheFrameMixin:OnLoad()
   FrameUtil.RegisterFrameForEvents(self, {
     "VARIABLES_LOADED",
     "TRADE_SKILL_DATA_SOURCE_CHANGED",
   })
 end
 
-function Collectionator_RecipeScannerFrameMixin:OnEvent(event, ...)
+function CollectionatorRecipeCacheFrameMixin:OnEvent(event, ...)
   if event == "VARIABLES_LOADED" then
     self:SetupVariables()
   elseif event == "TRADE_SKILL_DATA_SOURCE_CHANGED" then
@@ -15,17 +15,18 @@ function Collectionator_RecipeScannerFrameMixin:OnEvent(event, ...)
   end
 end
 
-function Collectionator_RecipeScannerFrameMixin:SetupVariables()
-  COLLECTIONATOR_KNOWN_RECIPES = COLLECTIONATOR_KNOWN_RECIPES or {}
-  self.knownIDs = COLLECTIONATOR_KNOWN_RECIPES
-
-  COLLECTIONATOR_COULD_KNOW_RECIPE = COLLECTIONATOR_COULD_KNOW_RECIPE or {}
-  self.couldKnowIDs = COLLECTIONATOR_COULD_KNOW_RECIPE
+function CollectionatorRecipeCacheFrameMixin:SetupVariables()
+  COLLECTIONATOR_RECIPES_CACHE = COLLECTIONATOR_RECIPES_CACHE or {
+    known = {},
+    couldKnow = {},
+  }
+  self.knownIDs = COLLECTIONATOR_RECIPES_CACHE.known
+  self.couldKnowIDs = COLLECTIONATOR_RECIPES_CACHE.couldKnow
 
   self.realmAndFaction = Collectionator.Utilities.GetRealmAndFaction()
 end
 
-function Collectionator_RecipeScannerFrameMixin:CacheSpell(db, spellID)
+function CollectionatorRecipeCacheFrameMixin:CacheSpell(db, spellID)
   if db[spellID] == nil then
     db[spellID] = {}
   end
@@ -35,7 +36,7 @@ function Collectionator_RecipeScannerFrameMixin:CacheSpell(db, spellID)
   end
 end
 
-function Collectionator_RecipeScannerFrameMixin:CacheKnownRecipes()
+function CollectionatorRecipeCacheFrameMixin:CacheKnownRecipes()
   local allRecipeIDs = C_TradeSkillUI.GetAllRecipeIDs()
 
   for _, spellID in ipairs(allRecipeIDs) do

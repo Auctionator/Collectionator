@@ -10,4 +10,5 @@
   <Include file="Utilities\Manifest.xml"/>
   <Include file="DataProviders\Manifest.xml"/>
   <Include file="ResultsListing\Manifest.xml"/>
+  <Include file="RecipeCache\Manifest.xml"/>
 </Ui>
