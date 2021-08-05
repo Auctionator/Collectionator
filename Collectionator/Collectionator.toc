@@ -6,4 +6,6 @@
 
 Locales\Manifest.xml
 
+Data\Manifest.xml
+
 Source\Manifest.xml

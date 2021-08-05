@@ -17,10 +17,9 @@ function CollectionatorRecipeScannerFrameMixin:FilterLink(link)
 end
 
 function CollectionatorRecipeScannerFrameMixin:GetItem(index, link, scanInfo)
-  local itemInfo = {GetItemInfo(link)}
+  local spellID = COLLECTIONATOR_RECIPES_TO_IDS[scanInfo.replicateInfo[17]]
 
-  local _, spellID = GetItemSpell(link)
-  if spellID ~= nil then
+  if spellID then
     return {
       index = index,
       id = spellID,

@@ -41,8 +41,7 @@ end
 function Collectionator_RecipeScannerFrameMixin:CacheKnownRecipes()
   local allRecipeIDs = C_TradeSkillUI.GetAllRecipeIDs()
 
-  for _, id in ipairs(allRecipeIDs) do
-    local spellID = C_TradeSkillUI.GetRecipeInfo(id).recipeID
+  for _, spellID in ipairs(allRecipeIDs) do
     if IsPlayerSpell(spellID) then
       self:CacheSpell(self.knownIDs, spellID)
     end

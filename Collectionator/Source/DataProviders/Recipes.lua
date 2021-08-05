@@ -94,7 +94,7 @@ function CollectionatorRecipeDataProviderMixin:Refresh()
     local searchString = self:GetParent().TextFilter:GetText()
     check = check and string.find(string.lower(info.replicateInfo[1]), string.lower(searchString), 1, true)
 
-    check = check and (COLLECTIONATOR_COULD_KNOW_RECIPE[recipeInfo.id] ~= nil) and (not COLLECTIONATOR_KNOWN_RECIPES[recipeInfo.id] == nil)
+    check = check and (COLLECTIONATOR_COULD_KNOW_RECIPE[recipeInfo.id] ~= nil), (not COLLECTIONATOR_KNOWN_RECIPES[recipeInfo.id] == nil)
 
     if check then
       table.insert(results, {
