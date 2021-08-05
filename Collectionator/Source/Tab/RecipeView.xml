@@ -1,0 +1,21 @@
+<Ui>
+  <Frame
+    name="CollectionatorRecipeViewTemplate"
+    inherits="CollectionatorViewTemplate"
+    virtual="true"
+  >
+    <Frames>
+
+      <Frame inherits="CollectionatorRecipeScannerFrameTemplate" parentKey="Scanner">
+      </Frame>
+
+      <Frame parentKey="DataProvider" mixin="CollectionatorRecipeDataProviderMixin">
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnShow method="OnShow"/>
+          <OnUpdate method="OnUpdate"/>
+        </Scripts>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

@@ -4,4 +4,5 @@
   <Script file="Pets.lua"/>
   <Script file="Toys.lua"/>
   <Script file="Mounts.lua"/>
+  <Script file="Recipes.lua"/>
 </Ui>

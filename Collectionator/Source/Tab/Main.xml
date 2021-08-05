@@ -53,6 +53,15 @@
           <OnClick>self:GetParent():MountMode()</OnClick>
         </Scripts>
       </Button>
+      <Button parentKey="RecipeButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_RECIPES_BUTTON">
+        <Size x="70" y="22"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.MountButton"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():RecipeMode()</OnClick>
+        </Scripts>
+      </Button>
 
       <Frame parentKey="TMogView" inherits="CollectionatorTMogViewTemplate"/>
 
@@ -61,6 +70,8 @@
       <Frame parentKey="ToyView" inherits="CollectionatorToyViewTemplate"/>
 
       <Frame parentKey="MountView" inherits="CollectionatorMountViewTemplate"/>
+
+      <Frame parentKey="RecipeView" inherits="CollectionatorRecipeViewTemplate"/>
 
       <Frame parentKey="BuyoutDropDown" inherits="CollectionatorBuyoutDropDownTemplate" hidden="true"/>
 

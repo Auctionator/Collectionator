@@ -10,6 +10,7 @@
   <Include file="PetView.xml"/>
   <Include file="ToyView.xml"/>
   <Include file="MountView.xml"/>
+  <Include file="RecipeView.xml"/>
   <Include file="BuyoutDropDown.xml"/>
   <Include file="Main.xml"/>
 </Ui>

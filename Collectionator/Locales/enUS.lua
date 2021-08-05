@@ -5,6 +5,7 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["PETS_BUTTON"] = "Pets"
   L["TOYS_BUTTON"] = "Toys"
   L["MOUNTS_BUTTON"] = "Mounts"
+  L["RECIPES_BUTTON"] = "Recipes"
   L["TMOG_SHOW_ALL_SOURCES"] = "Show all sources"
   L["TMOG_ONLY_THIS_CHARACTER"] = "TMogs for this character only"
   L["TMOG_UNIQUES"] = "Show only unique appearances"

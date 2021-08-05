@@ -6,5 +6,6 @@ ignore:
 move-folders:
   Collectionator/Collectionator: Collectionator
   Collectionator/Collectionator-data: Collectionator-data
+  Collectionator/Collectionator-RecipeScanner: Collectionator-RecipeScanner
 required-dependencies:
   - auctionator
