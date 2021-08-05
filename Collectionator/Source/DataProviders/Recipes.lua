@@ -94,11 +94,17 @@ function CollectionatorRecipeDataProviderMixin:Refresh()
     local searchString = self:GetParent().TextFilter:GetText()
     check = check and string.find(string.lower(info.replicateInfo[1]), string.lower(searchString), 1, true)
 
-    check = check and COLLECTIONATOR_RECIPES_CACHE.couldKnow[recipeInfo.id] ~= nil
-    check = check and COLLECTIONATOR_RECIPES_CACHE.known[recipeInfo.id] == nil
+    local usableState = self:GetParent().Usable:GetValue()
 
-    if self:GetParent().RealmAndFactionOnly:GetChecked() then
-      check = check and tIndexOf(COLLECTIONATOR_COULD_KNOW_RECIPE[recipeInfo.id], Collectionator.Utilities.GetRealmAndFaction()) ~= nil
+    if usableState == Collectionator.Constants.RecipesUsableOption.PreviousCharacter then
+      check = check and COLLECTIONATOR_RECIPES_CACHE.couldKnow[recipeInfo.id] ~= nil
+    elseif usableState == Collectionator.Constants.RecipesUsableOption.CurrentRealmAndFaction then
+      local couldKnow = COLLECTIONATOR_RECIPES_CACHE.couldKnow[recipeInfo.id]
+      check = check and couldKnow ~= nil and tIndexOf(couldKnow, Collectionator.Utilities.GetRealmAndFaction()) ~= nil
+    end
+
+    if not self:GetParent().IncludeCollected:GetChecked() then
+      check = check and COLLECTIONATOR_RECIPES_CACHE.known[recipeInfo.id] == nil
     end
 
     check = check and self:GetParent().ProfessionFilter:GetValue(recipeInfo.subClassID)

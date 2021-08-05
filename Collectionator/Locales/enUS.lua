@@ -24,7 +24,8 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["WEAPON"] = "Weapon"
   L["FROM_PROFESSION_ONLY"] = "From profession only"
   L["PROFESSION"] = "Profession"
-  L["RECIPE_REALM_AND_FACTION"] = "Recipes for the current realm and faction only"
+  L["RECIPE_REALM_AND_FACTION"] = "Usable with the current realm and faction"
+  L["RECIPE_INCLUDE_COLLECTED"] = "Include collected recipes"
 
   L["MOUNT_GROUND"] = "Ground"
   L["MOUNT_FLYING"] = "Flying"
@@ -46,6 +47,11 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["BUYOUT_TOOLTIP"] = "This is the lowest price, using the last scan to select the cheapest option, and a quick search to get the latest price."
   L["ALTERNATIVE_OPTIONS"] = "Alternative options"
   L["SEARCH_FOR_ALTERNATIVES_TOOLTIP"] = "View all the options you can buy, including those not the cheapest."
+
+  L["IS_USABLE"] = "Is usable?"
+  L["ON_PREVIOUS_CHARACTERS"] = "on all previously seen characters"
+  L["ON_REALM_AND_FACTION"] = "on your characters in this realm and faction"
+  L["IGNORE_USABILITY"] = "ignore usability"
 
   return L
 end

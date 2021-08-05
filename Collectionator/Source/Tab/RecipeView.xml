@@ -2,6 +2,7 @@
   <Frame
     name="CollectionatorRecipeViewTemplate"
     inherits="CollectionatorViewTemplate"
+    mixin="CollectionatorRecipeViewMixin"
     virtual="true"
   >
     <Frames>
@@ -15,13 +16,52 @@
         </Anchors>
       </DropDownToggleButton>
 
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="RealmAndFactionOnly">
+      <Frame inherits="AuctionatorConfigurationRadioButtonGroup" parentKey="Usable">
         <KeyValues>
-          <KeyValue key="labelText" value="COLLECTIONATOR_L_RECIPE_REALM_AND_FACTION" type="global" />
+          <KeyValue key="groupHeadingText" value="COLLECTIONATOR_L_IS_USABLE" type="global"/>
+          <KeyValue key="selectedValue" value="1" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ProfessionFilter" relativePoint="TOPRIGHT" y="4" x="20"/>
-          <Anchor point="RIGHT" relativeKey="$parent.ProfessionFilter" relativePoint="RIGHT" x="400"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ProfessionFilter" relativePoint="TOPRIGHT" x="100"/>
+        </Anchors>
+        <Frames>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <Anchors>
+              <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-180" />
+            </Anchors>
+            <KeyValues>
+              <KeyValue key="labelText" value="on all previously seen characters" type="string"/>
+              <KeyValue key="value" value="1" type="number"/>
+            </KeyValues>
+          </Frame>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <Anchors>
+              <Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="-180" y="30" />
+            </Anchors>
+            <KeyValues>
+              <KeyValue key="labelText" value="COLLECTIONATOR_L_ON_REALM_AND_FACTION" type="global"/>
+              <KeyValue key="value" value="2" type="number"/>
+            </KeyValues>
+          </Frame>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <Anchors>
+              <Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="-180" y="30" />
+            </Anchors>
+            <KeyValues>
+              <KeyValue key="labelText" value="COLLECTIONATOR_L_IGNORE_USABILITY" type="global"/>
+              <KeyValue key="value" value="3" type="number"/>
+            </KeyValues>
+          </Frame>
+        </Frames>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="IncludeCollected">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_RECIPE_INCLUDE_COLLECTED" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ProfessionFilter" relativePoint="TOPRIGHT" x="350"/>
+          <Anchor point="RIGHT" relativeKey="$parent.ProfessionFilter" relativePoint="RIGHT" x="600"/>
         </Anchors>
       </Frame>
 
