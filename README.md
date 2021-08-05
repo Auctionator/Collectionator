@@ -8,9 +8,9 @@ User guide
 
 3. Click the "Scan" button
 
-Installing from git
-===================
-You can run `./GetRecipesToSpellIDs/do-all.sh` to update the recipes to
-spell ids list (stored in `./Collectionator/Data/RecipesToSpellIDs.lua`)
+Updating the recipes data
+=========================
+Run `./GetRecipesToSpellIDs/do-all.sh` in a `bash` shell with `jq` installed to
+update the recipes data
 
-You can run the addon without the file, but you will likely get an error.
+To manually add spell ids edit the file `./Collectionator/Data/RecipesToSpellIDs.lua`
