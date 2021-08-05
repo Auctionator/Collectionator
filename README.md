@@ -13,4 +13,6 @@ Updating the recipes data
 Run `./GetRecipesToSpellIDs/do-all.sh` in a `bash` shell with `jq` installed to
 update the recipes data
 
-To manually add spell ids edit the file `./Collectionator/Data/RecipesToSpellIDs.lua`
+To manually add recipes edit the file
+`./Collectionator/Data/RecipesToSpellIDs.lua`. Each entry is of the form
+`[recipeID] = spellID`
