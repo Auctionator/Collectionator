@@ -15,4 +15,4 @@ update the recipes data
 
 To manually add recipes edit the file
 `./Collectionator/Data/RecipesToSpellIDs.lua`. Each entry is of the form
-`[recipeID] = spellID`
+`[recipeID] = spellID`.
