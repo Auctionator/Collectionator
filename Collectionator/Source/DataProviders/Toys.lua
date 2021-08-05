@@ -130,7 +130,7 @@ function CollectionatorToyDataProviderMixin:GetTableLayout()
   return TOY_TABLE_LAYOUT
 end
 
-Auctionator.Config.Create("COLLECTIONATOR_COLUMNS_TOY", "collectionator_columns_pet", {})
+Auctionator.Config.Create("COLLECTIONATOR_COLUMNS_TOY", "collectionator_columns_toy", {})
 
 function CollectionatorToyDataProviderMixin:GetColumnHideStates()
   return Auctionator.Config.Get(Auctionator.Config.Options.COLLECTIONATOR_COLUMNS_TOY)
