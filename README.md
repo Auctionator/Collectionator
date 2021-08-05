@@ -10,8 +10,7 @@ User guide
 
 Installing from git
 ===================
-You will need to run `./GetRecipesToSpellIDs/do-all.sh` in the checkout
-directory to get the recipe IDs placed in the file
-`./Collectionator/Data/RecipesToSpellIDs.lua`
+You can run `./GetRecipesToSpellIDs/do-all.sh` to update the recipes to
+spell ids list (stored in `./Collectionator/Data/RecipesToSpellIDs.lua`)
 
 You can run the addon without the file, but you will likely get an error.

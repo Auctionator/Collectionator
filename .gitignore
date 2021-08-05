@@ -4,4 +4,3 @@ Changelog*
 *.swp
 tmp
 .release
-Collectionator/Data/*.lua
