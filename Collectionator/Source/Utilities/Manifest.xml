@@ -5,4 +5,5 @@
   <Script file="SortByPrice.lua" />
   <Script file="GroupedByID.lua" />
   <Script file="GetPrice.lua" />
+  <Script file="GetRealmAndFaction.lua" />
 </Ui>

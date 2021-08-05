@@ -96,6 +96,12 @@ function CollectionatorRecipeDataProviderMixin:Refresh()
 
     check = check and (COLLECTIONATOR_COULD_KNOW_RECIPE[recipeInfo.id] ~= nil), (not COLLECTIONATOR_KNOWN_RECIPES[recipeInfo.id] == nil)
 
+    if self:GetParent().RealmAndFactionOnly:GetChecked() then
+      check = check and tIndexOf(COLLECTIONATOR_COULD_KNOW_RECIPE[recipeInfo.id], Collectionator.Utilities.GetRealmAndFaction()) ~= nil
+    end
+
+    check = check and self:GetParent().ProfessionFilter:GetValue(recipeInfo.subClassID)
+
     if check then
       table.insert(results, {
         index = recipeInfo.index,

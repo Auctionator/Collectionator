@@ -183,3 +183,28 @@ end
 function CollectionatorMountTypeFilterMixin:GetFilterName(filter)
   return MOUNT_TYPES_TO_NAME[filter]
 end
+
+PROFESSION_SUBCLASSES = {
+  Enum.ItemRecipeSubclass.Leatherworking,
+  Enum.ItemRecipeSubclass.Tailoring,
+  Enum.ItemRecipeSubclass.Engineering,
+  Enum.ItemRecipeSubclass.Blacksmithing,
+  Enum.ItemRecipeSubclass.Alchemy,
+  Enum.ItemRecipeSubclass.Enchanting,
+  Enum.ItemRecipeSubclass.Jewelcrafting,
+  Enum.ItemRecipeSubclass.Inscription,
+  Enum.ItemRecipeSubclass.Cooking,
+  Enum.ItemRecipeSubclass.Fishing,
+  Enum.ItemRecipeSubclass.FirstAid,
+  Enum.ItemRecipeSubclass.Book,
+}
+
+CollectionatorProfessionFilterMixin = CreateFromMixins(CollectionatorFilterDropDownMixin)
+
+function CollectionatorProfessionFilterMixin:GetFilters()
+  return PROFESSION_SUBCLASSES
+end
+
+function CollectionatorProfessionFilterMixin:GetFilterName(filter)
+  return GetItemSubClassInfo(Enum.ItemClass.Recipe, filter)
+end

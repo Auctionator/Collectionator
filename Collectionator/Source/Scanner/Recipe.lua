@@ -20,9 +20,11 @@ function CollectionatorRecipeScannerFrameMixin:GetItem(index, link, scanInfo)
   local spellID = COLLECTIONATOR_RECIPES_TO_IDS[scanInfo.replicateInfo[17]]
 
   if spellID then
+    local subClassID = select(13, GetItemInfo(link))
     return {
       index = index,
       id = spellID,
+      subClassID = subClassID,
     }
   end
 end

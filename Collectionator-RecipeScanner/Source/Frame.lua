@@ -22,10 +22,7 @@ function Collectionator_RecipeScannerFrameMixin:SetupVariables()
   COLLECTIONATOR_COULD_KNOW_RECIPE = COLLECTIONATOR_COULD_KNOW_RECIPE or {}
   self.couldKnowIDs = COLLECTIONATOR_COULD_KNOW_RECIPE
 
-  local realm = Auctionator.Variables.GetConnectedRealmRoot()
-  local faction = UnitFactionGroup("player")
-
-  self.realmAndFaction = realm .. "_" .. faction
+  self.realmAndFaction = Collectionator.Utilities.GetRealmAndFaction()
 end
 
 function Collectionator_RecipeScannerFrameMixin:CacheSpell(db, spellID)

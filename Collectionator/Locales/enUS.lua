@@ -24,7 +24,7 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["WEAPON"] = "Weapon"
   L["FROM_PROFESSION_ONLY"] = "From profession only"
   L["PROFESSION"] = "Profession"
-  L["RECIPE_CHARACTER_ONLY"] = "Recipes for this character's professions and levels"
+  L["RECIPE_REALM_AND_FACTION"] = "Recipes for the current realm and faction only"
 
   L["MOUNT_GROUND"] = "Ground"
   L["MOUNT_FLYING"] = "Flying"
