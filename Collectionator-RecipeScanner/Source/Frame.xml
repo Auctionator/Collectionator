@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="Collectionator_RecipeScannerFrame" parent="UIParent" hidden="true" mixin="Collectionator_RecipeScannerFrameMixin">
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnEvent method="OnEvent"/>
+    </Scripts>
+  </Frame>
+</Ui>

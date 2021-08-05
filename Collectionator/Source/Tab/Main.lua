@@ -21,6 +21,7 @@ function CollectionatorTabFrameMixin:ActivateButtons()
   self.TMogButton:SetEnabled(not self.TMogView:IsShown())
   self.PetButton:SetEnabled(not self.PetView:IsShown())
   self.ToyButton:SetEnabled(not self.ToyView:IsShown())
+  self.MountButton:SetEnabled(not self.MountView:IsShown())
   self.RecipeButton:SetEnabled(not self.RecipeView:IsShown())
 end
 

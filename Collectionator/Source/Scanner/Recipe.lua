@@ -23,7 +23,7 @@ function CollectionatorRecipeScannerFrameMixin:GetItem(index, link, scanInfo)
   if spellID ~= nil then
     return {
       index = index,
-      id = scanInfo.replicateInfo[17]
+      id = spellID,
     }
   end
 end

@@ -9,6 +9,22 @@
       <Frame inherits="CollectionatorRecipeScannerFrameTemplate" parentKey="Scanner">
       </Frame>
 
+      <DropDownToggleButton parentKey="ProfessionFilter" inherits="CollectionatorFilterDropDownTemplate" mixin="CollectionatorArmorFilterMixin" text="COLLECTIONATOR_L_PROFESSION">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="40" y="85"/>
+        </Anchors>
+      </DropDownToggleButton>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="CharacterOnly">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_RECIPE_CHARACTER_ONLY" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ProfessionFilter" relativePoint="TOPRIGHT" y="4" x="20"/>
+          <Anchor point="RIGHT" relativeKey="$parent.ProfessionFilter" relativePoint="RIGHT" x="300"/>
+        </Anchors>
+      </Frame>
+
       <Frame parentKey="DataProvider" mixin="CollectionatorRecipeDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
