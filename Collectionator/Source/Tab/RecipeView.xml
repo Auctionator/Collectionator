@@ -16,6 +16,12 @@
         </Anchors>
       </DropDownToggleButton>
 
+      <DropDownToggleButton parentKey="QualityFilter" inherits="CollectionatorFilterDropDownTemplate" mixin="CollectionatorQualityFilterMixin" text="COLLECTIONATOR_L_QUALITY">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="40" y="54"/>
+        </Anchors>
+      </DropDownToggleButton>
+
       <Frame inherits="AuctionatorConfigurationRadioButtonGroup" parentKey="Usable">
         <KeyValues>
           <KeyValue key="groupHeadingText" value="COLLECTIONATOR_L_IS_USABLE" type="global"/>

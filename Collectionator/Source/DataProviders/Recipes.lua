@@ -104,10 +104,11 @@ function CollectionatorRecipeDataProviderMixin:Refresh()
     end
 
     if not self:GetParent().IncludeCollected:GetChecked() then
-      check = check and COLLECTIONATOR_RECIPES_CACHE.known[recipeInfo.id]
+      check = check and not COLLECTIONATOR_RECIPES_CACHE.known[recipeInfo.id]
     end
 
     check = check and self:GetParent().ProfessionFilter:GetValue(recipeInfo.subClassID)
+    check = check and self:GetParent().QualityFilter:GetValue(info.replicateInfo[4])
 
     if check then
       table.insert(results, {
