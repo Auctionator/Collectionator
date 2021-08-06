@@ -1,0 +1,51 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="CollectionatorConfigBasicOptionsFrame"
+    mixin="CollectionatorConfigBasicOptionsFrameMixin"
+    parent="InterfaceOptionsFrame">
+
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+      <OnHide method="Save"/>
+    </Scripts>
+
+    <Frames>
+      <Frame inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
+        <KeyValues>
+          <KeyValue key="titleText" value="AUCTIONATOR_L_CONFIG_BASIC_OPTIONS_CATEGORY" type="global" />
+          <KeyValue key="subTitleText" value="COLLECTIONATOR_L_CONFIG_BASIC_OPTIONS_TEXT" type="global"/>
+        </KeyValues>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="RecipesHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="COLLECTIONATOR_L_RECIPES_BUTTON" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="RecipeCaching">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_CONFIG_RECIPE_CACHING" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.RecipesHeading" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_RESET_RECIPE_CACHE" parentKey="UnhideAll">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.RecipeCaching" relativePoint="BOTTOMLEFT" x="23"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():ResetRecipeCache()
+          </OnClick>
+        </Scripts>
+      </Button>
+   </Frames>
+  </Frame>
+</Ui>

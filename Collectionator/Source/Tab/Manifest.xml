@@ -4,12 +4,14 @@
   <Script file="Main.lua" />
   <Script file="BuyoutDropDown.lua"/>
   <Script file="View.lua"/>
+  <Script file="RecipeView.lua"/>
 
   <Include file="View.xml"/>
   <Include file="TMogView.xml"/>
   <Include file="PetView.xml"/>
   <Include file="ToyView.xml"/>
   <Include file="MountView.xml"/>
+  <Include file="RecipeView.xml"/>
   <Include file="BuyoutDropDown.xml"/>
   <Include file="Main.xml"/>
 </Ui>

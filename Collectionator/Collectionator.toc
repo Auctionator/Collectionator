@@ -3,7 +3,10 @@
 ## Version: @project-version@
 ## Author: plusmouse
 ## RequiredDeps: Auctionator
+## SavedVariables: COLLECTIONATOR_RECIPES_CACHE
 
 Locales\Manifest.xml
+
+Data\Manifest.xml
 
 Source\Manifest.xml

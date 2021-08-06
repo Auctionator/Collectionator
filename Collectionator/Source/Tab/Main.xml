@@ -20,7 +20,7 @@
       <Button parentKey="TMogButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_TMOGS_BUTTON">
         <Size x="70" y="22"/>
         <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" y="30" x="250"/>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" y="30" x="180"/>
         </Anchors>
         <Scripts>
           <OnClick>self:GetParent():TMogMode()</OnClick>
@@ -53,6 +53,15 @@
           <OnClick>self:GetParent():MountMode()</OnClick>
         </Scripts>
       </Button>
+      <Button parentKey="RecipeButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_RECIPES_BUTTON">
+        <Size x="70" y="22"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.MountButton"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():RecipeMode()</OnClick>
+        </Scripts>
+      </Button>
 
       <Frame parentKey="TMogView" inherits="CollectionatorTMogViewTemplate"/>
 
@@ -61,6 +70,8 @@
       <Frame parentKey="ToyView" inherits="CollectionatorToyViewTemplate"/>
 
       <Frame parentKey="MountView" inherits="CollectionatorMountViewTemplate"/>
+
+      <Frame parentKey="RecipeView" inherits="CollectionatorRecipeViewTemplate"/>
 
       <Frame parentKey="BuyoutDropDown" inherits="CollectionatorBuyoutDropDownTemplate" hidden="true"/>
 
@@ -80,6 +91,15 @@
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent.FullScanButton" relativePoint="TOPRIGHT"/>
         </Anchors>
       </Frame>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="OPTIONS" parentKey="OptionsButton">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.FullScanButton" relativePoint="TOPLEFT"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():OpenOptions()</OnClick>
+        </Scripts>
+      </Button>
     </Frames>
   </Frame>
 </Ui>

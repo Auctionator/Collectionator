@@ -11,5 +11,8 @@ Collectionator.Events = {
   MountLoadStart = "collecting_mounts_start",
   MountLoadEnd = "collecting_mounts_end",
 
+  RecipeLoadStart = "collecting_recipes_start",
+  RecipeLoadEnd = "collecting_recipes_end",
+
   ShowBuyoutOptions = "collecting_show_buyout_options",
 }

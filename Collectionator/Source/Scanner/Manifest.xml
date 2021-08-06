@@ -5,9 +5,11 @@
   <Script file="Pet.lua" />
   <Script file="Toy.lua" />
   <Script file="Mount.lua" />
+  <Script file="Recipe.lua" />
 
   <Include file="TMog.xml"/>
   <Include file="Pet.xml"/>
   <Include file="Toy.xml"/>
   <Include file="Mount.xml"/>
+  <Include file="Recipe.xml"/>
 </Ui>

@@ -14,6 +14,7 @@ function CollectionatorTabFrameMixin:HideViews()
   self.PetView:Hide()
   self.ToyView:Hide()
   self.MountView:Hide()
+  self.RecipeView:Hide()
 end
 
 function CollectionatorTabFrameMixin:ActivateButtons()
@@ -21,6 +22,7 @@ function CollectionatorTabFrameMixin:ActivateButtons()
   self.PetButton:SetEnabled(not self.PetView:IsShown())
   self.ToyButton:SetEnabled(not self.ToyView:IsShown())
   self.MountButton:SetEnabled(not self.MountView:IsShown())
+  self.RecipeButton:SetEnabled(not self.RecipeView:IsShown())
 end
 
 function CollectionatorTabFrameMixin:PetMode()
@@ -45,4 +47,15 @@ function CollectionatorTabFrameMixin:MountMode()
   self:HideViews()
   self.MountView:Show()
   self:ActivateButtons()
+end
+
+function CollectionatorTabFrameMixin:RecipeMode()
+  self:HideViews()
+  self.RecipeView:Show()
+  self:ActivateButtons()
+end
+
+function CollectionatorTabFrameMixin:OpenOptions()
+  InterfaceOptionsFrame:Show()
+  InterfaceOptionsFrame_OpenToCategory(COLLECTIONATOR_L_COLLECTIONATOR)
 end

@@ -2,6 +2,8 @@ package-as: Collectionator
 ignore:
   - LICENSE
   - README.md
+  - GetRecipesToSpellIDs
+  - tmp
   - scripts
 move-folders:
   Collectionator/Collectionator: Collectionator
