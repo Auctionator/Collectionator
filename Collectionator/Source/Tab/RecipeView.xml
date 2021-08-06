@@ -79,5 +79,15 @@
         </Scripts>
       </Frame>
     </Frames>
+
+    <Layers>
+      <Layer>
+        <FontString inherits="GameFontNormal" text="COLLECTIONATOR_L_NEED_TO_OPEN_TRADESKILL">
+          <Anchors>
+            <Anchor point="CENTER" relativeKey="$parent" relativePoint="TOP" y="95"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
   </Frame>
 </Ui>

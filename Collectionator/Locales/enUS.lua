@@ -52,6 +52,7 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["ON_PREVIOUS_CHARACTERS"] = "on any previously seen characters"
   L["ON_REALM_AND_FACTION"] = "on your characters in this realm and faction"
   L["IGNORE_USABILITY"] = "ignore usability"
+  L["NEED_TO_OPEN_TRADESKILL"] = "Don't forget to open the crafting window for each profession, character and patch to cache known recipes"
 
   return L
 end
