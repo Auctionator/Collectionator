@@ -104,7 +104,7 @@ function CollectionatorRecipeDataProviderMixin:Refresh()
     end
 
     if not self:GetParent().IncludeCollected:GetChecked() then
-      check = check and COLLECTIONATOR_RECIPES_CACHE.known[recipeInfo.id] == nil
+      check = check and COLLECTIONATOR_RECIPES_CACHE.known[recipeInfo.id]
     end
 
     check = check and self:GetParent().ProfessionFilter:GetValue(recipeInfo.subClassID)

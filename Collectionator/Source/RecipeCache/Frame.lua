@@ -41,7 +41,7 @@ function CollectionatorRecipeCacheFrameMixin:CacheKnownRecipes()
 
   for _, spellID in ipairs(allRecipeIDs) do
     if IsPlayerSpell(spellID) then
-      self:CacheSpell(self.knownIDs, spellID)
+      self.knownIDs[spellID] = true
     end
     self:CacheSpell(self.couldKnowIDs, spellID)
   end
