@@ -54,3 +54,8 @@ function CollectionatorTabFrameMixin:RecipeMode()
   self.RecipeView:Show()
   self:ActivateButtons()
 end
+
+function CollectionatorTabFrameMixin:OpenOptions()
+  InterfaceOptionsFrame:Show()
+  InterfaceOptionsFrame_OpenToCategory(COLLECTIONATOR_L_COLLECTIONATOR)
+end

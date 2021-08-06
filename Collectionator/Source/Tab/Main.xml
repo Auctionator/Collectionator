@@ -20,7 +20,7 @@
       <Button parentKey="TMogButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_TMOGS_BUTTON">
         <Size x="70" y="22"/>
         <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" y="30" x="200"/>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" y="30" x="180"/>
         </Anchors>
         <Scripts>
           <OnClick>self:GetParent():TMogMode()</OnClick>
@@ -91,6 +91,15 @@
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent.FullScanButton" relativePoint="TOPRIGHT"/>
         </Anchors>
       </Frame>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="OPTIONS" parentKey="OptionsButton">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.FullScanButton" relativePoint="TOPLEFT"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():OpenOptions()</OnClick>
+        </Scripts>
+      </Button>
     </Frames>
   </Frame>
 </Ui>

@@ -11,15 +11,25 @@ function CollectionatorRecipeCacheFrameMixin:OnEvent(event, ...)
   if event == "VARIABLES_LOADED" then
     self:SetupVariables()
   elseif event == "TRADE_SKILL_DATA_SOURCE_CHANGED" then
-    self:CacheKnownRecipes()
+    if Auctionator.Config.Get(Auctionator.Config.Options.COLLECTIONATOR_RECIPE_CACHING) then
+      self:CacheKnownRecipes()
+    end
   end
 end
 
-function CollectionatorRecipeCacheFrameMixin:SetupVariables()
-  COLLECTIONATOR_RECIPES_CACHE = COLLECTIONATOR_RECIPES_CACHE or {
+function CollectionatorRecipeCacheFrameMixin:ResetCache()
+  COLLECTIONATOR_RECIPES_CACHE = {
     known = {},
     couldKnow = {},
   }
+  self.knownIDs = COLLECTIONATOR_RECIPES_CACHE.known
+  self.couldKnowIDs = COLLECTIONATOR_RECIPES_CACHE.couldKnow
+end
+
+function CollectionatorRecipeCacheFrameMixin:SetupVariables()
+  if COLLECTIONATOR_RECIPES_CACHE == nil then
+    self:ResetCache()
+  end
   self.knownIDs = COLLECTIONATOR_RECIPES_CACHE.known
   self.couldKnowIDs = COLLECTIONATOR_RECIPES_CACHE.couldKnow
 

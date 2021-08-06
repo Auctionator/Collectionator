@@ -1,6 +1,7 @@
 COLLECTIONATOR_LOCALES.enUS = function()
   local L = {}
 
+  L["COLLECTIONATOR"] = "Collectionator"
   L["TMOGS_BUTTON"] = "TMogs"
   L["PETS_BUTTON"] = "Pets"
   L["TOYS_BUTTON"] = "Toys"
@@ -53,6 +54,10 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["ON_REALM_AND_FACTION"] = "on your characters in this realm and faction"
   L["IGNORE_USABILITY"] = "ignore usability"
   L["NEED_TO_OPEN_TRADESKILL"] = "Don't forget to open the crafting window for each profession, character and patch to cache known recipes"
+
+  L["CONFIG_BASIC_OPTIONS_TEXT"] = "Basic options for enabling features in Collectionator."
+  L["CONFIG_RECIPE_CACHING"] = "Record recipes as known or unknown when a crafting window shows."
+  L["RESET_RECIPE_CACHE"] = "Clear recipe known/unknown list"
 
   return L
 end
