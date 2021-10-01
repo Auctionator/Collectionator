@@ -1,11 +1,19 @@
-CollectionatorConfigBasicOptionsFrameMixin = CreateFromMixins(AuctionatorPanelConfigMixin)
+CollectionatorConfigBasicOptionsFrameMixin = {}
 
 function CollectionatorConfigBasicOptionsFrameMixin:OnLoad()
   Auctionator.Debug.Message("CollectionatorConfigBasicOptionsFrameMixin:OnLoad()")
 
   self.name = COLLECTIONATOR_L_COLLECTIONATOR
 
-  self:SetupPanel()
+  self.cancel = function()
+    self:Cancel()
+  end
+
+  self.okay = function()
+    self:Save()
+  end
+
+  InterfaceOptions_AddCategory(self, "Collectionator")
 end
 
 function CollectionatorConfigBasicOptionsFrameMixin:OnShow()
