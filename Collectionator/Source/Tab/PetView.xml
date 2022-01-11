@@ -39,12 +39,22 @@
         </Anchors>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="NotMaxedOut">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_PET_NOT_MAXED_OUT" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.LevelFilter" relativePoint="TOPRIGHT" y="-20" x="20"/>
+          <Anchor point="RIGHT" relativeKey="$parent.LevelFilter" relativePoint="RIGHT" x="300"/>
+        </Anchors>
+      </Frame>
+
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ProfessionOnly">
         <KeyValues>
           <KeyValue key="labelText" value="COLLECTIONATOR_L_FROM_PROFESSION_ONLY" type="global" />
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.LevelFilter" relativePoint="TOPRIGHT" y="-20" x="20"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.LevelFilter" relativePoint="TOPRIGHT" y="-50" x="20"/>
           <Anchor point="RIGHT" relativeKey="$parent.LevelFilter" relativePoint="RIGHT" x="300"/>
         </Anchors>
       </Frame>

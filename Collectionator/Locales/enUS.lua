@@ -14,6 +14,7 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["TMOG_UNIQUES_TOOLTIP_TEXT"] = "Show only one source of each transmog appearance, instead of multiple sources of the same appearance."
   L["TMOG_COLLECTED"] = "Include collected appearances"
   L["PET_INCLUDE_COLLECTED"] = "Include collected pets"
+  L["PET_NOT_MAXED_OUT"] = "Only pets which aren't 3/3"
   L["TOY_INCLUDE_COLLECTED"] = "Include collected toys"
   L["TOY_INCLUDE_UNUSABLE"] = "Include unusable toys"
   L["MOUNT_INCLUDE_COLLECTED"] = "Include collected mounts"
