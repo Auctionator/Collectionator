@@ -101,6 +101,21 @@ local function GroupedByIDLevelAndQuality(array, fullScan)
 
   return results
 end
+local function GetLevelOfOwnedPets()
+  local result = {}
+  for index = 1, (C_PetJournal.GetNumPets()) do
+    local info = { C_PetJournal.GetPetInfoByIndex(index) }
+    local speciesID = info[2]
+    local level = info[5]
+    if result[speciesID] == nil then
+      result[speciesID] = level
+    else
+      result[speciesID] = math.max(level, result[speciesID])
+    end
+  end
+
+  return result
+end
 
 
 function CollectionatorPetDataProviderMixin:Refresh()
@@ -120,21 +135,32 @@ function CollectionatorPetDataProviderMixin:Refresh()
   if maxLevel == 0 then
     maxLevel = 25
   end
+
+  local petLevelsInfo = nil
+  if self:GetParent().NotAll25:GetChecked() then
+    petLevelsInfo = GetLevelOfOwnedPets()
+  end
+
   -- Filter pets
   for _, petInfo in ipairs(filtered) do
     local info = self.fullScan[petInfo.index]
     local check = true
 
-    if not self:GetParent().IncludeCollected:GetChecked() then
+    if not self:GetParent().IncludeCollected:GetChecked() and
+       not self:GetParent().NotMaxedOut:GetChecked() and
+       not self:GetParent().NotAll25:GetChecked() then
       local amountOwned = C_PetJournal.GetNumCollectedInfo(petInfo.id)
       check = amountOwned == 0
     end
 
     if self:GetParent().NotMaxedOut:GetChecked() then
       local amountOwned, maxOwned = C_PetJournal.GetNumCollectedInfo(petInfo.id)
+      check = check and amountOwned ~= maxOwned
+    end
 
-      -- Overrides any usage of the "Include collected" checkbox
-      check = amountOwned ~= maxOwned
+    if self:GetParent().NotAll25:GetChecked() then
+      local got25 = petLevelsInfo[petInfo.id] ~= nil and petLevelsInfo[petInfo.id] == 25
+      check = check and not got25 and petInfo.level == 25
     end
 
     if self:GetParent().ProfessionOnly:GetChecked() then
