@@ -5,6 +5,9 @@ ignore:
   - GetRecipesToSpellIDs
   - tmp
   - scripts
+plain-copy:
+  - Collectionator/Data
+  - Collectionator/Source
 move-folders:
   Collectionator/Collectionator: Collectionator
   Collectionator/Collectionator-data: Collectionator-data
