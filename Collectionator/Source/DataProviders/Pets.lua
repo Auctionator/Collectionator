@@ -126,20 +126,12 @@ function CollectionatorPetDataProviderMixin:Refresh()
     local check = true
 
     if not self:GetParent().IncludeCollected:GetChecked() then
-      local ownedString = C_PetJournal.GetOwnedBattlePetString(petInfo.id)
-      local amountOwned = 0
-      if ownedString ~= nil then
-        amountOwned = tonumber(string.match(ownedString, "(%d)/%d"))
-      end
+      local amountOwned = C_PetJournal.GetNumCollectedInfo(petInfo.id)
       check = amountOwned == 0
     end
 
     if self:GetParent().NotMaxedOut:GetChecked() then
-      local ownedString = C_PetJournal.GetOwnedBattlePetString(petInfo.id)
-      local amountOwned = 0
-      if ownedString ~= nil then
-        amountOwned, maxOwned = string.match(ownedString, "(%d)/(%d)")
-      end
+      local amountOwned, maxOwned = C_PetJournal.GetNumCollectedInfo(petInfo.id)
 
       -- Overrides any usage of the "Include collected" checkbox
       check = amountOwned ~= maxOwned
