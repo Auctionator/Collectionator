@@ -1,20 +1,23 @@
 CollectionatorFilterDropDownMixin = {}
+
+local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
+
 local function CollectionatorFilterDropDownMenu_Initialize(self)
   local filterButton = self:GetParent()
 
-  local info = UIDropDownMenu_CreateInfo()
+  local info = LibDD:UIDropDownMenu_CreateInfo()
   info.text = AUCTIONATOR_L_NONE
   info.value = nil
   info.isNotRadio = true
   info.checked = false
   info.func = function(button)
     filterButton:ToggleNone()
-    ToggleDropDownMenu(1, nil, self, self:GetParent(), 9, 3)
+    LibDD:ToggleDropDownMenu(1, nil, self, self:GetParent(), 9, 3)
   end
-  UIDropDownMenu_AddButton(info)
+  LibDD:UIDropDownMenu_AddButton(info)
 
   for _, filter in ipairs(filterButton:GetFilters()) do
-    local info = UIDropDownMenu_CreateInfo()
+    local info = LibDD:UIDropDownMenu_CreateInfo()
     info.text = filterButton:GetFilterName(filter)
     info.value = nil
     info.isNotRadio = true
@@ -23,7 +26,7 @@ local function CollectionatorFilterDropDownMenu_Initialize(self)
     info.func = function(button)
       filterButton:ToggleFilter(filter)
     end
-    UIDropDownMenu_AddButton(info)
+    LibDD:UIDropDownMenu_AddButton(info)
   end
 end
 
@@ -42,8 +45,9 @@ end
 
 function CollectionatorFilterDropDownMixin:OnLoad()
   self:Reset()
-  UIDropDownMenu_SetInitializeFunction(self.DropDown, CollectionatorFilterDropDownMenu_Initialize)
-  UIDropDownMenu_SetDisplayMode(self.DropDown, "MENU")
+  LibDD:Create_UIDropDownMenu(self.DropDown)
+  LibDD:UIDropDownMenu_SetInitializeFunction(self.DropDown, CollectionatorFilterDropDownMenu_Initialize)
+  LibDD:UIDropDownMenu_SetDisplayMode(self.DropDown, "MENU")
 end
 
 function CollectionatorFilterDropDownMixin:Reset()
@@ -73,7 +77,7 @@ function CollectionatorFilterDropDownMixin:ToggleFilter(name)
 end
 
 function CollectionatorFilterDropDownMixin:OnClick()
-	ToggleDropDownMenu(1, nil, self.DropDown, self, 9, 3)
+	LibDD:ToggleDropDownMenu(1, nil, self.DropDown, self, 9, 3)
 	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
 end
 
