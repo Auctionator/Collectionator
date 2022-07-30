@@ -2,13 +2,13 @@ CollectionatorRecipeCacheFrameMixin = {}
 
 function CollectionatorRecipeCacheFrameMixin:OnLoad()
   FrameUtil.RegisterFrameForEvents(self, {
-    "VARIABLES_LOADED",
+    "PLAYER_LOGIN",
     "TRADE_SKILL_DATA_SOURCE_CHANGED",
   })
 end
 
 function CollectionatorRecipeCacheFrameMixin:OnEvent(event, ...)
-  if event == "VARIABLES_LOADED" then
+  if event == "PLAYER_LOGIN" then
     self:SetupVariables()
   elseif event == "TRADE_SKILL_DATA_SOURCE_CHANGED" then
     if Auctionator.Config.Get(Auctionator.Config.Options.COLLECTIONATOR_RECIPE_CACHING) then
