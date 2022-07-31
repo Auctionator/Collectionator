@@ -1,9 +1,0 @@
-## Interface: 90205
-## Title: Collectionator (data)
-## Version: @project-version@
-## Author: plusmouse
-## RequiredDeps: Collectionator
-## SavedVariables: COLLECTIONATOR_LAST_FULL_SCAN
-
-Source\Frame.lua
-Source\Frame.xml

@@ -25,7 +25,7 @@ function CollectionatorScannerFrameMixin:ReceiveEvent(eventName, eventData)
 end
 
 function CollectionatorScannerFrameMixin:LoadOldScan()
-  local oldScan = COLLECTIONATOR_LAST_FULL_SCAN
+  local oldScan = PRESERVE_AUCTIONATOR_AH_SCAN_LAST_SCAN
   if oldScan and oldScan.realm == Auctionator.Variables.GetConnectedRealmRoot() then
     self.dirty = true
     self.fullScan = oldScan.data or {}
