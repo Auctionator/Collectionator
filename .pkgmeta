@@ -10,6 +10,5 @@ plain-copy:
   - Collectionator/Source
 move-folders:
   Collectionator/Collectionator: Collectionator
-  Collectionator/Collectionator-data: Collectionator-data
 required-dependencies:
   - auctionator
