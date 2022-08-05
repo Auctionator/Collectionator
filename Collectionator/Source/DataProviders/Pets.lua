@@ -102,6 +102,7 @@ local function GroupedByIDLevelAndQuality(array, fullScan)
   return results
 end
 local function GetLevelOfOwnedPets()
+  C_PetJournal.SetDefaultFilters()
   local result = {}
   for index = 1, (C_PetJournal.GetNumPets()) do
     local info = { C_PetJournal.GetPetInfoByIndex(index) }
