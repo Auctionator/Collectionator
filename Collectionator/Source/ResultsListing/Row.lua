@@ -62,13 +62,7 @@ local function GetIdenticalLinkItem(itemLink, itemKey)
 end
 
 local function GetSameItemID(itemID, itemKey)
-  for index = 1, C_AuctionHouse.GetNumItemSearchResults(itemKey) do
-    local info = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
-    if GetItemInfoInstant(info.itemLink) == itemID then
-      return info
-    end
-  end
-  return nil
+  return C_AuctionHouse.GetItemSearchResultInfo(itemKey, 1)
 end
 
 CollectionatorTMogRowMixin = CreateFromMixins(CollectionatorRowMixin)
