@@ -24,6 +24,9 @@ function CollectionatorBuyoutDropDownMixin:Initialize()
   if self.auctionInfo == nil then
     confirmInfo.text = COLLECTIONATOR_L_EXACT_ITEM_UNAVAILABLE
     confirmInfo.disabled = true
+  elseif self.auctionInfo.containsAccountItem then
+    confirmInfo.text = COLLECTIONATOR_L_YOU_OWN_THE_ITEM_LISTING
+    confirmInfo.disabled = true
   elseif self.auctionInfo.buyoutAmount == nil then
     confirmInfo.text = COLLECTIONATOR_L_BID_REQUIRED .. " " Auctionator.Utilities.CreateMoneyString(self.auctionInfo.bidAmount)
     confirmInfo.disabled = true

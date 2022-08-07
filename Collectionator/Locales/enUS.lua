@@ -44,6 +44,7 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["SCAN"] = "Scan"
 
   L["EXACT_ITEM_UNAVAILABLE"] = "Exact item unavailable"
+  L["YOU_OWN_THE_ITEM_LISTING"] = "You own the item listing"
   L["BID_REQUIRED"] = "Bid Required"
   L["BUYOUT"] = "Buyout"
   L["SEARCH_FOR_ALTERNATIVES"] = "Search for alternatives"
