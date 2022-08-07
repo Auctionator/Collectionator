@@ -61,5 +61,9 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["CONFIG_RECIPE_CACHING"] = "Record recipes as known or unknown when a crafting window shows."
   L["RESET_RECIPE_CACHE"] = "Clear recipe known/unknown list"
 
+  L["CONFIG_PURCHASE_TRACKING_HEADER"] = "Purchase tracking"
+  L["CONFIG_PURCHASE_TRACKING"] = "Record purchases with Collectionator to exclude them from future searches."
+  L["RESET_PURCHASE_WATCH"] = "Clear recorded purchases"
+
   return L
 end

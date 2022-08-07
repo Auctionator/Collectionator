@@ -31,6 +31,7 @@ function CollectionatorRecipeDataProviderMixin:OnLoad()
   Auctionator.EventBus:Register(self, {
     Collectionator.Events.RecipeLoadStart,
     Collectionator.Events.RecipeLoadEnd,
+    Collectionator.Events.RecipePurchased,
   })
 
   self.dirty = false
@@ -55,6 +56,11 @@ function CollectionatorRecipeDataProviderMixin:ReceiveEvent(eventName, eventData
 
     self.dirty = true
     if self:IsVisible() then
+      self:Refresh()
+    end
+  elseif eventName == Collectionator.Events.RecipePurchased then
+    self.dirty = true
+    if self:IsVisible() and not self:GetParent().IncludeCollected:GetChecked() then
       self:Refresh()
     end
   end
@@ -104,7 +110,7 @@ function CollectionatorRecipeDataProviderMixin:Refresh()
     end
 
     if not self:GetParent().IncludeCollected:GetChecked() then
-      check = check and not COLLECTIONATOR_RECIPES_CACHE.known[recipeInfo.id]
+      check = check and not COLLECTIONATOR_RECIPES_CACHE.known[recipeInfo.id] and not Collectionator.State.Purchases.Recipes[recipeInfo.id]
     end
 
     check = check and self:GetParent().ProfessionFilter:GetValue(recipeInfo.subClassID)

@@ -11,5 +11,6 @@
   <Include file="DataProviders\Manifest.xml"/>
   <Include file="ResultsListing\Manifest.xml"/>
   <Include file="RecipeCache\Manifest.xml"/>
+  <Include file="PurchaseWatch\Manifest.xml"/>
   <Include file="Config\Manifest.xml"/>
 </Ui>

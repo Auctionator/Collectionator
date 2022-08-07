@@ -39,6 +39,7 @@ function CollectionatorPetDataProviderMixin:OnLoad()
   Auctionator.EventBus:Register(self, {
     Collectionator.Events.PetLoadStart,
     Collectionator.Events.PetLoadEnd,
+    Collectionator.Events.PetPurchased,
   })
 
   self.dirty = false
@@ -63,6 +64,11 @@ function CollectionatorPetDataProviderMixin:ReceiveEvent(eventName, eventData, e
 
     self.dirty = true
     if self:IsVisible() then
+      self:Refresh()
+    end
+  elseif eventName == Collectionator.Events.PetPurchased then
+    self.dirty = true
+    if self:IsVisible() and not self:GetParent().IncludeCollected:GetChecked() then
       self:Refresh()
     end
   end
@@ -115,6 +121,16 @@ local function GetLevelOfOwnedPets()
     end
   end
 
+  for speciesID, levelDetails in pairs(Collectionator.State.Purchases.Pets) do
+    for level in pairs(levelDetails) do
+      if result[speciesID] == nil then
+        result[speciesID] = level
+      else
+        result[speciesID] = math.max(level, result[speciesID])
+      end
+    end
+  end
+
   return result
 end
 
@@ -151,7 +167,7 @@ function CollectionatorPetDataProviderMixin:Refresh()
        not self:GetParent().NotMaxedOut:GetChecked() and
        not self:GetParent().NotAll25:GetChecked() then
       local amountOwned = C_PetJournal.GetNumCollectedInfo(petInfo.id)
-      check = amountOwned == 0
+      check = amountOwned == 0 and Collectionator.State.Purchases.Pets[petInfo.id] == nil
     end
 
     if self:GetParent().NotMaxedOut:GetChecked() then

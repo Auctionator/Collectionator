@@ -31,6 +31,7 @@ function CollectionatorToyDataProviderMixin:OnLoad()
   Auctionator.EventBus:Register(self, {
     Collectionator.Events.ToyLoadStart,
     Collectionator.Events.ToyLoadEnd,
+    Collectionator.Events.ToyPurchased,
   })
 
   self.dirty = false
@@ -55,6 +56,11 @@ function CollectionatorToyDataProviderMixin:ReceiveEvent(eventName, eventData, e
 
     self.dirty = true
     if self:IsVisible() then
+      self:Refresh()
+    end
+  elseif eventName == Collectionator.Events.ToyPurchased then
+    self.dirty = true
+    if self:IsVisible() and not self:GetParent().IncludeCollected:GetChecked() then
       self:Refresh()
     end
   end
@@ -92,7 +98,7 @@ function CollectionatorToyDataProviderMixin:Refresh()
     local check = true
 
     if not self:GetParent().IncludeCollected:GetChecked() then
-      check = check and not PlayerHasToy(toyInfo.id)
+      check = check and not PlayerHasToy(toyInfo.id) and not Collectionator.State.Purchases.Toys[toyInfo.id]
     end
 
     if not self:GetParent().IncludeUnusable:GetChecked() then

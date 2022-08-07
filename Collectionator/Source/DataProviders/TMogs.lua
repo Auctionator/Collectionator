@@ -39,6 +39,7 @@ function CollectionatorTMogDataProviderMixin:OnLoad()
   Auctionator.EventBus:Register(self, {
     Collectionator.Events.SourceLoadStart,
     Collectionator.Events.SourceLoadEnd,
+    Collectionator.Events.TMogPurchased,
   })
 
   self.dirty = false
@@ -63,6 +64,11 @@ function CollectionatorTMogDataProviderMixin:ReceiveEvent(eventName, eventData, 
 
     self.dirty = true
     if self:IsVisible() then
+      self:Refresh()
+    end
+  elseif eventName == Collectionator.Events.TMogPurchased then
+    self.dirty = true
+    if self:IsVisible() and not self:GetParent().IncludeCollected:GetChecked() then
       self:Refresh()
     end
   end
@@ -115,14 +121,14 @@ function CollectionatorTMogDataProviderMixin:UniquesPossessionCheck(sourceInfo)
   local check = true
   for _, altSource in ipairs(sourceInfo.set) do
     local tmogInfo = C_TransmogCollection.GetSourceInfo(altSource)
-    check = check and not tmogInfo.isCollected
+    check = check and not tmogInfo.isCollected and not Collectionator.State.Purchases.TMog[altSource]
   end
   return check
 end
 
 function CollectionatorTMogDataProviderMixin:CompletionistPossessionCheck(sourceInfo)
   local tmogInfo = C_TransmogCollection.GetSourceInfo(sourceInfo.id)
-  return not tmogInfo.isCollected
+  return not tmogInfo.isCollected and not Collectionator.State.Purchases.TMog[sourceInfo.id]
 end
 
 function CollectionatorTMogDataProviderMixin:TMogFilterCheck(sourceInfo, auctionInfo)

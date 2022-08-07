@@ -32,6 +32,10 @@ function CollectionatorBuyoutDropDownMixin:Initialize()
 
     confirmInfo.disabled = false
     confirmInfo.func = function()
+      Auctionator.EventBus
+        :RegisterSource(self, "buyout dropdown")
+        :Fire(self, Collectionator.Events.PurchaseAttempted, self.auctionInfo.auctionID)
+        :UnregisterSource(self)
       C_AuctionHouse.PlaceBid(self.auctionInfo.auctionID, self.auctionInfo.buyoutAmount)
       PlaySound(SOUNDKIT.IG_MAINMENU_OPEN)
     end

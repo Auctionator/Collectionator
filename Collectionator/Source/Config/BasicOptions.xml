@@ -46,6 +46,35 @@
           </OnClick>
         </Scripts>
       </Button>
+
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="PurchaseWatchHeader">
+        <KeyValues>
+          <KeyValue key="headingText" value="COLLECTIONATOR_L_CONFIG_PURCHASE_TRACKING_HEADER" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.UnhideAll" relativePoint="BOTTOMLEFT" x="-23" y="-10"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="PurchaseWatch">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_CONFIG_PURCHASE_TRACKING" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.PurchaseWatchHeader" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_RESET_PURCHASE_WATCH" parentKey="UnhideAll">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.PurchaseWatch" relativePoint="BOTTOMLEFT" x="23"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():ResetPurchaseWatch()
+          </OnClick>
+        </Scripts>
+      </Button>
    </Frames>
   </Frame>
 </Ui>

@@ -31,6 +31,7 @@ function CollectionatorMountDataProviderMixin:OnLoad()
   Auctionator.EventBus:Register(self, {
     Collectionator.Events.MountLoadStart,
     Collectionator.Events.MountLoadEnd,
+    Collectionator.Events.MountPurchased,
   })
 
   self.dirty = false
@@ -55,6 +56,11 @@ function CollectionatorMountDataProviderMixin:ReceiveEvent(eventName, eventData,
 
     self.dirty = true
     if self:IsVisible() then
+      self:Refresh()
+    end
+  elseif eventName == Collectionator.Events.MountPurchased then
+    self.dirty = true
+    if self:IsVisible() and not self:GetParent().IncludeCollected:GetChecked() then
       self:Refresh()
     end
   end
@@ -91,7 +97,7 @@ function CollectionatorMountDataProviderMixin:Refresh()
 
     local check = true
     if not self:GetParent().IncludeCollected:GetChecked() then
-      check = not select(11, C_MountJournal.GetMountInfoByID(mountInfo.id))
+      check = not select(11, C_MountJournal.GetMountInfoByID(mountInfo.id)) and not Collectionator.State.Purchases.Mounts[mountInfo.id]
     end
     if self:GetParent().ProfessionOnly:GetChecked() then
       check = check and mountInfo.fromProfession
