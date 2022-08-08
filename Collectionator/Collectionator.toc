@@ -5,6 +5,7 @@
 ## RequiredDeps: Auctionator
 ## SavedVariables: COLLECTIONATOR_RECIPES_CACHE, COLLECTIONATOR_PURCHASES
 
+
 Locales\Manifest.xml
 
 Data\Manifest.xml
