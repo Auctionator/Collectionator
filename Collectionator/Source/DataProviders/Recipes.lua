@@ -83,6 +83,12 @@ function CollectionatorRecipeDataProviderMixin:Sort(fieldName, sortDirection)
 end
 
 function CollectionatorRecipeDataProviderMixin:Refresh()
+  if self.dirty then
+    self.onPreserveScroll()
+  else
+    self.onResetScroll()
+  end
+
   self.dirty = false
   self:Reset()
 

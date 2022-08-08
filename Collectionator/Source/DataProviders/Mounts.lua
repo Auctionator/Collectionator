@@ -83,6 +83,12 @@ function CollectionatorMountDataProviderMixin:Sort(fieldName, sortDirection)
 end
 
 function CollectionatorMountDataProviderMixin:Refresh()
+  if self.dirty then
+    self.onPreserveScroll()
+  else
+    self.onResetScroll()
+  end
+
   self.dirty = false
   self:Reset()
 
