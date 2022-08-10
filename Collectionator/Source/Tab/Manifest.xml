@@ -4,6 +4,7 @@
   <Script file="Main.lua" />
   <Script file="BuyoutDropDown.lua"/>
   <Script file="View.lua"/>
+  <Script file="TMogView.lua"/>
   <Script file="RecipeView.lua"/>
 
   <Include file="View.xml"/>
