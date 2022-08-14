@@ -28,10 +28,10 @@ function CollectionatorBuyoutDropDownMixin:Initialize()
     confirmInfo.text = COLLECTIONATOR_L_YOU_OWN_THE_ITEM_LISTING
     confirmInfo.disabled = true
   elseif self.auctionInfo.buyoutAmount == nil then
-    confirmInfo.text = COLLECTIONATOR_L_BID_REQUIRED .. " " Auctionator.Utilities.CreateMoneyString(self.auctionInfo.bidAmount)
+    confirmInfo.text = COLLECTIONATOR_L_BID_REQUIRED .. " " GetMoneyString(self.auctionInfo.bidAmount, true)
     confirmInfo.disabled = true
   else
-    confirmInfo.text = COLLECTIONATOR_L_BUYOUT .. " " .. Auctionator.Utilities.CreateMoneyString(self.auctionInfo.buyoutAmount)
+    confirmInfo.text = COLLECTIONATOR_L_BUYOUT .. " " .. GetMoneyString(self.auctionInfo.buyoutAmount, true)
 
     confirmInfo.disabled = false
     confirmInfo.func = function()
