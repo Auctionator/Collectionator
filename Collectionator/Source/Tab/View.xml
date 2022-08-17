@@ -47,7 +47,7 @@
     </Frames>
     <Layers>
       <Layer>
-        <FontString parentKey="NoFullScanText" inherits="GameFontNormal" text="COLLECTIONATOR_L_NEED_A_FULL_SCAN">
+        <FontString parentKey="NoFullScanText" inherits="GameFontNormal" text="COLLECTIONATOR_L_NEED_A_DETAILED_SCAN">
           <Anchors>
             <Anchor point="CENTER" relativeKey="$parent.ResultsListing" relativePoint="CENTER"/>
           </Anchors>

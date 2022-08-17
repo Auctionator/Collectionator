@@ -34,7 +34,7 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["MOUNT_FLYING"] = "Flying"
   L["MOUNT_SWIMMING"] = "Swimming"
 
-  L["NEED_A_FULL_SCAN"] = "No full scan data. For the search to work the last full scan must have taken place on this realm."
+  L["NEED_A_DETAILED_SCAN"] = "No scan data. For the search to work the last scan must have been done with above \"Scan\" button on this realm."
   L["CHOICES"] = "Choices"
 
   L["TAB"] = "Collecting"
