@@ -63,6 +63,14 @@ function CollectionatorScannerFrameMixin:GetItem(index, link)
   return {}
 end
 
+local function GlobalFilterLink(link)
+  local classID, subClassID = select(6, GetItemInfoInstant(link))
+  if classID == nil then
+    return true
+  end
+  return classID ~= Enum.ItemClass.Tradegoods
+end
+
 function CollectionatorScannerFrameMixin:BatchStep(start, limit)
   Auctionator.Debug.Message("CollectionatorScannerFrameMixin:BatchStep", start, limit)
   if start > #self.fullScan then
@@ -70,28 +78,36 @@ function CollectionatorScannerFrameMixin:BatchStep(start, limit)
     return
   end
 
-  for i=start, math.min(limit, #self.fullScan) do
+  local actualLimit = math.min(limit, #self.fullScan)
+  local i = start
+  while i <= actualLimit do
     local link = self.fullScan[i].itemLink
 
-    if self:FilterLink(link) then
-      ItemEventListener:AddCallback(self.fullScan[i].replicateInfo[17], (function(index, link)
-        return function()
-          local result = self:GetItem(index, link, self.fullScan[index])
-          if result ~= nil then
-            table.insert(self.results, result)
-          end
+    if GlobalFilterLink(link) then
+      if self:FilterLink(link) then
+        ItemEventListener:AddCallback(self.fullScan[i].replicateInfo[17], (function(index, link)
+          return function()
+            local result = self:GetItem(index, link, self.fullScan[index])
+            if result ~= nil then
+              table.insert(self.results, result)
+            end
 
-          self.leftCount = self.leftCount - 1
-          if self.leftCount == 0 then
-            Auctionator.EventBus:Fire(
-              self, self.SCAN_END_EVENT, self.results, self.fullScan
-            )
+            self.leftCount = self.leftCount - 1
+            if self.leftCount == 0 then
+              Auctionator.EventBus:Fire(
+                self, self.SCAN_END_EVENT, self.results, self.fullScan
+              )
+            end
           end
-        end
-      end)(i, link))
+        end)(i, link))
+      else
+        self.leftCount = self.leftCount - 1
+      end
     else
+      actualLimit = math.min(actualLimit + 1, #self.fullScan)
       self.leftCount = self.leftCount - 1
     end
+    i = i + 1
   end
   if self.leftCount == 0 then
     Auctionator.EventBus:Fire(
@@ -100,6 +116,6 @@ function CollectionatorScannerFrameMixin:BatchStep(start, limit)
   end
 
   C_Timer.After(0.01, function()
-    self:BatchStep(limit + 1, limit + 1 + (limit-start))
+    self:BatchStep(actualLimit + 1, actualLimit + 1 + (limit-start))
   end)
 end
