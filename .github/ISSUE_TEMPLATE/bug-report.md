@@ -1,3 +1,12 @@
+---
+name: Bug report for a release build
+about: You're using the latest release
+title: ''
+labels: ''
+assignees: ''
+
+---
+
 Please include as much of the following information as possible to help me fix the bug:
 
 ## Brief Description of Bug
