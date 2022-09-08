@@ -2,6 +2,7 @@ CollectionatorConfigBasicOptionsFrameMixin = {}
 
 function CollectionatorConfigBasicOptionsFrameMixin:OnLoad()
   Auctionator.Debug.Message("CollectionatorConfigBasicOptionsFrameMixin:OnLoad()")
+  self:SetParent(SettingsPanel or InterfaceOptionsFrame)
 
   self.name = COLLECTIONATOR_L_COLLECTIONATOR
 

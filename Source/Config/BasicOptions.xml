@@ -2,7 +2,7 @@
   <Frame
     name="CollectionatorConfigBasicOptionsFrame"
     mixin="CollectionatorConfigBasicOptionsFrameMixin"
-    parent="InterfaceOptionsFrame">
+    >
 
     <Scripts>
       <OnLoad method="OnLoad"/>
