@@ -2,6 +2,7 @@
   <Frame
     name="CollectionatorConfigBasicOptionsFrame"
     mixin="CollectionatorConfigBasicOptionsFrameMixin"
+    hidden="true"
     >
 
     <Scripts>
