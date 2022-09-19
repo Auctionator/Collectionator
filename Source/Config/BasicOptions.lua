@@ -4,6 +4,8 @@ function CollectionatorConfigBasicOptionsFrameMixin:OnLoad()
   Auctionator.Debug.Message("CollectionatorConfigBasicOptionsFrameMixin:OnLoad()")
   self:SetParent(SettingsPanel or InterfaceOptionsFrame)
 
+  self:Show()
+
   self.name = COLLECTIONATOR_L_COLLECTIONATOR
 
   self.cancel = function()
