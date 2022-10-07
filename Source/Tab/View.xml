@@ -44,6 +44,19 @@
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ResultsListing" relativePoint="BOTTOMRIGHT"  y="2"/>
         </Anchors>
       </Frame>
+
+      <Button parentKey="BuyCheapestItemButton" mixin="CollectionatorBuyCheapestButtonMixin" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_BUY_CHEAPEST_ITEM">
+        <Size x="70" y="22"/>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnShow method="OnShow"/>
+          <OnHide method="OnHide"/>
+          <OnClick method="OnClick"/>
+        </Scripts>
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT"/>
+        </Anchors>
+      </Button>
     </Frames>
     <Layers>
       <Layer>

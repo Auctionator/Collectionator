@@ -16,9 +16,6 @@
         </Texture>
       </Layer>
     </Layers>
-    <Scripts>
-      <OnEvent method="OnEvent"/>
-    </Scripts>
   </Frame>
 
   <Frame

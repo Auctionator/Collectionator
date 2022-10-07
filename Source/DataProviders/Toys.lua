@@ -33,6 +33,7 @@ function CollectionatorToyDataProviderMixin:OnLoad()
     Collectionator.Events.ToyLoadEnd,
     Collectionator.Events.ToyPurchased,
   })
+  Auctionator.EventBus:RegisterSource(self, "CollectionatorToyDataProvider")
 
   self.dirty = false
   self.toys = {}
@@ -132,6 +133,7 @@ function CollectionatorToyDataProviderMixin:Refresh()
 
   Collectionator.Utilities.SortByPrice(results, self.fullScan)
   self:AppendEntries(results, true)
+  Auctionator.EventBus:Fire(self, Collectionator.Events.DisplayedResultsUpdated, results)
 end
 
 function CollectionatorToyDataProviderMixin:UniqueKey(entry)

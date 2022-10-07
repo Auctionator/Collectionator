@@ -41,6 +41,7 @@ function CollectionatorTMogDataProviderMixin:OnLoad()
     Collectionator.Events.SourceLoadEnd,
     Collectionator.Events.TMogPurchased,
   })
+  Auctionator.EventBus:RegisterSource(self, "CollectionatorTMogDataProvider")
 
   self.dirty = false
   self.sources = {}
@@ -223,6 +224,7 @@ function CollectionatorTMogDataProviderMixin:Refresh()
 
   Collectionator.Utilities.SortByPrice(results, self.fullScan)
   self:AppendEntries(results, true)
+  Auctionator.EventBus:Fire(self, Collectionator.Events.DisplayedResultsUpdated, results)
 end
 
 function CollectionatorTMogDataProviderMixin:UniqueKey(entry)

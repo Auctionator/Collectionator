@@ -33,6 +33,7 @@ function CollectionatorRecipeDataProviderMixin:OnLoad()
     Collectionator.Events.RecipeLoadEnd,
     Collectionator.Events.RecipePurchased,
   })
+  Auctionator.EventBus:RegisterSource(self, "CollectionatorRecipeDataProvider")
 
   self.dirty = false
   self.recipes = {}
@@ -140,6 +141,7 @@ function CollectionatorRecipeDataProviderMixin:Refresh()
 
   Collectionator.Utilities.SortByPrice(results, self.fullScan)
   self:AppendEntries(results, true)
+  Auctionator.EventBus:Fire(self, Collectionator.Events.DisplayedResultsUpdated, results)
 end
 
 function CollectionatorRecipeDataProviderMixin:UniqueKey(entry)

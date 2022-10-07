@@ -33,6 +33,7 @@ function CollectionatorMountDataProviderMixin:OnLoad()
     Collectionator.Events.MountLoadEnd,
     Collectionator.Events.MountPurchased,
   })
+  Auctionator.EventBus:RegisterSource(self, "CollectionatorMountDataProvider")
 
   self.dirty = false
   self.mounts = {}
@@ -141,6 +142,7 @@ function CollectionatorMountDataProviderMixin:Refresh()
 
   Collectionator.Utilities.SortByPrice(results, self.fullScan)
   self:AppendEntries(results, true)
+  Auctionator.EventBus:Fire(self, Collectionator.Events.DisplayedResultsUpdated, results)
 end
 
 function CollectionatorMountDataProviderMixin:UniqueKey(entry)

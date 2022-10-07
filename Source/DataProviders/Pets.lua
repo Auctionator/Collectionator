@@ -41,6 +41,7 @@ function CollectionatorPetDataProviderMixin:OnLoad()
     Collectionator.Events.PetLoadEnd,
     Collectionator.Events.PetPurchased,
   })
+  Auctionator.EventBus:RegisterSource(self, "CollectionatorPetDataProvider")
 
   self.dirty = false
   self.pets = {}
@@ -219,6 +220,7 @@ function CollectionatorPetDataProviderMixin:Refresh()
 
   Collectionator.Utilities.SortByPrice(results, self.fullScan)
   self:AppendEntries(results, true)
+  Auctionator.EventBus:Fire(self, Collectionator.Events.DisplayedResultsUpdated, results)
 end
 
 function CollectionatorPetDataProviderMixin:UniqueKey(entry)

@@ -1,4 +1,5 @@
 Collectionator = {
+  Buy = {},
   State = {},
   Utilities = {},
 }

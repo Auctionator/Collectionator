@@ -4,6 +4,10 @@
     inherits="CollectionatorViewTemplate"
     virtual="true"
   >
+    <KeyValues>
+      <KeyValue key="queryType" value="OTHER" type="string"/>
+    </KeyValues>
+
     <Frames>
 
       <Frame inherits="CollectionatorToyScannerFrameTemplate" parentKey="Scanner">

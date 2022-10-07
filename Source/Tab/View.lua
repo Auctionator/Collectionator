@@ -2,6 +2,8 @@ CollectionatorViewMixin = {}
 
 function CollectionatorViewMixin:OnLoad()
   self.ResultsListing:Init(self.DataProvider)
+
+  Auctionator.EventBus:RegisterSource(self, "CollectionatorViewMixin")
 end
 
 function CollectionatorViewMixin:OnShow()
@@ -14,4 +16,7 @@ function CollectionatorViewMixin:Refresh()
   else
     self.DataProvider:Refresh()
   end
+end
+
+function CollectionatorViewMixin:ReceiveEvent(event, ...)
 end
