@@ -1,7 +1,10 @@
 CollectionatorBuyoutDropDownMixin = {}
 
+local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
+
 function CollectionatorBuyoutDropDownMixin:OnLoad()
-  UIDropDownMenu_Initialize(self, CollectionatorBuyoutDropDownMixin.Initialize, "MENU")
+  LibDD:Create_UIDropDownMenu(self)
+  LibDD:UIDropDownMenu_Initialize(self, CollectionatorBuyoutDropDownMixin.Initialize, "MENU")
   Auctionator.EventBus:Register(self, {
     Collectionator.Events.ShowBuyoutOptions,
   })
@@ -15,11 +18,11 @@ end
 
 function CollectionatorBuyoutDropDownMixin:Initialize()
   if not self.auctionInfo and not self.rowData then
-    HideDropDownMenu(1)
+    LibDD:HideDropDownMenu(1)
     return
   end
 
-  local confirmInfo = UIDropDownMenu_CreateInfo()
+  local confirmInfo = LibDD:UIDropDownMenu_CreateInfo()
   confirmInfo.notCheckable = 1
   if self.auctionInfo == nil then
     confirmInfo.text = COLLECTIONATOR_L_EXACT_ITEM_UNAVAILABLE
@@ -47,7 +50,7 @@ function CollectionatorBuyoutDropDownMixin:Initialize()
   confirmInfo.tooltipText = COLLECTIONATOR_L_BUYOUT_TOOLTIP
   confirmInfo.tooltipOnButton = 1
 
-  local searchInfo = UIDropDownMenu_CreateInfo()
+  local searchInfo = LibDD:UIDropDownMenu_CreateInfo()
   searchInfo.notCheckable = 1
   searchInfo.text = COLLECTIONATOR_L_SEARCH_FOR_ALTERNATIVES
   searchInfo.disabled = false
@@ -60,26 +63,26 @@ function CollectionatorBuyoutDropDownMixin:Initialize()
     Auctionator.API.v1.MultiSearchExact("Collectionator", names)
   end
 
-  local titleInfo = UIDropDownMenu_CreateInfo()
+  local titleInfo = LibDD:UIDropDownMenu_CreateInfo()
   titleInfo.isTitle = true
   titleInfo.notCheckable = 1
   titleInfo.text = Collectionator.Utilities.ColorName(self.rowData.itemLink, names[1])
   titleInfo.justifyH = "CENTER"
   titleInfo.icon = self.rowData.iconTexture
 
-  local cancelInfo = UIDropDownMenu_CreateInfo()
+  local cancelInfo = LibDD:UIDropDownMenu_CreateInfo()
   cancelInfo.notCheckable = 1
   cancelInfo.text = AUCTIONATOR_L_CANCEL
   cancelInfo.disabled = false
 
-  UIDropDownMenu_AddButton(titleInfo)
-  UIDropDownMenu_AddButton(confirmInfo)
-  UIDropDownMenu_AddButton(searchInfo)
-  UIDropDownMenu_AddButton(cancelInfo)
+  LibDD:UIDropDownMenu_AddButton(titleInfo)
+  LibDD:UIDropDownMenu_AddButton(confirmInfo)
+  LibDD:UIDropDownMenu_AddButton(searchInfo)
+  LibDD:UIDropDownMenu_AddButton(cancelInfo)
 end
 
 function CollectionatorBuyoutDropDownMixin:Callback(auctionInfo, rowData)
   self.auctionInfo = auctionInfo
   self.rowData = rowData
-  ToggleDropDownMenu(1, nil, self, "cursor")
+  LibDD:ToggleDropDownMenu(1, nil, self, "cursor")
 end
