@@ -76,10 +76,6 @@ function CollectionatorBuyCheapestButtonMixin:ReceiveEvent(event, ...)
   elseif event == Collectionator.Events.DisplayedResultsUpdated then
     self.results = ...
     self:Focus()
-
-    --[[if self.focussed and self.results[self.offset].itemLink == self.focussed.itemLink then
-      self.offset = 1
-    end]]
   else
     self:Query()
   end

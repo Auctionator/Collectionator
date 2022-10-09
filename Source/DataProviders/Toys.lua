@@ -133,7 +133,9 @@ function CollectionatorToyDataProviderMixin:Refresh()
 
   Collectionator.Utilities.SortByPrice(results, self.fullScan)
   self:AppendEntries(results, true)
-  Auctionator.EventBus:Fire(self, Collectionator.Events.DisplayedResultsUpdated, results)
+  if self:IsVisible() then
+    Auctionator.EventBus:Fire(self, Collectionator.Events.DisplayedResultsUpdated, results)
+  end
 end
 
 function CollectionatorToyDataProviderMixin:UniqueKey(entry)
