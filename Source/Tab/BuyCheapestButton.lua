@@ -26,6 +26,7 @@ function CollectionatorBuyCheapestButtonMixin:Reset()
 end
 
 function CollectionatorBuyCheapestButtonMixin:Focus()
+  print("focus")
   local oldLink = self.focussed and self.focussed.itemLink
   if self.results then
     self.focussed = self.results[self.offset]
@@ -35,6 +36,7 @@ function CollectionatorBuyCheapestButtonMixin:Focus()
 
   local currentLink = self.focussed and self.focussed.itemLink
   if currentLink ~= oldLink then
+    print("requery", currentLink, oldLink)
     Auctionator.EventBus:Fire(self, Collectionator.Events.FocusLink, currentLink)
     self:Query()
   end
@@ -51,12 +53,14 @@ end
 
 function CollectionatorBuyCheapestButtonMixin:OnClick()
   if not self.focussed or not self.purchaseData then
+    print("startup")
     self:Disable()
     self:SetText(COLLECTIONATOR_L_PROCESSING)
     DynamicResizeButton_Resize(self)
 
     self:Focus()
   else
+    print("buy")
     self:Disable()
     self:SetText(COLLECTIONATOR_L_PROCESSING)
     DynamicResizeButton_Resize(self)
@@ -72,31 +76,32 @@ function CollectionatorBuyCheapestButtonMixin:ReceiveEvent(event, ...)
     local purchaseData, queryType = ...
     -- Check that the query corresponds to this tab
     if queryType ~= self:GetParent().queryType then
+      print("reject")
       return
     end
 
     self.purchaseData = purchaseData
     -- Check that there's something we can buy
     if self.purchaseData ~= nil and not self.purchaseData.containsAccountItem then
+      print("hit", self.purchaseData.itemLink)
       self:Enable()
       self:SetText(COLLECTIONATOR_L_BUY_CHEAPEST_ITEM:format(GetMoneyString(self.purchaseData.buyoutAmount, true)))
       DynamicResizeButton_Resize(self)
     else
+      print("miss", self.purchaseData)
       self.offset = self.offset + 1
       self:Focus()
-      self:Query()
     end
   elseif event == Collectionator.Events.DisplayedResultsUpdated then
     self.results = ...
     if self.focussed then
       self:Focus()
     end
-  else
-    self:Query()
   end
 end
 
 function CollectionatorBuyCheapestButtonMixin:Query()
+  print("query")
   Auctionator.EventBus:Fire(self, Collectionator.Events.BuyQueryRequest, {
     queryType = self:GetParent().queryType,
     itemLink = self.focussed.itemLink,

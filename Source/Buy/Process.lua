@@ -4,15 +4,11 @@ function CollectionatorBuyProcessorMixin:Init(itemLink)
   self.itemLink = itemLink
 end
 
-function CollectionatorBuyProcessorMixin:StartSearch()
+function CollectionatorBuyProcessorMixin:PrepareSearch()
   error("override")
 end
 
 function CollectionatorBuyProcessorMixin:GetSearchResult(itemKey)
-  error("override")
-end
-
-function CollectionatorBuyProcessorMixin:DoItemKeyInfoCheck()
   error("override")
 end
 
@@ -44,23 +40,15 @@ end
 
 CollectionatorBuyProcessorTMogMixin = CreateFromMixins(CollectionatorBuyProcessorMixin)
 
-function CollectionatorBuyProcessorTMogMixin:StartSearch()
+function CollectionatorBuyProcessorTMogMixin:PrepareSearch()
   local itemID = GetItemInfoInstant(self.itemLink)
   self.gearItemKey = {itemID = itemID, itemLevel = 0, itemSuffix = 0, battlePetSpeciesID = 0}
   self.expectedItemID = itemID
-
-  -- Queries item key (necessary for the next search to work, just is, found by
-  -- experiment - probably some internal Blizzard AH thing)
-  self:DoItemKeyInfoCheck()
 end
 
-function CollectionatorBuyProcessorTMogMixin:DoItemKeyInfoCheck()
-  if not C_AuctionHouse.GetItemKeyInfo(self.gearItemKey) then
-    self.sent = false
-  elseif not self.sent then
-    self.sent = true
-    Auctionator.AH.SendSellSearchQuery(self.gearItemKey, Collectionator.Constants.ITEM_SORTS, true)
-  end
+function CollectionatorBuyProcessorTMogMixin:Send()
+  print("raw query", Auctionator.Utilities.ItemKeyString(self.gearItemKey))
+  C_AuctionHouse.SendSellSearchQuery(self.gearItemKey, Collectionator.Constants.ITEM_SORTS, false)
 end
 
 function CollectionatorBuyProcessorTMogMixin:GetSearchResult(itemKey)
@@ -68,12 +56,12 @@ function CollectionatorBuyProcessorTMogMixin:GetSearchResult(itemKey)
 end
 
 function CollectionatorBuyProcessorTMogMixin:IsExpectedItemKey(itemKey)
-  return self.sent and itemKey.itemID == self.expectedItemID
+  return itemKey.itemID == self.expectedItemID
 end
 
 CollectionatorBuyProcessorPetMixin = CreateFromMixins(CollectionatorBuyProcessorMixin)
 
-function CollectionatorBuyProcessorPetMixin:StartSearch()
+function CollectionatorBuyProcessorPetMixin:PrepareSearch()
   local auctionatorDBKey = Auctionator.Utilities.BasicDBKeyFromLink(self.itemLink)
   local _, petID = strsplit(":", auctionatorDBKey)
   if petID ~= nil then
@@ -85,10 +73,9 @@ function CollectionatorBuyProcessorPetMixin:StartSearch()
     -- Use that any other DB key is of the format [item-id]
     self.expectedItemID = tonumber(auctionatorDBKey)
   end
-  self:DoItemKeyInfoCheck()
 end
 
-function CollectionatorBuyProcessorPetMixin:DoItemKeyInfoCheck()
+function CollectionatorBuyProcessorPetMixin:Send()
   local itemKey
   if self.cagedSearch then
     itemKey = C_AuctionHouse.MakeItemKey(Auctionator.Constants.PET_CAGE_ID, 0, 0, self.expectedPetSpecies)
@@ -96,12 +83,8 @@ function CollectionatorBuyProcessorPetMixin:DoItemKeyInfoCheck()
     itemKey = C_AuctionHouse.MakeItemKey(self.expectedItemID)
   end
 
-  if not C_AuctionHouse.GetItemKeyInfo(itemKey) then
-    self.sent = false
-  elseif not self.sent then
-    self.sent = true
-    Auctionator.AH.SendSearchQuery(itemKey, Collectionator.Constants.ITEM_SORTS, true)
-  end
+  print("raw query", Auctionator.Utilities.ItemKeyString(itemKey))
+  C_AuctionHouse.SendSearchQuery(itemKey, Collectionator.Constants.ITEM_SORTS, true)
 end
 
 function CollectionatorBuyProcessorPetMixin:GetSearchResult(itemKey)
@@ -124,22 +107,16 @@ end
 
 CollectionatorBuyProcessorOtherMixin = CreateFromMixins(CollectionatorBuyProcessorMixin)
 
-function CollectionatorBuyProcessorOtherMixin:StartSearch()
+function CollectionatorBuyProcessorOtherMixin:PrepareSearch()
   local itemID = GetItemInfoInstant(self.itemLink)
 
   self.expectedItemID = itemID
-
-  self:DoItemKeyInfoCheck()
 end
 
-function CollectionatorBuyProcessorOtherMixin:DoItemKeyInfoCheck()
+function CollectionatorBuyProcessorOtherMixin:Send()
+  print("raw query")
   local itemKey = C_AuctionHouse.MakeItemKey(self.expectedItemID)
-  if not C_AuctionHouse.GetItemKeyInfo(itemKey) then
-    self.sent = false
-  elseif not self.sent then
-    self.sent = true
-    Auctionator.AH.SendSearchQuery(itemKey, Collectionator.Constants.ITEM_SORTS, true)
-  end
+  C_AuctionHouse.SendSearchQuery(itemKey, Collectionator.Constants.ITEM_SORTS, true)
 end
 
 
@@ -148,7 +125,7 @@ function CollectionatorBuyProcessorOtherMixin:GetSearchResult(itemKey)
 end
 
 function CollectionatorBuyProcessorOtherMixin:IsExpectedItemKey(itemKey)
-  return self.sent and itemKey.itemID == self.expectedItemID
+  return itemKey.itemID == self.expectedItemID
 end
 
 function Collectionator.Buy.GetProcessor(queryType, itemLink)
