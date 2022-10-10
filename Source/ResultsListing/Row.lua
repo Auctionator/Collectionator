@@ -28,6 +28,12 @@ function CollectionatorRowMixin:OnClick(button, ...)
   end
 end
 
+function CollectionatorRowMixin:Populate(...)
+  AuctionatorResultsRowTemplateMixin.Populate(self, ...)
+
+  self.SelectedHighlight:SetShown(self.rowData.selected)
+end
+
 CollectionatorTMogRowMixin = CreateFromMixins(CollectionatorRowMixin)
 CollectionatorTMogRowMixin.queryType = "TMOG"
 

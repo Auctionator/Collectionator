@@ -12,6 +12,10 @@ function CollectionatorBuyProcessorMixin:GetSearchResult(itemKey)
   error("override")
 end
 
+function CollectionatorBuyProcessorMixin:DoItemKeyInfoCheck()
+  error("override")
+end
+
 -- Since 9.1 crafted items include the GUID of the crafter in the item link,
 -- this removes it so that we can match irrespective of who crafted it.
 local function RemovePlayerGUID(itemLink)
@@ -85,18 +89,18 @@ function CollectionatorBuyProcessorPetMixin:StartSearch()
 end
 
 function CollectionatorBuyProcessorPetMixin:DoItemKeyInfoCheck()
-  if not self.cagedSearch then
-    self.expectedItemKey = C_AuctionHouse.MakeItemKey(self.expectedItemID)
+  local itemKey
+  if self.cagedSearch then
+    itemKey = C_AuctionHouse.MakeItemKey(Auctionator.Constants.PET_CAGE_ID, 0, 0, self.expectedPetSpecies)
   else
-    self.expectedItemKey = C_AuctionHouse.MakeItemKey(Auctionator.Constants.PET_CAGE_ID, 0, 0, self.expectedPetSpecies)
+    itemKey = C_AuctionHouse.MakeItemKey(self.expectedItemID)
   end
 
-  if not C_AuctionHouse.GetItemKeyInfo(self.expectedItemKey) then
+  if not C_AuctionHouse.GetItemKeyInfo(itemKey) then
     self.sent = false
   elseif not self.sent then
     self.sent = true
-    DevTools_Dump(self.expectedItemKey)
-    Auctionator.AH.SendSearchQuery(self.expectedItemKey, Collectionator.Constants.ITEM_SORTS, true)
+    Auctionator.AH.SendSearchQuery(itemKey, Collectionator.Constants.ITEM_SORTS, true)
   end
 end
 
@@ -111,7 +115,11 @@ function CollectionatorBuyProcessorPetMixin:GetSearchResult(itemKey)
 end
 
 function CollectionatorBuyProcessorPetMixin:IsExpectedItemKey(itemKey)
-  return self.expectedItemKey and self.sent and Auctionator.Utilities.ItemKeyString(self.expectedItemKey) == Auctionator.Utilities.ItemKeyString(itemKey)
+  if self.cagedSearch then
+    return itemKey.battlePetSpeciesID == self.expectedPetSpecies
+  else
+    return itemKey.itemID == self.expectedItemID
+  end
 end
 
 CollectionatorBuyProcessorOtherMixin = CreateFromMixins(CollectionatorBuyProcessorMixin)
@@ -121,9 +129,7 @@ function CollectionatorBuyProcessorOtherMixin:StartSearch()
 
   self.expectedItemID = itemID
 
-  Auctionator.AH.GetItemKeyInfo(C_AuctionHouse.MakeItemKey(itemID), function(itemKeyInfo)
-    Auctionator.AH.SendSearchQuery(C_AuctionHouse.MakeItemKey(itemID), Collectionator.Constants.ITEM_SORTS, true)
-  end)
+  self:DoItemKeyInfoCheck()
 end
 
 function CollectionatorBuyProcessorOtherMixin:DoItemKeyInfoCheck()
