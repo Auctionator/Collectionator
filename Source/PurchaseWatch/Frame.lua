@@ -56,8 +56,8 @@ function CollectionatorPurchaseWatchFrameMixin:ReceiveEvent(eventName, ...)
   end
 
   if eventName == Collectionator.Events.PurchaseAttempted then
-    local auctionID = ...
-    self.waitingIDs[auctionID] = C_AuctionHouse.GetAuctionInfoByID(auctionID).itemLink
+    local auctionID, itemLink = ...
+    self.waitingIDs[auctionID] = itemLink
     self:RegisterNeededEvents()
   end
 end

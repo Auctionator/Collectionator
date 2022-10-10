@@ -36,6 +36,7 @@ function CollectionatorBuyCheapestButtonMixin:Focus()
   local currentLink = self.focussed and self.focussed.itemLink
   if currentLink ~= oldLink then
     Auctionator.EventBus:Fire(self, Collectionator.Events.FocusLink, currentLink)
+    self:Query()
   end
 end
 
@@ -55,14 +56,12 @@ function CollectionatorBuyCheapestButtonMixin:OnClick()
     DynamicResizeButton_Resize(self)
 
     self:Focus()
-    self:Query()
   else
     self:Disable()
     self:SetText(COLLECTIONATOR_L_PROCESSING)
     DynamicResizeButton_Resize(self)
 
-    DevTools_Dump(self.purchaseData)
-    Auctionator.EventBus:Fire(self, Collectionator.Events.PurchaseAttempted, self.purchaseData.auctionID)
+    Auctionator.EventBus:Fire(self, Collectionator.Events.PurchaseAttempted, self.purchaseData.auctionID, self.purchaseData.itemLink)
     C_AuctionHouse.PlaceBid(self.purchaseData.auctionID, self.purchaseData.buyoutAmount)
     self.purchaseData = nil
   end
