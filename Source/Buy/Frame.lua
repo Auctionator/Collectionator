@@ -2,6 +2,7 @@ CollectionatorBuyFrameMixin = {}
 
 BUY_QUERY_EVENTS = {
   "ITEM_SEARCH_RESULTS_UPDATED",
+  "ITEM_KEY_ITEM_INFO_RECEIVED",
   "AUCTION_HOUSE_CLOSED",
 }
 
@@ -14,6 +15,9 @@ end
 
 function CollectionatorBuyFrameMixin:ReceiveEvent(event, ...)
   if event == Collectionator.Events.BuyQueryRequest then
+    if self.processor ~= nil then
+      Auctionator.EventBus:Fire(self, Collectionator.Events.BuyQueryRequestAborted, self.request.returnEvent, self.request.returnData)
+    end
     self.request = ...
 
     self.processor = Collectionator.Buy.GetProcessor(self.request.queryType, self.request.itemLink)
@@ -26,8 +30,8 @@ function CollectionatorBuyFrameMixin:ReceiveEvent(event, ...)
 
     print("start")
     self.processor:PrepareSearch()
-    self.processor:Send()
     self:SetScript("OnUpdate", self.OnUpdate)
+    self:OnUpdate()
   end
 end
 
@@ -37,15 +41,35 @@ function CollectionatorBuyFrameMixin:OnEvent(event, ...)
 
     print("isru", Auctionator.Utilities.ItemKeyString(itemKey), C_AuctionHouse.HasSearchResults(itemKey), C_AuctionHouse.GetItemSearchResultInfo(itemKey, 1))
 
-    if C_AuctionHouse.HasSearchResults(itemKey) and self.processor:IsExpectedItemKey(itemKey) then
-      FrameUtil.UnregisterFrameForEvents(self, BUY_QUERY_EVENTS)
-      self:SetScript("OnUpdate", nil)
+    if self.processor:IsExpectedItemKey(itemKey) then
+
+      local has = C_AuctionHouse.HasSearchResults(itemKey)
+      local full = C_AuctionHouse.HasFullItemSearchResults(itemKey)
+      local quantity = C_AuctionHouse.GetItemSearchResultsQuantity(itemKey)
 
       local result = self.processor:GetSearchResult(itemKey)
-      print("expected", result ~= nil)
 
-      Auctionator.EventBus:Fire(self, self.request.returnEvent, result, self.request.returnData)
+      -- Check for supposedly having results when not all results are loaded and
+      -- there is 0 loaded.
+      if has and not full and quantity == 0 then
+        print("rereq")
+        self.processor:Send()
+      -- Now we actually have results
+      elseif has then
+        FrameUtil.UnregisterFrameForEvents(self, BUY_QUERY_EVENTS)
+        self:SetScript("OnUpdate", nil)
+        Auctionator.AH.GetItemKeyInfo(itemKey, function(itemKeyInfo)
+          print("expected " .. itemKeyInfo.itemName .. " " .. Auctionator.Utilities.ItemKeyString(itemKey) .. " " .. tostring(result ~= nil) .. " ".. tostring(has) .. " " .. tostring(full) .. " " .. tostring(quantity))
+        end)
+        self.processor = nil
+        Auctionator.EventBus:Fire(self, self.request.returnEvent, result, self.request.returnData)
+      -- Maybe not
+      else
+        print("miss has")
+      end
     end
+  elseif event == "ITEM_KEY_ITEM_INFO_RECEIVED" then
+    self:OnUpdate()
   elseif event == "AUCTION_HOUSE_CLOSED" then
     FrameUtil.UnregisterFrameForEvents(self, BUY_QUERY_EVENTS)
     self:SetScript("OnUpdate", nil)
@@ -55,5 +79,8 @@ function CollectionatorBuyFrameMixin:OnEvent(event, ...)
 end
 
 function CollectionatorBuyFrameMixin:OnUpdate()
-  self.processor:Send()
+  if self.processor:IsReady() then
+    self.processor:Send()
+    self:SetScript("OnUpdate", nil)
+  end
 end

@@ -1,5 +1,6 @@
 EVENT_BUS_EVENTS = {
   Collectionator.Events.CheapestResultReturn,
+  Collectionator.Events.BuyQueryRequestAborted,
   Collectionator.Events.TMogPurchased,
   Collectionator.Events.PetPurchased,
   Collectionator.Events.ToyPurchased,
@@ -91,6 +92,14 @@ function CollectionatorBuyCheapestButtonMixin:ReceiveEvent(event, ...)
       print("miss", self.purchaseData)
       self.offset = self.offset + 1
       self:Focus()
+    end
+  elseif event == Collectionator.Events.BuyQueryRequestAborted then
+    local expectedEvent, returnData = ...
+    if expectedEvent == Collectionator.Events.CheapestResultReturn then
+      self.focussed = nil
+      self:Enable()
+      self:SetText(COLLECTIONATOR_L_LOAD_FOR_PURCHASING)
+      DynamicResizeButton_Resize(self)
     end
   elseif event == Collectionator.Events.DisplayedResultsUpdated then
     self.results = ...

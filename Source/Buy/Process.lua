@@ -8,6 +8,14 @@ function CollectionatorBuyProcessorMixin:PrepareSearch()
   error("override")
 end
 
+function CollectionatorBuyProcessorMixin:Send()
+  error("override")
+end
+
+function CollectionatorBuyProcessorMixin:IsReady()
+  error("override")
+end
+
 function CollectionatorBuyProcessorMixin:GetSearchResult(itemKey)
   error("override")
 end
@@ -46,8 +54,11 @@ function CollectionatorBuyProcessorTMogMixin:PrepareSearch()
   self.expectedItemID = itemID
 end
 
+function CollectionatorBuyProcessorTMogMixin:IsReady()
+  return C_AuctionHouse.GetItemKeyInfo(self.gearItemKey) ~= nil
+end
+
 function CollectionatorBuyProcessorTMogMixin:Send()
-  print("raw query", Auctionator.Utilities.ItemKeyString(self.gearItemKey))
   C_AuctionHouse.SendSellSearchQuery(self.gearItemKey, Collectionator.Constants.ITEM_SORTS, false)
 end
 
@@ -75,16 +86,20 @@ function CollectionatorBuyProcessorPetMixin:PrepareSearch()
   end
 end
 
-function CollectionatorBuyProcessorPetMixin:Send()
-  local itemKey
+function CollectionatorBuyProcessorPetMixin:GetKey()
   if self.cagedSearch then
-    itemKey = C_AuctionHouse.MakeItemKey(Auctionator.Constants.PET_CAGE_ID, 0, 0, self.expectedPetSpecies)
+    return C_AuctionHouse.MakeItemKey(Auctionator.Constants.PET_CAGE_ID, 0, 0, self.expectedPetSpecies)
   else
-    itemKey = C_AuctionHouse.MakeItemKey(self.expectedItemID)
+    return C_AuctionHouse.MakeItemKey(self.expectedItemID)
   end
+end
 
-  print("raw query", Auctionator.Utilities.ItemKeyString(itemKey))
-  C_AuctionHouse.SendSearchQuery(itemKey, Collectionator.Constants.ITEM_SORTS, true)
+function CollectionatorBuyProcessorPetMixin:IsReady()
+  return C_AuctionHouse.GetItemKeyInfo(self:GetKey()) ~= nil
+end
+
+function CollectionatorBuyProcessorPetMixin:Send()
+  C_AuctionHouse.SendSearchQuery(self:GetKey(), Collectionator.Constants.ITEM_SORTS, true)
 end
 
 function CollectionatorBuyProcessorPetMixin:GetSearchResult(itemKey)
@@ -113,12 +128,17 @@ function CollectionatorBuyProcessorOtherMixin:PrepareSearch()
   self.expectedItemID = itemID
 end
 
-function CollectionatorBuyProcessorOtherMixin:Send()
-  print("raw query")
-  local itemKey = C_AuctionHouse.MakeItemKey(self.expectedItemID)
-  C_AuctionHouse.SendSearchQuery(itemKey, Collectionator.Constants.ITEM_SORTS, true)
+function CollectionatorBuyProcessorOtherMixin:GetKey()
+  return C_AuctionHouse.MakeItemKey(self.expectedItemID)
 end
 
+function CollectionatorBuyProcessorOtherMixin:Send()
+  C_AuctionHouse.SendSearchQuery(self:GetKey(), Collectionator.Constants.ITEM_SORTS, true)
+end
+
+function CollectionatorBuyProcessorOtherMixin:IsReady()
+  return C_AuctionHouse.GetItemKeyInfo(self:GetKey()) ~= nil
+end
 
 function CollectionatorBuyProcessorOtherMixin:GetSearchResult(itemKey)
   return GetSameItemID(self.expectedItemID, itemKey)
