@@ -2,7 +2,6 @@ CollectionatorBuyFrameMixin = {}
 
 BUY_QUERY_EVENTS = {
   "ITEM_SEARCH_RESULTS_UPDATED",
-  "ITEM_KEY_ITEM_INFO_RECEIVED",
   "AUCTION_HOUSE_CLOSED",
 }
 
@@ -30,8 +29,18 @@ function CollectionatorBuyFrameMixin:ReceiveEvent(event, ...)
 
     print("start")
     self.processor:PrepareSearch()
+    self:AttemptSend()
+  end
+end
+
+function CollectionatorBuyFrameMixin:AttemptSend()
+  if self.processor:IsReady() then
+    print("clear")
+    self:SetScript("OnUpdate", nil)
+    self.processor:Send()
+  else
+    print("soue")
     self:SetScript("OnUpdate", self.OnUpdate)
-    self:OnUpdate()
   end
 end
 
@@ -54,6 +63,7 @@ function CollectionatorBuyFrameMixin:OnEvent(event, ...)
       if has and not full and quantity == 0 then
         print("rereq")
         self.processor:Send()
+        --self:AttemptSend()
       -- Now we actually have results
       elseif has then
         FrameUtil.UnregisterFrameForEvents(self, BUY_QUERY_EVENTS)
@@ -66,10 +76,9 @@ function CollectionatorBuyFrameMixin:OnEvent(event, ...)
       -- Maybe not
       else
         print("miss has")
+        self:AttemptSend()
       end
     end
-  elseif event == "ITEM_KEY_ITEM_INFO_RECEIVED" then
-    self:OnUpdate()
   elseif event == "AUCTION_HOUSE_CLOSED" then
     FrameUtil.UnregisterFrameForEvents(self, BUY_QUERY_EVENTS)
     self:SetScript("OnUpdate", nil)
@@ -79,8 +88,6 @@ function CollectionatorBuyFrameMixin:OnEvent(event, ...)
 end
 
 function CollectionatorBuyFrameMixin:OnUpdate()
-  if self.processor:IsReady() then
-    self.processor:Send()
-    self:SetScript("OnUpdate", nil)
-  end
+  print("update")
+  self:AttemptSend()
 end
