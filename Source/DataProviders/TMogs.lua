@@ -41,15 +41,27 @@ function CollectionatorTMogDataProviderMixin:OnLoad()
     Collectionator.Events.SourceLoadEnd,
     Collectionator.Events.TMogPurchased,
   })
+  Auctionator.EventBus:RegisterSource(self, "CollectionatorTMogDataProvider")
 
   self.dirty = false
   self.sources = {}
 end
 
 function CollectionatorTMogDataProviderMixin:OnShow()
+  self.focussedLink = nil
+  Auctionator.EventBus:Register(self, {
+    Collectionator.Events.FocusLink,
+  })
+
   if self.dirty then
     self:Refresh()
   end
+end
+
+function CollectionatorTMogDataProviderMixin:OnHide()
+  Auctionator.EventBus:Unregister(self, {
+    Collectionator.Events.FocusLink,
+  })
 end
 
 function CollectionatorTMogDataProviderMixin:ReceiveEvent(eventName, eventData, eventData2)
@@ -71,6 +83,10 @@ function CollectionatorTMogDataProviderMixin:ReceiveEvent(eventName, eventData, 
     if self:IsVisible() and not self:GetParent().IncludeCollected:GetChecked() then
       self:Refresh()
     end
+  elseif eventName == Collectionator.Events.FocusLink then
+    self.focussedLink = eventData
+    self.dirty = true
+    self:Refresh()
   end
 end
 
@@ -214,6 +230,7 @@ function CollectionatorTMogDataProviderMixin:Refresh()
         price = Collectionator.Utilities.GetPrice(info.replicateInfo),
         itemLink = info.itemLink, -- Used for tooltips
         iconTexture = info.replicateInfo[2],
+        selected = info.itemLink == self.focussedLink,
       })
     end
   end
@@ -223,6 +240,9 @@ function CollectionatorTMogDataProviderMixin:Refresh()
 
   Collectionator.Utilities.SortByPrice(results, self.fullScan)
   self:AppendEntries(results, true)
+  if self:IsVisible() then
+    Auctionator.EventBus:Fire(self, Collectionator.Events.DisplayedResultsUpdated, results)
+  end
 end
 
 function CollectionatorTMogDataProviderMixin:UniqueKey(entry)

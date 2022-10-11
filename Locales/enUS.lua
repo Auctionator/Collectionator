@@ -52,6 +52,12 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["ALTERNATIVE_OPTIONS"] = "Alternative options"
   L["SEARCH_FOR_ALTERNATIVES_TOOLTIP"] = "View all the options you can buy, including those not the cheapest."
 
+  L["BUY_ITEM_X"] = "Buy item (%s)"
+  L["START_PURCHASING"] = "Start purchasing"
+  L["CANT_AFFORD_X"] = "Can't afford (%s)"
+  L["PROCESSING"] = "Processing"
+  L["NO_ITEMS_LEFT"] = "No items left"
+
   L["IS_USABLE"] = "Is usable?"
   L["ON_PREVIOUS_CHARACTERS"] = "on any previously seen characters"
   L["ON_REALM_AND_FACTION"] = "on your characters in this realm and faction"

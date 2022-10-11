@@ -5,6 +5,9 @@
     mixin="CollectionatorRecipeViewMixin"
     virtual="true"
   >
+    <KeyValues>
+      <KeyValue key="queryType" value="OTHER" type="string"/>
+    </KeyValues>
     <Frames>
 
       <Frame inherits="CollectionatorRecipeScannerFrameTemplate" parentKey="Scanner">
@@ -75,6 +78,7 @@
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow"/>
+          <OnHide method="OnHide"/>
           <OnUpdate method="OnUpdate"/>
         </Scripts>
       </Frame>

@@ -5,6 +5,10 @@
     mixin="CollectionatorTMogViewMixin"
     virtual="true"
   >
+    <KeyValues>
+      <KeyValue key="queryType" value="TMOG" type="string"/>
+    </KeyValues>
+
     <Frames>
 
       <Frame inherits="CollectionatorTMogScannerFrameTemplate" parentKey="Scanner">
@@ -79,6 +83,7 @@
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow"/>
+          <OnHide method="OnHide"/>
           <OnUpdate method="OnUpdate"/>
         </Scripts>
       </Frame>

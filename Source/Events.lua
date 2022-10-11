@@ -22,4 +22,11 @@ Collectionator.Events = {
   ShowBuyoutOptions = "collecting_show_buyout_options",
 
   PurchaseAttempted = "collecting_purchase_attempted",
+
+  BuyQueryRequest = "collecting_buy_query_request",
+  BuyQueryRequestAborted = "collecting_buy_query_request_aborted",
+  CheapestResultReturn = "collecting_cheapest_result_return",
+  FocusLink = "collecting_focus_link",
+
+  DisplayedResultsUpdated = "collecting_displayed_results_updated",
 }

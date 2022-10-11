@@ -33,15 +33,27 @@ function CollectionatorRecipeDataProviderMixin:OnLoad()
     Collectionator.Events.RecipeLoadEnd,
     Collectionator.Events.RecipePurchased,
   })
+  Auctionator.EventBus:RegisterSource(self, "CollectionatorRecipeDataProvider")
 
   self.dirty = false
   self.recipes = {}
 end
 
 function CollectionatorRecipeDataProviderMixin:OnShow()
+  self.focussedLink = nil
+  Auctionator.EventBus:Register(self, {
+    Collectionator.Events.FocusLink,
+  })
+
   if self.dirty then
     self:Refresh()
   end
+end
+
+function CollectionatorRecipeDataProviderMixin:OnHide()
+  Auctionator.EventBus:Unregister(self, {
+    Collectionator.Events.FocusLink,
+  })
 end
 
 function CollectionatorRecipeDataProviderMixin:ReceiveEvent(eventName, eventData, eventData2)
@@ -63,6 +75,10 @@ function CollectionatorRecipeDataProviderMixin:ReceiveEvent(eventName, eventData
     if self:IsVisible() and not self:GetParent().IncludeCollected:GetChecked() then
       self:Refresh()
     end
+  elseif eventName == Collectionator.Events.FocusLink then
+    self.focussedLink = eventData
+    self.dirty = true
+    self:Refresh()
   end
 end
 
@@ -131,6 +147,7 @@ function CollectionatorRecipeDataProviderMixin:Refresh()
         price = Collectionator.Utilities.GetPrice(info.replicateInfo),
         itemLink = info.itemLink, -- Used for tooltips
         iconTexture = info.replicateInfo[2],
+        selected = info.itemLink == self.focussedLink,
       })
     end
   end
@@ -140,6 +157,9 @@ function CollectionatorRecipeDataProviderMixin:Refresh()
 
   Collectionator.Utilities.SortByPrice(results, self.fullScan)
   self:AppendEntries(results, true)
+  if self:IsVisible() then
+    Auctionator.EventBus:Fire(self, Collectionator.Events.DisplayedResultsUpdated, results)
+  end
 end
 
 function CollectionatorRecipeDataProviderMixin:UniqueKey(entry)

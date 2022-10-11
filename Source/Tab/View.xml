@@ -44,6 +44,40 @@
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ResultsListing" relativePoint="BOTTOMRIGHT"  y="2"/>
         </Anchors>
       </Frame>
+
+      <Frame parentKey="BuyCheapest" mixin="CollectionatorBuyCheapestMixin">
+        <Size x="200" y="22"/>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnShow method="OnShow"/>
+          <OnHide method="OnHide"/>
+        </Scripts>
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT"/>
+        </Anchors>
+        <Frames>
+          <Button parentKey="SkipButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SKIP">
+            <Scripts>
+              <OnClick>
+                self:GetParent():Skip()
+              </OnClick>
+            </Scripts>
+            <Anchors>
+              <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
+            </Anchors>
+          </Button>
+          <Button parentKey="BuyButton" inherits="UIPanelDynamicResizeButtonTemplate">
+            <Scripts>
+              <OnClick>
+                self:GetParent():BuyOrStart()
+              </OnClick>
+            </Scripts>
+            <Anchors>
+              <Anchor point="TOPRIGHT" relativePoint="TOPLEFT" relativeKey="$parent.SkipButton"/>
+            </Anchors>
+          </Button>
+        </Frames>
+      </Frame>
     </Frames>
     <Layers>
       <Layer>
