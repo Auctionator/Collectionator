@@ -11,7 +11,7 @@ function CollectionatorViewMixin:OnShow()
 end
 
 function CollectionatorViewMixin:Refresh()
-  self.BuyCheapestButton:Reset()
+  self.BuyCheapest:Reset()
   if IsShiftKeyDown() then
     self.Scanner:Refresh()
   else

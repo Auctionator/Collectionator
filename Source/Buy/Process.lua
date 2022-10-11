@@ -59,7 +59,6 @@ function CollectionatorBuyProcessorTMogMixin:IsReady()
 end
 
 function CollectionatorBuyProcessorTMogMixin:Send()
-  print("raw query")
   C_AuctionHouse.SendSellSearchQuery(self.gearItemKey, Collectionator.Constants.ITEM_SORTS, false)
 end
 

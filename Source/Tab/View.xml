@@ -45,18 +45,40 @@
         </Anchors>
       </Frame>
 
-      <Button parentKey="BuyCheapestButton" mixin="CollectionatorBuyCheapestButtonMixin" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_BUY_CHEAPEST_ITEM">
-        <Size x="70" y="22"/>
+      <Frame parentKey="BuyCheapest" mixin="CollectionatorBuyCheapestMixin">
+        <Size x="200" y="22"/>
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow"/>
           <OnHide method="OnHide"/>
-          <OnClick method="OnClick"/>
         </Scripts>
         <Anchors>
           <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT"/>
         </Anchors>
-      </Button>
+        <Frames>
+          <Button parentKey="BuyButton" inherits="UIPanelDynamicResizeButtonTemplate">
+            <Scripts>
+              <OnClick>
+                self:GetParent():BuyOrStart()
+              </OnClick>
+            </Scripts>
+            <Anchors>
+              <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
+            </Anchors>
+          </Button>
+
+          <Button parentKey="SkipButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SKIP">
+            <Scripts>
+              <OnClick>
+                self:GetParent():Skip()
+              </OnClick>
+            </Scripts>
+            <Anchors>
+              <Anchor point="TOPRIGHT" relativePoint="TOPLEFT" relativeKey="$parent.BuyButton"/>
+            </Anchors>
+          </Button>
+        </Frames>
+      </Frame>
     </Frames>
     <Layers>
       <Layer>

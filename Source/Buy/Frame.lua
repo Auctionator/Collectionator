@@ -27,7 +27,6 @@ function CollectionatorBuyFrameMixin:ReceiveEvent(event, ...)
 
     FrameUtil.RegisterFrameForEvents(self, BUY_QUERY_EVENTS)
 
-    print("start")
     self.processor:PrepareSearch()
     self:AttemptSend()
   end
@@ -35,11 +34,9 @@ end
 
 function CollectionatorBuyFrameMixin:AttemptSend()
   if self.processor:IsReady() then
-    print("clear")
     self:SetScript("OnUpdate", nil)
     self.processor:Send()
   else
-    print("soue")
     self:SetScript("OnUpdate", self.OnUpdate)
   end
 end
@@ -47,8 +44,6 @@ end
 function CollectionatorBuyFrameMixin:OnEvent(event, ...)
   if event == "ITEM_SEARCH_RESULTS_UPDATED" then
     local itemKey = ...
-
-    print("isru", Auctionator.Utilities.ItemKeyString(itemKey), C_AuctionHouse.HasSearchResults(itemKey), C_AuctionHouse.GetItemSearchResultInfo(itemKey, 1))
 
     if self.processor:IsExpectedItemKey(itemKey) then
 
@@ -58,27 +53,25 @@ function CollectionatorBuyFrameMixin:OnEvent(event, ...)
 
       local result = self.processor:GetSearchResult(itemKey)
 
-      -- Check for supposedly having results when not all results are loaded and
-      -- there is 0 loaded.
+      -- Check for supposedly having results when not all results are there and
+      -- there are 0 loaded.
       if has and not full and quantity == 0 then
-        print("rereq")
         self.processor:Send()
         --self:AttemptSend()
+
       -- Now we actually have results
       elseif has then
         FrameUtil.UnregisterFrameForEvents(self, BUY_QUERY_EVENTS)
         self:SetScript("OnUpdate", nil)
-        Auctionator.AH.GetItemKeyInfo(itemKey, function(itemKeyInfo)
-          print("expected " .. itemKeyInfo.itemName .. " " .. Auctionator.Utilities.ItemKeyString(itemKey) .. " " .. tostring(result ~= nil) .. " ".. tostring(has) .. " " .. tostring(full) .. " " .. tostring(quantity))
-        end)
         self.processor = nil
         Auctionator.EventBus:Fire(self, self.request.returnEvent, result, self.request.returnData)
+
       -- Maybe not
       else
-        print("miss has")
         self:AttemptSend()
       end
     end
+
   elseif event == "AUCTION_HOUSE_CLOSED" then
     FrameUtil.UnregisterFrameForEvents(self, BUY_QUERY_EVENTS)
     self:SetScript("OnUpdate", nil)
@@ -88,6 +81,5 @@ function CollectionatorBuyFrameMixin:OnEvent(event, ...)
 end
 
 function CollectionatorBuyFrameMixin:OnUpdate()
-  print("update")
   self:AttemptSend()
 end
