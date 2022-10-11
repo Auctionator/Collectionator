@@ -24,6 +24,7 @@ function CollectionatorBuyCheapestButtonMixin:Reset()
   self.offset = 1
   self:SetText(COLLECTIONATOR_L_LOAD_FOR_PURCHASING)
   DynamicResizeButton_Resize(self)
+  Auctionator.EventBus:Fire(self, Collectionator.Events.FocusLink, nil)
 end
 
 function CollectionatorBuyCheapestButtonMixin:Focus()
@@ -73,7 +74,7 @@ function CollectionatorBuyCheapestButtonMixin:OnClick()
 end
 
 function CollectionatorBuyCheapestButtonMixin:ReceiveEvent(event, ...)
-  if event == Collectionator.Events.CheapestResultReturn then
+  if event == Collectionator.Events.CheapestResultReturn and self.focussed then
     local purchaseData, queryType = ...
     -- Check that the query corresponds to this tab
     if queryType ~= self:GetParent().queryType then
