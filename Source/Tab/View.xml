@@ -56,17 +56,6 @@
           <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT"/>
         </Anchors>
         <Frames>
-          <Button parentKey="BuyButton" inherits="UIPanelDynamicResizeButtonTemplate">
-            <Scripts>
-              <OnClick>
-                self:GetParent():BuyOrStart()
-              </OnClick>
-            </Scripts>
-            <Anchors>
-              <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
-            </Anchors>
-          </Button>
-
           <Button parentKey="SkipButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SKIP">
             <Scripts>
               <OnClick>
@@ -74,7 +63,17 @@
               </OnClick>
             </Scripts>
             <Anchors>
-              <Anchor point="TOPRIGHT" relativePoint="TOPLEFT" relativeKey="$parent.BuyButton"/>
+              <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
+            </Anchors>
+          </Button>
+          <Button parentKey="BuyButton" inherits="UIPanelDynamicResizeButtonTemplate">
+            <Scripts>
+              <OnClick>
+                self:GetParent():BuyOrStart()
+              </OnClick>
+            </Scripts>
+            <Anchors>
+              <Anchor point="TOPRIGHT" relativePoint="TOPLEFT" relativeKey="$parent.SkipButton"/>
             </Anchors>
           </Button>
         </Frames>

@@ -23,7 +23,7 @@ function CollectionatorBuyCheapestMixin:Reset()
   self.offset = 1
   self.SkipButton:Disable()
   self.BuyButton:Enable()
-  self:UpdateActionText(COLLECTIONATOR_L_LOAD_FOR_PURCHASING)
+  self:UpdateActionText(COLLECTIONATOR_L_START_PURCHASING)
 end
 
 function CollectionatorBuyCheapestMixin:Focus()
@@ -86,7 +86,7 @@ function CollectionatorBuyCheapestMixin:ProcessPurchaseData(purchaseData)
     local moneyString = GetMoneyString(self.purchaseData.buyoutAmount, true)
     if GetMoney() >= self.purchaseData.buyoutAmount then
       self.BuyButton:Enable()
-      self:UpdateActionText(COLLECTIONATOR_L_BUY_CHEAPEST_ITEM_X:format(moneyString))
+      self:UpdateActionText(COLLECTIONATOR_L_BUY_ITEM_X:format(moneyString))
     else
       self.BuyButton:Disable()
       self:UpdateActionText(COLLECTIONATOR_L_CANT_AFFORD_X:format(moneyString))
@@ -114,7 +114,7 @@ function CollectionatorBuyCheapestMixin:ReceiveEvent(event, ...)
       self.focussed = nil
       self.BuyButton:Enable()
       self.SkipButton:Enable()
-      self:UpdateActionText(COLLECTIONATOR_L_LOAD_FOR_PURCHASING)
+      self:UpdateActionText(COLLECTIONATOR_L_START_PURCHASING)
     end
 
   elseif event == Collectionator.Events.DisplayedResultsUpdated then
