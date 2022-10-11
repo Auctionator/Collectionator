@@ -1,11 +1,11 @@
 EVENT_BUS_EVENTS = {
   Collectionator.Events.CheapestResultReturn,
   Collectionator.Events.BuyQueryRequestAborted,
-  Collectionator.Events.TMogPurchased,
-  Collectionator.Events.PetPurchased,
-  Collectionator.Events.ToyPurchased,
-  Collectionator.Events.MountPurchased,
-  Collectionator.Events.RecipePurchased,
+  Collectionator.Events.SourceLoadStart,
+  Collectionator.Events.PetLoadStart,
+  Collectionator.Events.ToyLoadStart,
+  Collectionator.Events.MountLoadStart,
+  Collectionator.Events.RecipeLoadStart,
   Collectionator.Events.DisplayedResultsUpdated,
 }
 
@@ -22,9 +22,8 @@ function CollectionatorBuyCheapestMixin:Reset()
   self.results = nil
   self.offset = 1
   self.SkipButton:Disable()
-  self.BuyButton:Disable()
+  self.BuyButton:Enable()
   self:UpdateActionText(COLLECTIONATOR_L_LOAD_FOR_PURCHASING)
-  Auctionator.EventBus:Fire(self, Collectionator.Events.FocusLink, nil)
 end
 
 function CollectionatorBuyCheapestMixin:Focus()
@@ -35,16 +34,23 @@ function CollectionatorBuyCheapestMixin:Focus()
     self.focussed = self:GetParent().DataProvider:GetEntryAt(self.offset)
   end
 
-  local currentLink = self.focussed and self.focussed.itemLink
-  if currentLink ~= oldLink then
-    Auctionator.EventBus:Fire(self, Collectionator.Events.FocusLink, currentLink)
-    self:Query()
+  if self.focussed ~= nil then
+    local currentLink = self.focussed and self.focussed.itemLink
+    if currentLink ~= oldLink then
+      Auctionator.EventBus:Fire(self, Collectionator.Events.FocusLink, currentLink)
+      self:Query()
+    end
+  else
+    self.BuyButton:Disable()
+    self.SkipButton:Disable()
+    self:UpdateActionText(COLLECTIONATOR_L_NO_ITEMS_LEFT)
   end
 end
 
 function CollectionatorBuyCheapestMixin:OnShow()
   Auctionator.EventBus:Register(self, EVENT_BUS_EVENTS)
   self:Reset()
+  Auctionator.EventBus:Fire(self, Collectionator.Events.FocusLink, nil)
 end
 
 function CollectionatorBuyCheapestMixin:OnHide()
@@ -57,8 +63,11 @@ function CollectionatorBuyCheapestMixin:UpdateActionText(text)
 end
 
 function CollectionatorBuyCheapestMixin:BuyOrStart()
+  -- Nothing focussed or queried yet
   if not self.focussed or not self.purchaseData then
     self:Focus()
+
+  -- Item focussed and queried, attempt to buy
   else
     self.SkipButton:Disable()
     self.BuyButton:Disable()
@@ -70,6 +79,25 @@ function CollectionatorBuyCheapestMixin:BuyOrStart()
   end
 end
 
+function CollectionatorBuyCheapestMixin:ProcessPurchaseData(purchaseData)
+  self.purchaseData = purchaseData
+  -- Check that there's something we can buy
+  if self.purchaseData ~= nil and not self.purchaseData.containsAccountItem then
+    local moneyString = GetMoneyString(self.purchaseData.buyoutAmount, true)
+    if GetMoney() >= self.purchaseData.buyoutAmount then
+      self.BuyButton:Enable()
+      self:UpdateActionText(COLLECTIONATOR_L_BUY_CHEAPEST_ITEM_X:format(moneyString))
+    else
+      self.BuyButton:Disable()
+      self:UpdateActionText(COLLECTIONATOR_L_CANT_AFFORD_X:format(moneyString))
+    end
+    self.SkipButton:Enable()
+  -- Nothing to buy for this item, select and query the next one
+  else
+    self:Skip()
+  end
+end
+
 function CollectionatorBuyCheapestMixin:ReceiveEvent(event, ...)
   if event == Collectionator.Events.CheapestResultReturn and self.focussed then
     local purchaseData, queryType = ...
@@ -78,15 +106,8 @@ function CollectionatorBuyCheapestMixin:ReceiveEvent(event, ...)
       return
     end
 
-    self.purchaseData = purchaseData
-    -- Check that there's something we can buy
-    if self.purchaseData ~= nil and not self.purchaseData.containsAccountItem then
-      self.BuyButton:Enable()
-      self.SkipButton:Enable()
-      self:UpdateActionText(COLLECTIONATOR_L_BUY_CHEAPEST_ITEM:format(GetMoneyString(self.purchaseData.buyoutAmount, true)))
-    else
-      self:Skip()
-    end
+    self:ProcessPurchaseData(purchaseData)
+
   elseif event == Collectionator.Events.BuyQueryRequestAborted then
     local expectedEvent, returnData = ...
     if expectedEvent == Collectionator.Events.CheapestResultReturn then
@@ -95,12 +116,17 @@ function CollectionatorBuyCheapestMixin:ReceiveEvent(event, ...)
       self.SkipButton:Enable()
       self:UpdateActionText(COLLECTIONATOR_L_LOAD_FOR_PURCHASING)
     end
+
   elseif event == Collectionator.Events.DisplayedResultsUpdated then
     self.results = ...
-    self.BuyButton:Enable()
     if self.focussed then
       self:Focus()
+    else
+      self:Reset()
     end
+
+  else -- New results loading from a new full scan
+    self:Reset()
   end
 end
 

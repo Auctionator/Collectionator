@@ -52,9 +52,11 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["ALTERNATIVE_OPTIONS"] = "Alternative options"
   L["SEARCH_FOR_ALTERNATIVES_TOOLTIP"] = "View all the options you can buy, including those not the cheapest."
 
-  L["BUY_CHEAPEST_ITEM"] = "Buy cheapest item (%s)"
+  L["BUY_CHEAPEST_ITEM_X"] = "Buy cheapest item (%s)"
   L["LOAD_FOR_PURCHASING"] = "Load for for purchasing"
+  L["CANT_AFFORD_X"] = "Can't afford (%s)"
   L["PROCESSING"] = "Processing"
+  L["NO_ITEMS_LEFT"] = "No items left"
 
   L["IS_USABLE"] = "Is usable?"
   L["ON_PREVIOUS_CHARACTERS"] = "on any previously seen characters"
