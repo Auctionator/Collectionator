@@ -45,7 +45,7 @@
         </Anchors>
       </Frame>
 
-      <Button parentKey="BuyCheapestItemButton" mixin="CollectionatorBuyCheapestButtonMixin" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_BUY_CHEAPEST_ITEM">
+      <Button parentKey="BuyCheapestButton" mixin="CollectionatorBuyCheapestButtonMixin" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_BUY_CHEAPEST_ITEM">
         <Size x="70" y="22"/>
         <Scripts>
           <OnLoad method="OnLoad"/>
