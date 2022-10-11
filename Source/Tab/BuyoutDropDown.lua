@@ -4,7 +4,8 @@ local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
 
 function CollectionatorBuyoutDropDownMixin:OnLoad()
   LibDD:Create_UIDropDownMenu(self)
-  LibDD:UIDropDownMenu_Initialize(self, CollectionatorBuyoutDropDownMixin.Initialize, "MENU")
+  LibDD:UIDropDownMenu_SetInitializeFunction(self, CollectionatorBuyoutDropDownMixin.Initialize)
+  LibDD:UIDropDownMenu_SetDisplayMode(self, "MENU")
   Auctionator.EventBus:Register(self, {
     Collectionator.Events.ShowBuyoutOptions,
   })
