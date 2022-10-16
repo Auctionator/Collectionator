@@ -56,6 +56,10 @@ function CollectionatorTabFrameMixin:RecipeMode()
 end
 
 function CollectionatorTabFrameMixin:OpenOptions()
-  InterfaceOptionsFrame:Show()
-  InterfaceOptionsFrame_OpenToCategory(COLLECTIONATOR_L_COLLECTIONATOR)
+  if Settings ~= nil then -- Dragonflight
+    Settings.OpenToCategory(COLLECTIONATOR_L_COLLECTIONATOR)
+  else
+    InterfaceOptionsFrame:Show()
+    InterfaceOptionsFrame_OpenToCategory(COLLECTIONATOR_L_COLLECTIONATOR)
+  end
 end
