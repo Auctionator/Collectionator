@@ -49,8 +49,15 @@ end
 
 function CollectionatorBuyCheapestMixin:OnShow()
   Auctionator.EventBus:Register(self, EVENT_BUS_EVENTS)
-  self:Reset()
-  Auctionator.EventBus:Fire(self, Collectionator.Events.FocusLink, nil)
+  if not Auctionator.Config.Get(Auctionator.Config.Options.COLLECTIONATOR_PURCHASE_WATCH) then
+    self.SkipButton:Hide()
+    self.BuyButton:Hide()
+  else
+    self.SkipButton:Show()
+    self.BuyButton:Show()
+    self:Reset()
+    Auctionator.EventBus:Fire(self, Collectionator.Events.FocusLink, nil)
+  end
 end
 
 function CollectionatorBuyCheapestMixin:OnHide()
