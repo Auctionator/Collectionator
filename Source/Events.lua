@@ -28,5 +28,8 @@ Collectionator.Events = {
   CheapestResultReturn = "collecting_cheapest_result_return",
   FocusLink = "collecting_focus_link",
 
+  ConfirmAndDelayEvent = "collecting_confirm_and_delay_event",
+  ContinueOnBuyCheapestWarning = "collecting_continue_on_buy_cheapest_warning",
+
   DisplayedResultsUpdated = "collecting_displayed_results_updated",
 }

@@ -7,6 +7,7 @@
   <Script file="TMogView.lua"/>
   <Script file="RecipeView.lua"/>
   <Script file="BuyCheapest.lua" />
+  <Script file="BuyWarningDialog.lua"/>
 
   <Include file="View.xml"/>
   <Include file="TMogView.xml"/>

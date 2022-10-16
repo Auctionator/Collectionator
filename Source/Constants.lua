@@ -12,4 +12,6 @@ Collectionator.Constants = {
     CurrentRealmAndFaction = 2,
     UnusableIncluded = 3,
   },
+
+  BuyWarningFactor = 1.4,
 }

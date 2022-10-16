@@ -57,6 +57,7 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["CANT_AFFORD_X"] = "Can't afford (%s)"
   L["PROCESSING"] = "Processing"
   L["NO_ITEMS_LEFT"] = "No items left"
+  L["PRICE_INCREASED_BY_X"] = "Price increased by %s"
 
   L["IS_USABLE"] = "Is usable?"
   L["ON_PREVIOUS_CHARACTERS"] = "on any previously seen characters"

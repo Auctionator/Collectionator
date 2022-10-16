@@ -100,6 +100,52 @@
           <OnClick>self:GetParent():OpenOptions()</OnClick>
         </Scripts>
       </Button>
+
+      <Frame parentKey="WarningDialog" mixin="CollectionatorBuyWarningDialogMixin" frameStrata="High" enableMouse="true">
+        <KeyValues>
+          <KeyValue key="layoutType" value="Dialog" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="CENTER" relativeKey="$parent.TMogView"/>
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnHide method="OnHide"/>
+        </Scripts>
+        <Size x="300" y="150"/>
+        <Layers>
+          <Layer level="ARTWORK">
+            <FontString parentKey="Text" inherits="GameFontHighlightLarge" text="COLLECTIONATOR_L_PRICE_INCREASED_BY_X">
+              <Size x="250"/>
+              <Anchors>
+                <Anchor point="CENTER" y="10"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+          <Layer level="BACKGROUND">
+            <Texture parentKey="Background">
+              <Anchors>
+                <Anchor point="TOPLEFT" x="6" y="-8"/>
+                <Anchor point="BOTTOMRIGHT" x="-6" y="8"/>
+              </Anchors>
+              <Color r="0" g="0" b="0" a="0.8"/>
+            </Texture>
+          </Layer>
+        </Layers>
+        <Frames>
+          <Frame parentKey="NineSlice" inherits="NineSlicePanelTemplate" />
+          <Button parentKey="ContinueButton" inherits="UIPanelDynamicResizeButtonTemplate" text="CONTINUE">
+            <Scripts>
+              <OnClick>
+                self:GetParent():Continue()
+              </OnClick>
+            </Scripts>
+            <Anchors>
+              <Anchor point="CENTER" y="-30"/>
+            </Anchors>
+          </Button>
+        </Frames>
+      </Frame>
     </Frames>
   </Frame>
 </Ui>

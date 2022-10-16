@@ -1,5 +1,6 @@
 EVENT_BUS_EVENTS = {
   Collectionator.Events.CheapestResultReturn,
+  Collectionator.Events.ContinueOnBuyCheapestWarning,
   Collectionator.Events.BuyQueryRequestAborted,
   Collectionator.Events.SourceLoadStart,
   Collectionator.Events.PetLoadStart,
@@ -99,6 +100,19 @@ function CollectionatorBuyCheapestMixin:ProcessPurchaseData(purchaseData)
       self:UpdateActionText(COLLECTIONATOR_L_CANT_AFFORD_X:format(moneyString))
     end
     self.SkipButton:Enable()
+
+    if self.BuyButton:IsEnabled() and self.purchaseData.buyoutAmount >= Collectionator.Constants.BuyWarningFactor * self.focussed.price then
+      self.BuyButton:Disable()
+      self.SkipButton:Disable()
+      local increasePercentage = ((self.purchaseData.buyoutAmount - self.focussed.price) / self.focussed.price * 100) .. "%"
+      Auctionator.EventBus:Fire(
+        self,
+        Collectionator.Events.ConfirmAndDelayEvent,
+        COLLECTIONATOR_L_PRICE_INCREASED_BY_X:format(increasePercentage),
+        Collectionator.Events.ContinueOnBuyCheapestWarning,
+        self:GetParent().queryType
+      )
+    end
   -- Nothing to buy for this item, select and query the next one
   else
     self:Skip()
@@ -130,6 +144,13 @@ function CollectionatorBuyCheapestMixin:ReceiveEvent(event, ...)
       self:Focus()
     else
       self:Reset()
+    end
+
+  elseif event == Collectionator.Events.ContinueOnBuyCheapestWarning then
+    local queryType = ...
+    if queryType == self:GetParent().queryType and self.focussed and self.purchaseData then
+      self.BuyButton:Enable()
+      self.SkipButton:Enable()
     end
 
   else -- New results loading from a new full scan
