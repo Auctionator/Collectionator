@@ -188,7 +188,7 @@ function CollectionatorMountTypeFilterMixin:GetFilterName(filter)
   return MOUNT_TYPES_TO_NAME[filter]
 end
 
-PROFESSION_SUBCLASSES = {
+local PROFESSION_SUBCLASSES = {
   Enum.ItemRecipeSubclass.Leatherworking,
   Enum.ItemRecipeSubclass.Tailoring,
   Enum.ItemRecipeSubclass.Engineering,

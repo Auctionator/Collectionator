@@ -1,6 +1,6 @@
 CollectionatorBuyFrameMixin = {}
 
-BUY_QUERY_EVENTS = {
+local BUY_QUERY_EVENTS = {
   "ITEM_SEARCH_RESULTS_UPDATED",
   "AUCTION_HOUSE_CLOSED",
 }

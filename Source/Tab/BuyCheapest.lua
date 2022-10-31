@@ -1,4 +1,4 @@
-EVENT_BUS_EVENTS = {
+local EVENT_BUS_EVENTS = {
   Collectionator.Events.CheapestResultReturn,
   Collectionator.Events.ContinueOnBuyCheapestWarning,
   Collectionator.Events.BuyQueryRequestAborted,
