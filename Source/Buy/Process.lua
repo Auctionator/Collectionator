@@ -59,7 +59,7 @@ function CollectionatorBuyProcessorTMogMixin:IsReady()
 end
 
 function CollectionatorBuyProcessorTMogMixin:Send()
-  C_AuctionHouse.SendSellSearchQuery(self.gearItemKey, Collectionator.Constants.ITEM_SORTS, false)
+  Auctionator.AH.SendSellSearchQueryByItemKey(self.gearItemKey, Collectionator.Constants.ITEM_SORTS, false)
 end
 
 function CollectionatorBuyProcessorTMogMixin:GetSearchResult(itemKey)
@@ -99,7 +99,9 @@ function CollectionatorBuyProcessorPetMixin:IsReady()
 end
 
 function CollectionatorBuyProcessorPetMixin:Send()
-  C_AuctionHouse.SendSearchQuery(self:GetKey(), Collectionator.Constants.ITEM_SORTS, true)
+  Auctionator.AH.SendSearchQueryByGenerator(function()
+    return self:GetKey()
+  end, Collectionator.Constants.ITEM_SORTS, true)
 end
 
 function CollectionatorBuyProcessorPetMixin:GetSearchResult(itemKey)
@@ -133,11 +135,9 @@ function CollectionatorBuyProcessorOtherMixin:GetKey()
 end
 
 function CollectionatorBuyProcessorOtherMixin:Send()
-  C_AuctionHouse.SendSearchQuery(self:GetKey(), Collectionator.Constants.ITEM_SORTS, true)
-end
-
-function CollectionatorBuyProcessorOtherMixin:IsReady()
-  return C_AuctionHouse.GetItemKeyInfo(self:GetKey()) ~= nil
+  Auctionator.AH.SendSearchQueryByGenerator(function()
+    return self:GetKey()
+  end, Collectionator.Constants.ITEM_SORTS, false)
 end
 
 function CollectionatorBuyProcessorOtherMixin:GetSearchResult(itemKey)
