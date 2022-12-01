@@ -128,7 +128,7 @@ function CollectionatorMountDataProviderMixin:Refresh()
     local minLevel = self:GetParent().LevelFilter:GetMin()
     local maxLevel = self:GetParent().LevelFilter:GetMax()
     if maxLevel == 0 then
-      maxLevel = 60
+      maxLevel = Collectionator.Constants.MaxLevel
     end
 
     check = check and mountInfo.levelRequired >= minLevel and mountInfo.levelRequired <= maxLevel
