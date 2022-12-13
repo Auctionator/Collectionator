@@ -36,7 +36,7 @@ function CollectionatorBuyFrameMixin:ReceiveEvent(event, ...)
   elseif event == Auctionator.AH.Events.ItemSearchResultsReady then
     local itemKey = ...
 
-    if self.processor:IsExpectedItemKey(itemKey) then
+    if self.processor and self.processor:IsExpectedItemKey(itemKey) then
       local result = self.processor:GetSearchResult(itemKey)
       Auctionator.EventBus:Unregister(self, AH_BUY_EVENTS)
       FrameUtil.UnregisterFrameForEvents(self, CLOSE_EVENTS)
