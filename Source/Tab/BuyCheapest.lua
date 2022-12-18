@@ -77,13 +77,21 @@ function CollectionatorBuyCheapestMixin:BuyOrStart()
 
   -- Item focussed and queried, attempt to buy
   else
-    self.SkipButton:Disable()
-    self.BuyButton:Disable()
-    self:UpdateActionText(COLLECTIONATOR_L_PROCESSING)
 
     Auctionator.EventBus:Fire(self, Collectionator.Events.PurchaseAttempted, self.purchaseData.auctionID, self.purchaseData.itemLink)
     C_AuctionHouse.PlaceBid(self.purchaseData.auctionID, self.purchaseData.buyoutAmount)
-    self.purchaseData = nil
+
+    -- the purchase request was ignored by the Blizzard API
+    if Auctionator.AH.IsNotThrottled() then
+      local moneyString = GetMoneyString(self.purchaseData.buyoutAmount, true)
+      self:UpdateActionText(COLLECTIONATOR_L_TRY_AGAIN_X:format(moneyString))
+    -- purchase went through
+    else
+      self.SkipButton:Disable()
+      self.BuyButton:Disable()
+      self:UpdateActionText(COLLECTIONATOR_L_PROCESSING)
+      self.purchaseData = nil
+    end
   end
 end
 
