@@ -97,8 +97,8 @@ end
 
 function CollectionatorBuyCheapestMixin:ProcessPurchaseData(purchaseData)
   self.purchaseData = purchaseData
-  -- Check that there's something we can buy
-  if self.purchaseData ~= nil and not self.purchaseData.containsAccountItem then
+  -- Check that there's something we can buy (not owned and not bid only)
+  if self.purchaseData ~= nil and not self.purchaseData.containsAccountItem and self.purchaseData.buyoutAmount ~= nil then
     local moneyString = GetMoneyString(self.purchaseData.buyoutAmount, true)
     if GetMoney() >= self.purchaseData.buyoutAmount then
       self.BuyButton:Enable()
