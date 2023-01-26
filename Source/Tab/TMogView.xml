@@ -2,7 +2,6 @@
   <Frame
     name="CollectionatorTMogViewTemplate"
     inherits="CollectionatorViewTemplate"
-    mixin="CollectionatorTMogViewMixin"
     virtual="true"
   >
     <KeyValues>
