@@ -110,15 +110,7 @@ end
 function CollectionatorPurchaseWatchFrameMixin:ProcessTMogDetails(itemLink)
   local _, source = C_TransmogCollection.GetItemInfo(itemLink)
   if source ~= nil then
-    local sourceInfo = C_TransmogCollection.GetSourceInfo(source)
-    local set = C_TransmogCollection.GetAllAppearanceSources(sourceInfo.visualID)
-    if set ~= nil then
-      for _, otherSource in ipairs(set) do
-        Collectionator.State.Purchases.TMog[otherSource] = true
-      end
-    else
-      Collectionator.State.Purchases.TMog[source] = true
-    end
+    Collectionator.State.Purchases.TMog[source] = true
 
     Auctionator.EventBus:Fire(self, Collectionator.Events.TMogPurchased)
   end
