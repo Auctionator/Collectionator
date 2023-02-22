@@ -25,7 +25,8 @@ function CollectionatorPurchaseWatchFrameMixin:OnEvent(event, ...)
     if addonName == "Collectionator" then
       self:UnregisterEvent("ADDON_LOADED")
 
-      if not COLLECTIONATOR_PURCHASES then
+      local _, build = GetBuildInfo()
+      if not COLLECTIONATOR_PURCHASES or COLLECTIONATOR_PURCHASES.Version ~= 1 or COLLECTIONATOR_PURCHASES.build ~= build then
         self:ResetData()
       else
         Collectionator.State.Purchases = COLLECTIONATOR_PURCHASES
@@ -63,7 +64,10 @@ function CollectionatorPurchaseWatchFrameMixin:ReceiveEvent(eventName, ...)
 end
 
 function CollectionatorPurchaseWatchFrameMixin:ResetData()
+  local _, build = GetBuildInfo()
   COLLECTIONATOR_PURCHASES = {
+    Version = 1,
+    build = build,
     TMog = {},
     Pets = {},
     Toys = {},
