@@ -29,10 +29,18 @@ local function RemovePlayerGUID(itemLink)
   return itemLink
 end
 
+-- For some reason gear item links include an item instance ID and viewing level
+-- ID (at least I think that's what they are) that change from session to
+-- session, even if the item remains the same. This removes them to avoid
+-- matching failing.
+local function RemoveItemInstanceIDs(itemLink)
+  return (itemLink:gsub("(item:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*):[^:]*:[^:]*:", "%1::"))
+end
+
 local function GetIdenticalLinkItem(itemLink, itemKey)
   for index = 1, C_AuctionHouse.GetNumItemSearchResults(itemKey) do
     local info = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
-    if RemovePlayerGUID(info.itemLink) == itemLink then
+    if RemoveItemInstanceIDs(RemovePlayerGUID(info.itemLink)) == itemLink then
       return info
     end
   end
@@ -63,7 +71,7 @@ function CollectionatorBuyProcessorTMogMixin:Send()
 end
 
 function CollectionatorBuyProcessorTMogMixin:GetSearchResult(itemKey)
-  return GetIdenticalLinkItem(self.itemLink, itemKey)
+  return GetIdenticalLinkItem(RemoveItemInstanceIDs(self.itemLink), itemKey)
 end
 
 function CollectionatorBuyProcessorTMogMixin:IsExpectedItemKey(itemKey)
