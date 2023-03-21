@@ -4,14 +4,11 @@
   <Script file="Events.lua" />
   <Script file="Constants.lua" />
 
-  <Include file="Scanner\Manifest.xml"/>
   <Include file="Filters\Manifest.xml"/>
-  <Include file="Tab\Manifest.xml"/>
   <Include file="Utilities\Manifest.xml"/>
-  <Include file="DataProviders\Manifest.xml"/>
-  <Include file="ResultsListing\Manifest.xml"/>
   <Include file="RecipeCache\Manifest.xml"/>
-  <Include file="Buy\Manifest.xml"/>
   <Include file="PurchaseWatch\Manifest.xml"/>
   <Include file="Config\Manifest.xml"/>
+  <Include file="Replicate\Manifest.xml"/>
+  <Include file="Summary\Manifest.xml"/>
 </Ui>

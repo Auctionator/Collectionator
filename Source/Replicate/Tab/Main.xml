@@ -1,0 +1,151 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="CollectionatorReplicateTabFrameTemplate"
+    mixin="CollectionatorReplicateTabFrameMixin"
+    virtual="true"
+    parentKey="CollectionatorReplicateTabFrame"
+    hidden="true"
+  >
+    <Anchors>
+      <Anchor point="TOP" relativeKey="$parent.CategoriesList" relativePoint="TOP"/>
+      <Anchor point="LEFT" x="4"/>
+      <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-4" y="27" />
+    </Anchors>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+    </Scripts>
+
+    <Frames>
+      <Button parentKey="TMogButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_TMOGS_BUTTON">
+        <Size x="70" y="22"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" y="50" x="180"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():TMogMode()</OnClick>
+        </Scripts>
+      </Button>
+      <Button parentKey="PetButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_PETS_BUTTON">
+        <Size x="70" y="22"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.TMogButton"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():PetMode()</OnClick>
+        </Scripts>
+      </Button>
+      <Button parentKey="ToyButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_TOYS_BUTTON">
+        <Size x="70" y="22"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.PetButton"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():ToyMode()</OnClick>
+        </Scripts>
+      </Button>
+      <Button parentKey="MountButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_MOUNTS_BUTTON">
+        <Size x="70" y="22"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.ToyButton"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():MountMode()</OnClick>
+        </Scripts>
+      </Button>
+      <Button parentKey="RecipeButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_RECIPES_BUTTON">
+        <Size x="70" y="22"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.MountButton"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():RecipeMode()</OnClick>
+        </Scripts>
+      </Button>
+
+      <Frame parentKey="TMogView" inherits="CollectionatorReplicateTMogViewTemplate"/>
+
+      <Frame parentKey="PetView" inherits="CollectionatorReplicatePetViewTemplate"/>
+
+      <Frame parentKey="ToyView" inherits="CollectionatorReplicateToyViewTemplate"/>
+
+      <Frame parentKey="MountView" inherits="CollectionatorReplicateMountViewTemplate"/>
+
+      <Frame parentKey="RecipeView" inherits="CollectionatorReplicateRecipeViewTemplate"/>
+
+      <Frame parentKey="BuyoutDropDown" inherits="CollectionatorReplicateBuyoutDropDownTemplate" hidden="true"/>
+
+      <Button parentKey="FullScanButton" inherits="UIPanelDynamicResizeButtonTemplate" text="COLLECTIONATOR_L_SCAN">
+        <Size x="70" y="22"/>
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="0" y="28"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>Auctionator.State.FullScanFrameRef:InitiateScan()</OnClick>
+        </Scripts>
+      </Button>
+
+      <Frame inherits="AuctionatorFullScanStatusTemplate">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent.FullScanButton" relativePoint="TOPLEFT" x="-13"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.FullScanButton" relativePoint="TOPRIGHT"/>
+        </Anchors>
+      </Frame>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="OPTIONS" parentKey="OptionsButton">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.FullScanButton" relativePoint="TOPLEFT"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():OpenOptions()</OnClick>
+        </Scripts>
+      </Button>
+
+      <Frame parentKey="WarningDialog" mixin="CollectionatorReplicateBuyWarningDialogMixin" frameStrata="High" enableMouse="true">
+        <KeyValues>
+          <KeyValue key="layoutType" value="Dialog" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="CENTER" relativeKey="$parent.TMogView"/>
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnHide method="OnHide"/>
+        </Scripts>
+        <Size x="300" y="150"/>
+        <Layers>
+          <Layer level="ARTWORK">
+            <FontString parentKey="Text" inherits="GameFontHighlightLarge" text="COLLECTIONATOR_L_PRICE_INCREASED_BY_X">
+              <Size x="250"/>
+              <Anchors>
+                <Anchor point="CENTER" y="10"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+          <Layer level="BACKGROUND">
+            <Texture parentKey="Background">
+              <Anchors>
+                <Anchor point="TOPLEFT" x="6" y="-8"/>
+                <Anchor point="BOTTOMRIGHT" x="-6" y="8"/>
+              </Anchors>
+              <Color r="0" g="0" b="0" a="0.8"/>
+            </Texture>
+          </Layer>
+        </Layers>
+        <Frames>
+          <Frame parentKey="NineSlice" inherits="NineSlicePanelTemplate" />
+          <Button parentKey="ContinueButton" inherits="UIPanelDynamicResizeButtonTemplate" text="CONTINUE">
+            <Scripts>
+              <OnClick>
+                self:GetParent():Continue()
+              </OnClick>
+            </Scripts>
+            <Anchors>
+              <Anchor point="CENTER" y="-30"/>
+            </Anchors>
+          </Button>
+        </Frames>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

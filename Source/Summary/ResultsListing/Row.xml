@@ -1,0 +1,41 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="CollectionatorSummaryRowTemplate"
+    mixin="CollectionatorSummaryRowMixin"
+    inherits="AuctionatorResultsRowTemplate"
+    virtual="true"
+    enableMouse="true"
+  >
+    <Layers>
+      <Layer level="OVERLAY">
+        <Texture parentKey="NormalTexture" atlas="auctionhouse-rowstripe-1">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPLEFT"/>
+            <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+
+  <Frame
+    name="CollectionatorSummaryTMogRowTemplate"
+    mixin="CollectionatorSummaryTMogRowMixin"
+    inherits="CollectionatorSummaryRowTemplate"
+    virtual="true"
+    />
+
+  <Frame
+    name="CollectionatorSummaryPetRowTemplate"
+    mixin="CollectionatorSummaryPetRowMixin"
+    inherits="CollectionatorSummaryRowTemplate"
+    virtual="true"
+    />
+
+  <Frame
+    name="CollectionatorSummaryToyMountRowTemplate"
+    mixin="CollectionatorSummaryToyMountRowMixin"
+    inherits="CollectionatorSummaryRowTemplate"
+    virtual="true"
+    />
+</Ui>

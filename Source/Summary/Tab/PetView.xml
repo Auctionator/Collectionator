@@ -1,0 +1,69 @@
+<Ui>
+  <Frame
+    name="CollectionatorSummaryPetViewTemplate"
+    inherits="CollectionatorSummaryViewTemplate"
+    virtual="true"
+  >
+    <KeyValues>
+      <KeyValue key="queryType" value="PET" type="string"/>
+    </KeyValues>
+    <Frames>
+      <Frame inherits="CollectionatorSummaryPetScannerFrameTemplate" parentKey="Scanner">
+      </Frame>
+
+      <DropDownToggleButton parentKey="TypeFilter" inherits="CollectionatorFilterDropDownTemplate" mixin="CollectionatorPetSpeciesFilterMixin" text="COLLECTIONATOR_L_TYPE">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="40" y="70"/>
+        </Anchors>
+      </DropDownToggleButton>
+
+      <DropDownToggleButton parentKey="QualityFilter" inherits="CollectionatorFilterDropDownTemplate" mixin="CollectionatorQualityFilterMixin" text="COLLECTIONATOR_L_QUALITY">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TypeFilter" relativePoint="TOPRIGHT" x="25"/>
+        </Anchors>
+      </DropDownToggleButton>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="IncludeCollected">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_PET_INCLUDE_COLLECTED" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="35" x="20"/>
+          <Anchor point="BOTTOM" relativeKey="$parent.QualityFilter" relativePoint="TOP" y="5"/>
+          <Anchor point="RIGHT" relativeKey="$parent.QualityFilter" relativePoint="RIGHT" x="300"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="NotMaxedOut">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_PET_NOT_MAXED_OUT" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="10" x="20"/>
+          <Anchor point="BOTTOM" relativeKey="$parent.QualityFilter" relativePoint="TOP" y="-15"/>
+          <Anchor point="RIGHT" relativeKey="$parent.QualityFilter" relativePoint="RIGHT" x="300"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ProfessionOnly">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_FROM_PROFESSION_ONLY" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="-15" x="20"/>
+          <Anchor point="BOTTOM" relativeKey="$parent.QualityFilter" relativePoint="TOP" y="-40"/>
+          <Anchor point="RIGHT" relativeKey="$parent.QualityFilter" relativePoint="RIGHT" x="300"/>
+        </Anchors>
+      </Frame>
+
+
+      <Frame parentKey="DataProvider" mixin="CollectionatorSummaryPetDataProviderMixin">
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnShow method="OnShow"/>
+          <OnUpdate method="OnUpdate"/>
+        </Scripts>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

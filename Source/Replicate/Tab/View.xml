@@ -1,0 +1,97 @@
+<Ui>
+  <Frame
+    name="CollectionatorReplicateViewTemplate"
+    mixin="CollectionatorReplicateViewMixin"
+    virtual="true"
+  >
+    <Anchors>
+      <Anchor point="TOPLEFT" relativePoint="TOPLEFT" y="-100"/>
+      <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
+    </Anchors>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+    </Scripts>
+    <Frames>
+
+      <EditBox parentKey="TextFilter" inherits="CollectionatorFilterSearchBoxTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="46" y="25"/>
+        </Anchors>
+      </EditBox>
+
+      <Button parentKey="RefreshButton" inherits="RefreshButtonTemplate">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent" x="-44" y="65"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():Refresh()
+          </OnClick>
+        </Scripts>
+      </Button>
+
+      <Frame parentKey="ResultsListing" inherits="AuctionatorResultsListingTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="20" y="0"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-20"/>
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="ResultsListingInset" inherits="AuctionatorInsetTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" relativePoint="TOPLEFT" x="-24" y="-25"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ResultsListing" relativePoint="BOTTOMRIGHT"  y="2"/>
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="BuyCheapest" mixin="CollectionatorReplicateBuyCheapestMixin">
+        <Size x="200" y="22"/>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnShow method="OnShow"/>
+          <OnHide method="OnHide"/>
+        </Scripts>
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT"/>
+        </Anchors>
+        <Frames>
+          <Button parentKey="SkipButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SKIP">
+            <Scripts>
+              <OnClick>
+                self:GetParent():Skip()
+              </OnClick>
+            </Scripts>
+            <Anchors>
+              <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
+            </Anchors>
+          </Button>
+          <Button parentKey="BuyButton" inherits="UIPanelDynamicResizeButtonTemplate">
+            <Scripts>
+              <OnClick>
+                self:GetParent():BuyOrStart()
+              </OnClick>
+            </Scripts>
+            <Anchors>
+              <Anchor point="TOPRIGHT" relativePoint="TOPLEFT" relativeKey="$parent.SkipButton"/>
+            </Anchors>
+          </Button>
+        </Frames>
+      </Frame>
+    </Frames>
+    <Layers>
+      <Layer>
+        <FontString parentKey="NoFullScanText" inherits="GameFontNormal" text="COLLECTIONATOR_L_NEED_A_DETAILED_SCAN">
+          <Anchors>
+            <Anchor point="CENTER" relativeKey="$parent.ResultsListing" relativePoint="CENTER"/>
+          </Anchors>
+        </FontString>
+        <FontString parentKey="ShowingXResultsText" inherits="GameFontHighlight" text="">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="175" y="-6"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

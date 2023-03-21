@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Frame name="CollectionatorSummaryBuyoutDropDownTemplate" mixin="CollectionatorSummaryBuyoutDropDownMixin" virtual="true">
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Frame>
+</Ui>
