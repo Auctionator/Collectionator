@@ -64,6 +64,10 @@ function CollectionatorSummaryScannerFrameMixin:GetItem(index, itemKeyInfo, scan
 end
 
 local function GlobalFilterItemID(itemID)
+  if not C_Item.DoesItemExistByID(itemID) then
+    return false
+  end
+
   local classID, subClassID = select(6, GetItemInfoInstant(itemID))
   if classID == nil then
     return true
@@ -75,14 +79,6 @@ function CollectionatorSummaryScannerFrameMixin:BatchStep(start, limit)
   Auctionator.Debug.Message("CollectionatorSummaryScannerFrameMixin:BatchStep", start, limit)
   if start > #self.fullScan then
     Auctionator.Debug.Message("CollectionatorSummaryScannerFrameMixin:BatchStep", "READY", start, #self.results)
-    C_Timer.After(1, function()
-      if self.leftCount > 0 then
-        self.leftCount = 0
-        Auctionator.EventBus:Fire(
-          self, self.SCAN_END_EVENT, self.results, self.fullScan
-        )
-      end
-    end)
     return
   end
 
