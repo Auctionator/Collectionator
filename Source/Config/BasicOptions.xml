@@ -19,12 +19,39 @@
         </KeyValues>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="ScanModesHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="COLLECTIONATOR_L_SCAN_MODES" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="Summary">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_CONFIG_SUMMARY_MODE_TAB" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ScanModesHeading" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="Replicate">
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_CONFIG_REPLICATE_MODE_TAB" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Summary" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="RecipesHeading">
         <KeyValues>
           <KeyValue key="headingText" value="COLLECTIONATOR_L_RECIPES_BUTTON" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Replicate" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
 

@@ -39,6 +39,10 @@ COLLECTIONATOR_LOCALES.enUS = function()
 
   L["TAB"] = "Collecting"
   L["TAB_HEADER"] = "Collectionator - Collecting"
+  L["TAB_SUMMARY"] = "Collecting(s)"
+  L["TAB_SUMMARY_HEADER"] = "Collectionator - Collecting (summary mode)"
+  L["TAB_REPLICATE"] = "Collecting(r)"
+  L["TAB_REPLICATE_HEADER"] = "Collectionator - Collecting (replicate mode)"
   L["LEVEL_REQUIRED"] = "Level Required"
 
   L["SCAN"] = "Scan"
@@ -72,6 +76,10 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["CONFIG_PURCHASE_TRACKING_HEADER"] = "Purchase tracking"
   L["CONFIG_PURCHASE_TRACKING"] = "Record purchases with Collectionator to exclude them from future searches."
   L["RESET_PURCHASE_WATCH"] = "Clear recorded purchases"
+
+  L["SCAN_MODES"] = "Scan modes"
+  L["CONFIG_SUMMARY_MODE_TAB"] = "Show summary mode scan (fast) tab (reload required)"
+  L["CONFIG_REPLICATE_MODE_TAB"] = "Show replicate mode scan (slow, originally the default) tab (reload required)"
 
   return L
 end

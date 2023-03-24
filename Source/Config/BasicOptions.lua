@@ -22,12 +22,18 @@ end
 function CollectionatorConfigBasicOptionsFrameMixin:OnShow()
   Auctionator.Debug.Message("CollectionatorConfigBasicOptionsFrameMixin:OnShow()")
 
+  self.Summary:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.COLLECTIONATOR_SUMMARY))
+  self.Replicate:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.COLLECTIONATOR_REPLICATE))
+
   self.RecipeCaching:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.COLLECTIONATOR_RECIPE_CACHING))
   self.PurchaseWatch:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.COLLECTIONATOR_PURCHASE_WATCH))
 end
 
 function CollectionatorConfigBasicOptionsFrameMixin:Save()
   Auctionator.Debug.Message("CollectionatorConfigBasicOptionsFrameMixin:Save()")
+
+  Auctionator.Config.Set(Auctionator.Config.Options.COLLECTIONATOR_SUMMARY, self.Summary:GetChecked())
+  Auctionator.Config.Set(Auctionator.Config.Options.COLLECTIONATOR_REPLICATE, self.Replicate:GetChecked())
 
   Auctionator.Config.Set(Auctionator.Config.Options.COLLECTIONATOR_RECIPE_CACHING, self.RecipeCaching:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.COLLECTIONATOR_PURCHASE_WATCH, self.PurchaseWatch:GetChecked())
