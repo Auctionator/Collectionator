@@ -3,13 +3,16 @@ local function SortByPriceAscending(array, getPrice)
     return getPrice(a) < getPrice(b)
   end)
 end
-local function CombineForCheapest(array, getName, getPrice)
-  SortByPriceAscending(array, getPrice)
+
+local function ReplicateCombineForCheapest(array, fullScan)
+  SortByPriceAscending(array, function(item)
+    return fullScan[item.index].replicateInfo[10]
+  end)
 
   array[1].quantity = #array
   array[1].allNames = {}
   for index, item in ipairs(array) do
-    local name = getName(item)
+    local name = fullScan[item.index].replicateInfo[1]
     if tIndexOf(array[1].allNames, name) == nil then
       table.insert(array[1].allNames, name)
     end
@@ -19,49 +22,33 @@ local function CombineForCheapest(array, getName, getPrice)
   return array[1]
 end
 
-function Collectionator.Utilities.ExtractWantedItems(grouped, getName, getPrice)
-  local result = {}
-
-  for _, array in pairs(grouped) do
-    table.insert(result, CombineForCheapest(array, getName, getPrice))
-  end
-
-  return result
-end
-
 function Collectionator.Utilities.ReplicateExtractWantedItems(grouped, fullScan)
   local result = {}
 
   for _, array in pairs(grouped) do
-    table.insert(result,
-      CombineForCheapest(array,
-        function(item)
-          return fullScan[item.index].replicateInfo[1]
-        end,
-        function(item)
-          return fullScan[item.index].replicateInfo[10]
-        end
-      )
-    )
+    table.insert(result, ReplicateCombineForCheapest(array, fullScan))
   end
 
   return result
 end
 
-local function AddQuantities(array, fullScan)
+local function SummaryAddQuantities(array, fullScan)
   local total = 0
   for _, r in ipairs(array) do
     total = total + fullScan[r.index].totalQuantity
   end
   return total
 end
-local function SummaryCombineForCheapest(array, getName, getPrice, fullScan)
-  SortByPriceAscending(array, getPrice)
 
-  array[1].quantity = AddQuantities(array, fullScan)
+local function SummaryCombineForCheapest(array, fullScan)
+  SortByPriceAscending(array, function(item)
+    return fullScan[item.index].minPrice
+  end)
+
+  array[1].quantity = SummaryAddQuantities(array, fullScan)
   array[1].allNames = {}
   for index, item in ipairs(array) do
-    local name = getName(item)
+    local name = item.itemKeyInfo.itemName
     if tIndexOf(array[1].allNames, name) == nil then
       table.insert(array[1].allNames, name)
     end
@@ -75,17 +62,7 @@ function Collectionator.Utilities.SummaryExtractWantedItems(grouped, fullScan)
   local result = {}
 
   for _, array in pairs(grouped) do
-    table.insert(result,
-      SummaryCombineForCheapest(array,
-        function(item)
-          return item.itemKeyInfo.itemName
-        end,
-        function(item)
-          return fullScan[item.index].minPrice
-        end,
-        fullScan
-      )
-    )
+    table.insert(result, SummaryCombineForCheapest(array, fullScan))
   end
 
   return result
