@@ -40,6 +40,15 @@
         </Anchors>
       </DropDownToggleButton>
 
+      <Frame parentKey="LevelFilter" inherits="AuctionatorConfigurationMinMaxFrame">
+        <KeyValues>
+          <KeyValue key="titleText" value="AUCTIONATOR_L_LEVEL" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="BOTTOMLEFT" x="-48" y="-5"/>
+        </Anchors>
+      </Frame>
+
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="CharacterOnly">
         <KeyValues>
           <KeyValue key="labelText" value="COLLECTIONATOR_L_TMOG_ONLY_THIS_CHARACTER" type="global" />
