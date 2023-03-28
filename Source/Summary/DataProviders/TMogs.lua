@@ -7,14 +7,6 @@ local TMOG_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = COLLECTIONATOR_L_LEVEL_REQUIRED,
-    headerParameters = { "levelRequired" },
-    cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "levelRequired" },
-    width = 120
-  },
-  {
-    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerText = COLLECTIONATOR_L_CHOICES,
     headerParameters = { "quantity" },
     cellTemplate = "AuctionatorStringCellTemplate",
@@ -162,14 +154,6 @@ function CollectionatorSummaryTMogDataProviderMixin:TMogFilterCheck(sourceInfo)
 
   local searchString = self:GetParent().TextFilter:GetText()
   check = check and string.find(string.lower(sourceInfo.itemKeyInfo.itemName), string.lower(searchString), 1, true)
-
-  local minLevel = self:GetParent().LevelFilter:GetMin()
-  local maxLevel = self:GetParent().LevelFilter:GetMax()
-  if maxLevel == 0 then
-    maxLevel = Collectionator.Constants.MaxLevel
-  end
-
-  check = check and sourceInfo.levelRequired >= minLevel and sourceInfo.levelRequired <= maxLevel
 
   if not self:GetParent().IncludeCollected:GetChecked() then
     if self:GetParent().UniquesOnly:GetChecked() then

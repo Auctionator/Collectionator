@@ -48,7 +48,6 @@ function CollectionatorSummaryTMogScannerFrameMixin:GetItem(index, itemKeyInfo, 
     return {
       id = source, visual = visual, index = index, set = set,
       armor = armorType, weapon = weaponType, slot = inventorySlot,
-      levelRequired = itemInfo[5],
     }
 
   else
