@@ -149,14 +149,14 @@ function CollectionatorSummaryPetDataProviderMixin:Refresh()
     check = check and self:GetParent().TypeFilter:GetValue(petInfo.petType)
 
     local searchString = self:GetParent().TextFilter:GetText()
-    check = check and string.find(string.lower(petInfo.itemKeyInfo.itemName), string.lower(searchString), 1, true)
+    check = check and string.find(string.lower(petInfo.name), string.lower(searchString), 1, true)
 
     check = check and self:GetParent().QualityFilter:GetValue(petInfo.itemKeyInfo.quality)
 
     if check then
       table.insert(results, {
         index = petInfo.index,
-        itemName = Collectionator.Utilities.SummaryColorName(petInfo.itemKeyInfo),
+        itemName = ITEM_QUALITY_COLORS[petInfo.itemKeyInfo.quality].color:WrapTextInColorCode(petInfo.name),
         names = petInfo.allNames,
         quantity = petInfo.quantity,
         level = petInfo.level,
