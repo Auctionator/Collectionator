@@ -22,8 +22,11 @@ function CollectionatorSummaryRowMixin:OnClick(button, ...)
       if itemKeyInfo.battlePetLink then
         DressUpBattlePetLink(itemKeyInfo.battlePetLink);
       else
-        local _, itemLink = GetItemInfo(self.rowData.itemKey.itemID);
-        DressUpLink(itemLink);
+        local item = Item:CreateFromItemID(self.rowData.itemKey.itemID)
+        item:ContinueOnItemLoad(function()
+          local _, itemLink = GetItemInfo(self.rowData.itemKey.itemID)
+          DressUpLink(itemLink);
+        end)
       end
     end
   else
