@@ -14,7 +14,18 @@ function CollectionatorSummaryRowMixin:OnClick(button, ...)
   Auctionator.Debug.Message("CollectionatorSummaryRowMixin:OnClick()")
 
   if IsModifiedClick("DRESSUP") then
-    DressUpLink(self.rowData.itemLink);
+    local itemKeyInfo = self.rowData.itemKeyInfo
+    if itemKeyInfo.appearanceLink then
+      local _, _, hyperlinkString = ExtractHyperlinkString(itemKeyInfo.appearanceLink);
+      DressUpTransmogLink(hyperlinkString);
+    else
+      if itemKeyInfo.battlePetLink then
+        DressUpBattlePetLink(itemKeyInfo.battlePetLink);
+      else
+        local _, itemLink = GetItemInfo(self.rowData.itemKey.itemID);
+        DressUpLink(itemLink);
+      end
+    end
   else
     Auctionator.EventBus
       :RegisterSource(self, "CollectionatorSummaryRowMixin")
