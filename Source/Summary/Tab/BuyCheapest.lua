@@ -146,7 +146,7 @@ function CollectionatorSummaryBuyCheapestMixin:ReceiveEvent(event, ...)
       self:Reset()
     end
 
-  elseif event == Collectionator.Events.ContinueOnBuyCheapestWarning then
+  elseif event == Collectionator.Events.SummaryContinueOnBuyCheapestWarning then
     local queryType = ...
     if queryType == self:GetParent().queryType and self.focussed and self.purchaseData then
       self.BuyButton:Enable()
