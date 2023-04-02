@@ -43,8 +43,17 @@ function CollectionatorSummaryTMogDataProviderMixin:OnLoad()
   })
   Auctionator.EventBus:RegisterSource(self, "CollectionatorSummaryTMogDataProvider")
 
+  self:RegisterEvent("TRANSMOG_COLLECTION_SOURCE_ADDED")
+  self:RegisterEvent("TRANSMOG_COLLECTION_SOURCE_REMOVED")
+
   self.dirty = false
   self.sources = {}
+end
+
+function CollectionatorSummaryTMogDataProviderMixin:OnEvent(eventName, ...)
+  -- transmog source learnt/unlearnt
+  self.uniquesFiltered = nil
+  self.completionistFiltered = nil
 end
 
 function CollectionatorSummaryTMogDataProviderMixin:OnShow()
@@ -70,6 +79,8 @@ function CollectionatorSummaryTMogDataProviderMixin:ReceiveEvent(eventName, even
     self.onSearchStarted()
     self:GetParent().NoFullScanText:Hide()
     self:GetParent().ShowingXResultsText:Hide()
+    self.uniquesFiltered = nil
+    self.completionistFiltered = nil
   elseif eventName == Collectionator.Events.SummaryTMogLoadEnd then
     self.sources = eventData
     self.fullScan = eventData2
@@ -133,7 +144,7 @@ local function GroupedByVisualID(array)
   return results
 end
 
-function CollectionatorSummaryTMogDataProviderMixin:UniquesPossessionCheck(sourceInfo)
+function CollectionatorSummaryTMogDataProviderMixin:EarlyUniquesPossessionCheck(sourceInfo)
   local check = true
   for _, altSource in ipairs(sourceInfo.set) do
     local tmogInfo = C_TransmogCollection.GetSourceInfo(altSource)
@@ -142,49 +153,66 @@ function CollectionatorSummaryTMogDataProviderMixin:UniquesPossessionCheck(sourc
   return check
 end
 
-function CollectionatorSummaryTMogDataProviderMixin:CompletionistPossessionCheck(sourceInfo)
+function CollectionatorSummaryTMogDataProviderMixin:EarlyCompletionistPossessionCheck(sourceInfo)
   local tmogInfo = C_TransmogCollection.GetSourceInfo(sourceInfo.id)
   return not tmogInfo.isCollected and not Collectionator.State.Purchases.TMog[sourceInfo.id]
 end
 
-function CollectionatorSummaryTMogDataProviderMixin:TMogFilterCheck(sourceInfo)
+function CollectionatorSummaryTMogDataProviderMixin:LateUniquesPossessionCheck(sourceInfo)
+  for _, altSource in ipairs(sourceInfo.set) do
+    if Collectionator.State.Purchases.TMog[altSource] then
+      return false
+    end
+  end
+  return true
+end
+
+function CollectionatorSummaryTMogDataProviderMixin:LateCompletionistPossessionCheck(sourceInfo)
+  return not Collectionator.State.Purchases.TMog[sourceInfo.id]
+end
+
+function CollectionatorSummaryTMogDataProviderMixin:TMogFilterCheck(sourceInfo, cachedFilters)
   local check = true
 
-  check = check and self:GetParent().QualityFilter:GetValue(sourceInfo.itemKeyInfo.quality)
+  check = check and cachedFilters.qualityFilter:GetValue(sourceInfo.itemKeyInfo.quality)
 
-  check = check and self:GetParent().SlotFilter:GetValue(sourceInfo.slot)
+  check = check and cachedFilters.slotFilter:GetValue(sourceInfo.slot)
 
   if sourceInfo.armor ~= -1 then
-    check = check and self:GetParent().ArmorFilter:GetValue(sourceInfo.armor)
+    check = check and cachedFilters.armorFilter:GetValue(sourceInfo.armor)
   else
-    check = check and self:GetParent().WeaponFilter:GetValue(sourceInfo.weapon)
+    check = check and cachedFilters.weaponFilter:GetValue(sourceInfo.weapon)
   end
 
-  local searchString = self:GetParent().TextFilter:GetText()
-  check = check and string.find(string.lower(sourceInfo.itemKeyInfo.itemName), string.lower(searchString), 1, true)
+  check = check and string.find(sourceInfo.itemNameLower, cachedFilters.searchString, 1, true)
 
-  local minLevel = self:GetParent().LevelFilter:GetMin()
-  local maxLevel = self:GetParent().LevelFilter:GetMax()
-  if maxLevel == 0 then
-    maxLevel = Collectionator.Constants.MaxLevel
-  end
+  check = check and sourceInfo.levelRequired >= cachedFilters.minLevel and sourceInfo.levelRequired <= cachedFilters.maxLevel
 
-  check = check and sourceInfo.levelRequired >= minLevel and sourceInfo.levelRequired <= maxLevel
-
-  if not self:GetParent().IncludeCollected:GetChecked() then
-    if self:GetParent().UniquesOnly:GetChecked() then
-      check = check and self:UniquesPossessionCheck(sourceInfo)
+  if not cachedFilters.includeCollected then
+    if cachedFilters.uniquesOnly then
+      check = check and sourceInfo.doesNotHaveSource and self:LateUniquesPossessionCheck(sourceInfo)
     else
-      check = check and self:CompletionistPossessionCheck(sourceInfo)
+      check = check and sourceInfo.doesNotHaveSource and self:LateCompletionistPossessionCheck(sourceInfo)
     end
   end
 
-  if self:GetParent().CharacterOnly:GetChecked() then
+  if cachedFilters.characterOnly then
     --Check that the character can use the gear
     return check and C_TransmogCollection.PlayerKnowsSource(sourceInfo.id)
   else
     --Would check for junk gear here, but the QualityFilter filters it out
     return check
+  end
+end
+
+function CollectionatorSummaryTMogDataProviderMixin:PreprocessFilteredList(filtered)
+  table.sort(filtered, function(a, b)
+    return self.fullScan[a.index].minPrice < self.fullScan[b.index].minPrice
+  end)
+  for _, sourceInfo in ipairs(filtered) do
+    sourceInfo.itemName = Collectionator.Utilities.SummaryColorName(sourceInfo.itemKeyInfo)
+    sourceInfo.itemNameLower = string.lower(sourceInfo.itemKeyInfo.itemName)
+    sourceInfo.keyString = Auctionator.Utilities.ItemKeyString(self.fullScan[sourceInfo.index].itemKey)
   end
 end
 
@@ -202,30 +230,60 @@ function CollectionatorSummaryTMogDataProviderMixin:Refresh()
 
   self.onSearchStarted()
 
-  local grouped
+  local filteredOnly
+
+  -- Preprocess filter data to speed up refreshes after a purchase
   if self:GetParent().UniquesOnly:GetChecked() then
     -- Uniques
-    grouped = GroupedByVisualID(self.sources)
+    if not self.uniquesFiltered then
+      local grouped = GroupedByVisualID(self.sources)
+      self.uniquesFiltered = Collectionator.Utilities.SummaryExtractWantedItems(grouped, self.fullScan)
+      self:PreprocessFilteredList(self.uniquesFiltered)
+      for _, sourceInfo in ipairs(self.uniquesFiltered) do
+        sourceInfo.doesNotHaveSource = self:EarlyUniquesPossessionCheck(sourceInfo)
+      end
+    end
+    filteredOnly = self.uniquesFiltered
   else
     -- Completionist
-    grouped = GroupedBySourceID(self.sources)
+    if not self.completionistFiltered then
+      local grouped = GroupedBySourceID(self.sources)
+      self.completionistFiltered = Collectionator.Utilities.SummaryExtractWantedItems(grouped, self.fullScan)
+      self:PreprocessFilteredList(self.completionistFiltered)
+      for _, sourceInfo in ipairs(self.completionistFiltered) do
+        sourceInfo.doesNotHaveSource = self:EarlyCompletionistPossessionCheck(sourceInfo)
+      end
+    end
+    filteredOnly = self.completionistFiltered
   end
-
-  local filteredOnly = Collectionator.Utilities.SummaryExtractWantedItems(grouped, self.fullScan)
 
   Auctionator.Debug.Message("CollectionatorSummaryTMogDataProviderMixin:Refresh", "filtered", #filteredOnly)
 
   local results = {}
 
+  local cachedFilters = {
+    searchString = string.lower(self:GetParent().TextFilter:GetText()),
+    minLevel = self:GetParent().LevelFilter:GetMin(),
+    maxLevel = self:GetParent().LevelFilter:GetMax(),
+    includeCollected = self:GetParent().IncludeCollected:GetChecked(),
+    uniquesOnly = self:GetParent().UniquesOnly:GetChecked(),
+    characterOnly = self:GetParent().CharacterOnly:GetChecked(),
+    qualityFilter = self:GetParent().QualityFilter,
+    slotFilter = self:GetParent().SlotFilter,
+    armorFilter = self:GetParent().ArmorFilter,
+    weaponFilter = self:GetParent().WeaponFilter,
+  }
+  if cachedFilters.maxLevel == 0 then
+    cachedFilters.maxLevel = Collectionator.Constants.MaxLevel
+  end
+
   for _, sourceInfo in ipairs(filteredOnly) do
     local info = self.fullScan[sourceInfo.index]
 
-    local check = true
-
-    if self:TMogFilterCheck(sourceInfo) then
+    if self:TMogFilterCheck(sourceInfo, cachedFilters) then
       table.insert(results, {
         index = sourceInfo.index,
-        itemName = Collectionator.Utilities.SummaryColorName(sourceInfo.itemKeyInfo),
+        itemName = sourceInfo.itemName,
         name = sourceInfo.itemKeyInfo.itemName,
         names = sourceInfo.allNames,
         quantity = sourceInfo.quantity,
@@ -234,7 +292,7 @@ function CollectionatorSummaryTMogDataProviderMixin:Refresh()
         itemKey = info.itemKey,
         itemKeyInfo = sourceInfo.itemKeyInfo,
         iconTexture = sourceInfo.itemKeyInfo.iconFileID,
-        selected = Auctionator.Utilities.ItemKeyString(info.itemKey) == self.focussedItem,
+        selected = sourceInfo.keyString == self.focussedItem,
       })
     end
   end
@@ -242,7 +300,6 @@ function CollectionatorSummaryTMogDataProviderMixin:Refresh()
   self:GetParent().ShowingXResultsText:SetText(COLLECTIONATOR_L_SHOWING_X_RESULTS:format(#results))
   self:GetParent().ShowingXResultsText:Show()
 
-  Collectionator.Utilities.SortByPrice(results, self.fullScan)
   self:AppendEntries(results, true)
   if self:IsVisible() then
     Auctionator.EventBus:Fire(self, Collectionator.Events.SummaryDisplayedResultsUpdated, results)
