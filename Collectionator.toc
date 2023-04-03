@@ -4,7 +4,7 @@
 ## Author: plusmouse
 ## RequiredDeps: Auctionator
 ## SavedVariables: COLLECTIONATOR_RECIPES_CACHE, COLLECTIONATOR_PURCHASES
-
+## IconTexture: Interface\AddOns\Collectionator\Images\logo
 
 Locales\Manifest.xml
 
