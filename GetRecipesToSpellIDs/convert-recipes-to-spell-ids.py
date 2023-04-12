@@ -27,8 +27,10 @@ with open('itemeffect.csv') as f:
 def print_recipe(itemID, spellID):
     print("  [" + str(itemID) + "] = " + str(spellID) + ",")
 
+sorted_recipes = list(recipes_only)
+sorted_recipes.sort()
 print("COLLECTIONATOR_RECIPES_TO_IDS = {")
-for key in recipes_only:
+for key in sorted_recipes:
     itemeffects = recipes_only[key]
 
     if len(itemeffects) == 2:
