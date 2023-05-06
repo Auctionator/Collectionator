@@ -79,6 +79,17 @@ function CollectionatorSummaryScannerFrameMixin:BatchStep(start, limit)
   Auctionator.Debug.Message("CollectionatorSummaryScannerFrameMixin:BatchStep", start, limit)
   if start > #self.fullScan then
     Auctionator.Debug.Message("CollectionatorSummaryScannerFrameMixin:BatchStep", "READY", start, #self.results)
+    -- Special case, sometimes the Blizzard APIs don't return item data, this is
+    -- a fallback in that case
+    self.timer = C_Timer.NewTimer(2, function()
+      if self.leftCount > 0 then
+        self.leftCount = 0
+        Auctionator.EventBus:Fire(
+          self, self.SCAN_END_EVENT, self.results, self.fullScan
+        )
+      end
+      self.timer = nil
+    end)
     return
   end
 
@@ -105,6 +116,10 @@ function CollectionatorSummaryScannerFrameMixin:BatchStep(start, limit)
                 Auctionator.EventBus:Fire(
                   self, self.SCAN_END_EVENT, self.results, self.fullScan
                 )
+                if self.timer then
+                  self.timer:Cancel()
+                  self.timer = nil
+                end
               end
             end)
           end
@@ -122,6 +137,10 @@ function CollectionatorSummaryScannerFrameMixin:BatchStep(start, limit)
     Auctionator.EventBus:Fire(
       self, self.SCAN_END_EVENT, self.results, self.fullScan
     )
+    if self.timer then
+      self.timer:Cancel()
+      self.timer = nil
+    end
   end
 
   C_Timer.After(0.01, function()
