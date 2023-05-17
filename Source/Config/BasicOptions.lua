@@ -8,15 +8,15 @@ function CollectionatorConfigBasicOptionsFrameMixin:OnLoad()
 
   self.name = COLLECTIONATOR_L_COLLECTIONATOR
 
-  self.cancel = function()
-    self:Cancel()
-  end
-
-  self.okay = function()
+  self.OnCommit = function()
     self:Save()
   end
+  self.OnDefault = function() end
+  self.OnRefresh = function() end
 
-  InterfaceOptions_AddCategory(self, "Collectionator")
+  local category = Settings.RegisterCanvasLayoutCategory(self, self.name)
+  category.ID = self.name
+  Settings.RegisterAddOnCategory(category)
 end
 
 function CollectionatorConfigBasicOptionsFrameMixin:OnShow()
