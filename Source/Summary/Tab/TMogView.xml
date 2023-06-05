@@ -13,9 +13,6 @@
       <Frame inherits="CollectionatorSummaryTMogScannerFrameTemplate" parentKey="Scanner">
       </Frame>
 
-      <Frame inherits="CollectionatorSummaryWoDTMogBonusScannerFrameTemplate" parentKey="WoDBonusScanner">
-      </Frame>
-
       <DropDownToggleButton parentKey="ArmorFilter" inherits="CollectionatorFilterDropDownTemplate" mixin="CollectionatorArmorFilterMixin" text="COLLECTIONATOR_L_ARMOR">
         <Anchors>
           <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="40" y="85"/>
