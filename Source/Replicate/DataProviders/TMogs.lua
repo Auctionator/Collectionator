@@ -171,6 +171,8 @@ function CollectionatorReplicateTMogDataProviderMixin:TMogFilterCheck(sourceInfo
 
   check = check and sourceInfo.levelRequired >= minLevel and sourceInfo.levelRequired <= maxLevel
 
+  check = check and (self:GetParent().IncludeCrafted:GetChecked() or COLLECTIONATOR_CRAFTED_ITEMS[auctionInfo.replicateInfo[17]] == nil)
+
   if not self:GetParent().IncludeCollected:GetChecked() then
     if self:GetParent().UniquesOnly:GetChecked() then
       check = check and self:UniquesPossessionCheck(sourceInfo)

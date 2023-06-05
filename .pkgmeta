@@ -2,6 +2,7 @@ ignore:
   - LICENSE
   - README.md
   - GetRecipesToSpellIDs
+  - CraftedItemsOnlyIDs
   - tmp
   - scripts
 plain-copy:

@@ -48,33 +48,47 @@
       </Frame>
 
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="CharacterOnly">
+        <Size y="30"/>
         <KeyValues>
           <KeyValue key="labelText" value="COLLECTIONATOR_L_TMOG_ONLY_THIS_CHARACTER" type="global" />
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="4" x="20"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="24" x="20"/>
           <Anchor point="RIGHT" relativeKey="$parent.QualityFilter" relativePoint="RIGHT" x="300"/>
         </Anchors>
       </Frame>
 
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="UniquesOnly">
+        <Size y="30"/>
         <KeyValues>
           <KeyValue key="labelText" value="COLLECTIONATOR_L_TMOG_UNIQUES" type="global" />
           <KeyValue key="tooltipTitleText" value="COLLECTIONATOR_L_TMOG_UNIQUES_TOOLTIP_HEADER" type="global" />
           <KeyValue key="tooltipText" value="COLLECTIONATOR_L_TMOG_UNIQUES_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="-26" x="20"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="-2" x="20"/>
           <Anchor point="RIGHT" relativeKey="$parent.QualityFilter" relativePoint="RIGHT" x="300"/>
         </Anchors>
       </Frame>
 
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="IncludeCollected">
+        <Size y="30"/>
         <KeyValues>
           <KeyValue key="labelText" value="COLLECTIONATOR_L_TMOG_COLLECTED" type="global" />
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="-56" x="20"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="-33" x="20"/>
+          <Anchor point="RIGHT" relativeKey="$parent.QualityFilter" relativePoint="RIGHT" x="300"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="IncludeCrafted">
+        <Size y="30"/>
+        <KeyValues>
+          <KeyValue key="labelText" value="COLLECTIONATOR_L_TMOG_INCLUDE_CRAFTED" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.QualityFilter" relativePoint="TOPRIGHT" y="-61" x="20"/>
           <Anchor point="RIGHT" relativeKey="$parent.QualityFilter" relativePoint="RIGHT" x="300"/>
         </Anchors>
       </Frame>

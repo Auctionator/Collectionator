@@ -3,6 +3,5 @@ CollectionatorReplicateTMogViewMixin = CreateFromMixins(CollectionatorReplicateV
 function CollectionatorReplicateTMogViewMixin:OnLoad()
   CollectionatorReplicateViewMixin.OnLoad(self)
 
-  self.QualityFilter:ToggleFilter(Enum.ItemQuality.Poor)
-  self.QualityFilter:ToggleFilter(Enum.ItemQuality.Common)
+  self.IncludeCrafted:SetChecked(true)
 end

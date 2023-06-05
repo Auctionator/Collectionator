@@ -188,6 +188,8 @@ function CollectionatorSummaryTMogDataProviderMixin:TMogFilterCheck(sourceInfo, 
 
   check = check and sourceInfo.levelRequired >= cachedFilters.minLevel and sourceInfo.levelRequired <= cachedFilters.maxLevel
 
+  check = check and (cachedFilters.includeCrafted or COLLECTIONATOR_CRAFTED_ITEMS[sourceInfo.itemID] == nil)
+
   if not cachedFilters.includeCollected then
     if cachedFilters.uniquesOnly then
       check = check and sourceInfo.doesNotHaveSource and self:LateUniquesPossessionCheck(sourceInfo)
@@ -200,7 +202,6 @@ function CollectionatorSummaryTMogDataProviderMixin:TMogFilterCheck(sourceInfo, 
     --Check that the character can use the gear
     return check and C_TransmogCollection.PlayerKnowsSource(sourceInfo.id)
   else
-    --Would check for junk gear here, but the QualityFilter filters it out
     return check
   end
 end
@@ -265,6 +266,7 @@ function CollectionatorSummaryTMogDataProviderMixin:Refresh()
     searchString = string.lower(self:GetParent().TextFilter:GetText()),
     minLevel = self:GetParent().LevelFilter:GetMin(),
     maxLevel = self:GetParent().LevelFilter:GetMax(),
+    includeCrafted = self:GetParent().IncludeCrafted:GetChecked(),
     includeCollected = self:GetParent().IncludeCollected:GetChecked(),
     uniquesOnly = self:GetParent().UniquesOnly:GetChecked(),
     characterOnly = self:GetParent().CharacterOnly:GetChecked(),

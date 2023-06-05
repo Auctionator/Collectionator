@@ -49,6 +49,7 @@ function CollectionatorSummaryTMogScannerFrameMixin:GetItem(index, itemKeyInfo, 
       id = source, visual = visual, index = index, set = set,
       armor = armorType, weapon = weaponType, slot = inventorySlot,
       levelRequired = C_AuctionHouse.GetItemKeyRequiredLevel(scanInfo.itemKey) or 0,
+      itemID = scanInfo.itemKey.itemID,
     }
 
   else
