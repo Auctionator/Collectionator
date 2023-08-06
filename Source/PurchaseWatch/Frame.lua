@@ -1,3 +1,5 @@
+local PURCHASE_WATCH_VERSION = 2
+
 local PURCHASE_EVENTS = {
   "AUCTION_CANCELED",
   "AUCTION_HOUSE_CLOSED",
@@ -25,7 +27,7 @@ function CollectionatorPurchaseWatchFrameMixin:OnEvent(event, ...)
     if addonName == "Collectionator" then
       self:UnregisterEvent("ADDON_LOADED")
 
-      if not COLLECTIONATOR_PURCHASES then
+      if not COLLECTIONATOR_PURCHASES or COLLECTIONATOR_PURCHASES.Version ~= PURCHASE_WATCH_VERSION then
         self:ResetData()
       else
         Collectionator.State.Purchases = COLLECTIONATOR_PURCHASES
@@ -69,6 +71,7 @@ function CollectionatorPurchaseWatchFrameMixin:ResetData()
     Toys = {},
     Mounts = {},
     Recipes = {},
+    Version = PURCHASE_WATCH_VERSION,
   }
   Collectionator.State.Purchases = COLLECTIONATOR_PURCHASES
 end
@@ -107,14 +110,7 @@ function CollectionatorPurchaseWatchFrameMixin:ProcessTMogDetails(itemLink)
   local _, source = C_TransmogCollection.GetItemInfo(itemLink)
   if source ~= nil then
     local sourceInfo = C_TransmogCollection.GetSourceInfo(source)
-    local set = C_TransmogCollection.GetAllAppearanceSources(sourceInfo.visualID)
-    if set ~= nil then
-      for _, otherSource in ipairs(set) do
-        Collectionator.State.Purchases.TMog[otherSource] = true
-      end
-    else
-      Collectionator.State.Purchases.TMog[source] = true
-    end
+    Collectionator.State.Purchases.TMog[source] = true
 
     Auctionator.EventBus:Fire(self, Collectionator.Events.TMogPurchased)
   end
