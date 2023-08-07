@@ -291,6 +291,7 @@ function CollectionatorSummaryTMogDataProviderMixin:Refresh()
         quantity = sourceInfo.quantity,
         levelRequired = sourceInfo.levelRequired,
         price = info.minPrice,
+        itemLink = sourceInfo.replacementItemLink,
         itemKey = info.itemKey,
         itemKeyInfo = sourceInfo.itemKeyInfo,
         iconTexture = sourceInfo.itemKeyInfo.iconFileID,
