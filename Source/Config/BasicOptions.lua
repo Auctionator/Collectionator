@@ -9,7 +9,9 @@ function CollectionatorConfigBasicOptionsFrameMixin:OnLoad()
   self.name = COLLECTIONATOR_L_COLLECTIONATOR
 
   self.OnCommit = function()
-    self:Save()
+    if self.shownSettings then
+      self:Save()
+    end
   end
   self.OnDefault = function() end
   self.OnRefresh = function() end
@@ -27,6 +29,8 @@ function CollectionatorConfigBasicOptionsFrameMixin:OnShow()
 
   self.RecipeCaching:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.COLLECTIONATOR_RECIPE_CACHING))
   self.PurchaseWatch:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.COLLECTIONATOR_PURCHASE_WATCH))
+
+  self.shownSettings = true
 end
 
 function CollectionatorConfigBasicOptionsFrameMixin:Save()
