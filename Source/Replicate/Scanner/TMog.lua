@@ -13,11 +13,15 @@ function CollectionatorReplicateTMogScannerFrameMixin:GetSourceName()
 end
 
 function CollectionatorReplicateTMogScannerFrameMixin:FilterLink(link)
-  return select(2, C_TransmogCollection.GetItemInfo(link))
+  local itemID = GetItemInfoInstant(link)
+  return itemID and select(2, C_TransmogCollection.GetItemInfo(itemID))
 end
 
 function CollectionatorReplicateTMogScannerFrameMixin:GetItem(index, link, scanInfo)
   local _, source = C_TransmogCollection.GetItemInfo(link)
+  if source == nil then
+    _, source = C_TransmogCollection.GetItemInfo(GetItemInfoInstant(link))
+  end
 
   if source ~= nil then
     local sourceInfo = C_TransmogCollection.GetSourceInfo(source)

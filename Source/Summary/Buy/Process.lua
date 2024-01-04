@@ -44,7 +44,8 @@ function CollectionatorSummaryBuyProcessorTMogMixin:GetSearchResult(itemKey)
   for i = 1, C_AuctionHouse.GetNumItemSearchResults(itemKey) do
     local result = C_AuctionHouse.GetItemSearchResultInfo(itemKey, i)
     local source = select(2, C_TransmogCollection.GetItemInfo(result.itemLink))
-    if source == targetSource then
+    local sourceByID = select(2, C_TransmogCollection.GetItemInfo(result.itemKey.itemID))
+    if (source == nil and sourceByID == targetSource) or source == targetSource then
       return result
     end
   end
