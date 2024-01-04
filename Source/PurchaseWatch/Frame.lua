@@ -108,6 +108,9 @@ end
 
 function CollectionatorPurchaseWatchFrameMixin:ProcessTMogDetails(itemLink)
   local _, source = C_TransmogCollection.GetItemInfo(itemLink)
+  if source == nil then
+    _, source = C_TransmogCollection.GetItemInfo(GetItemInfoInstant(itemLink))
+  end
   if source ~= nil then
     local sourceInfo = C_TransmogCollection.GetSourceInfo(source)
     Collectionator.State.Purchases.TMog[source] = true
