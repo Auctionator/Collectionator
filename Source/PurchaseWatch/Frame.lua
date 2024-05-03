@@ -86,9 +86,9 @@ function CollectionatorPurchaseWatchFrameMixin:ProcessPurchase(auctionID)
   if string.match(itemLink, "battlepet") then
     self:ProcessPetDetails(itemLink)
   else
-    local itemID = GetItemInfoInstant(itemLink)
+    local itemID = C_Item.GetItemInfoInstant(itemLink)
     ItemEventListener:AddCallback(itemID, function()
-      local classID, subClassID = select(12, GetItemInfo(itemLink))
+      local classID, subClassID = select(12, C_Item.GetItemInfo(itemLink))
 
       if classID == Enum.ItemClass.Weapon or classID == Enum.ItemClass.Armor then
         self:ProcessTMogDetails(itemLink)
@@ -109,7 +109,7 @@ end
 function CollectionatorPurchaseWatchFrameMixin:ProcessTMogDetails(itemLink)
   local _, source = C_TransmogCollection.GetItemInfo(itemLink)
   if source == nil then
-    _, source = C_TransmogCollection.GetItemInfo(GetItemInfoInstant(itemLink))
+    _, source = C_TransmogCollection.GetItemInfo(C_Item.GetItemInfoInstant(itemLink))
   end
   if source ~= nil then
     local sourceInfo = C_TransmogCollection.GetSourceInfo(source)
@@ -125,7 +125,7 @@ function CollectionatorPurchaseWatchFrameMixin:ProcessPetDetails(itemLink)
     petID = tonumber(string.match(itemLink, "battlepet:(%d+):"))
     petLevel = Auctionator.Utilities.GetPetLevelFromLink(itemLink)
   else
-    local itemID = GetItemInfoInstant(itemLink)
+    local itemID = C_Item.GetItemInfoInstant(itemLink)
     petID = select(13, C_PetJournal.GetPetInfoByItemID(itemID))
     petLevel = 1
   end

@@ -26,6 +26,6 @@ function CollectionatorReplicateMountScannerFrameMixin:GetItem(index, link, scan
     id = mountID,
     fromProfession = sourceType == 4, --Sourced from a profession
     mountType = mountType,
-    levelRequired = select(5, GetItemInfo(link)),
+    levelRequired = select(5, C_Item.GetItemInfo(link)),
   }
 end

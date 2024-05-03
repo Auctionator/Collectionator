@@ -13,14 +13,14 @@ function CollectionatorSummaryRecipeScannerFrameMixin:GetSourceName()
 end
 
 function CollectionatorSummaryRecipeScannerFrameMixin:FilterItemID(itemID)
-  return select(6, GetItemInfoInstant(itemID)) == Enum.ItemClass.Recipe
+  return select(6, C_Item.GetItemInfoInstant(itemID)) == Enum.ItemClass.Recipe
 end
 
 function CollectionatorSummaryRecipeScannerFrameMixin:GetItem(index, itemKeyInfo, scanInfo)
   local spellID = COLLECTIONATOR_RECIPES_TO_IDS[scanInfo.itemKey.itemID]
 
   if spellID then
-    local subClassID = select(13, GetItemInfo(scanInfo.itemKey.itemID))
+    local subClassID = select(13, C_Item.GetItemInfo(scanInfo.itemKey.itemID))
     return {
       index = index,
       id = spellID,

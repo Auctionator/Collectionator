@@ -49,7 +49,7 @@ end
 CollectionatorReplicateBuyProcessorTMogMixin = CreateFromMixins(CollectionatorReplicateBuyProcessorMixin)
 
 function CollectionatorReplicateBuyProcessorTMogMixin:PrepareSearch()
-  local itemID = GetItemInfoInstant(self.itemLink)
+  local itemID = C_Item.GetItemInfoInstant(self.itemLink)
   self.gearItemKey = {itemID = itemID, itemLevel = 0, itemSuffix = 0, battlePetSpeciesID = 0}
   self.expectedItemID = itemID
 end
@@ -109,7 +109,7 @@ function CollectionatorReplicateBuyProcessorPetMixin:GetSearchResult(itemKey)
     return GetIdenticalLinkItem(self.itemLink, itemKey)
 
   else
-    local itemID = GetItemInfoInstant(self.itemLink)
+    local itemID = C_Item.GetItemInfoInstant(self.itemLink)
     return GetSameItemID(itemID, itemKey)
   end
 end
@@ -125,7 +125,7 @@ end
 CollectionatorReplicateBuyProcessorOtherMixin = CreateFromMixins(CollectionatorReplicateBuyProcessorMixin)
 
 function CollectionatorReplicateBuyProcessorOtherMixin:PrepareSearch()
-  local itemID = GetItemInfoInstant(self.itemLink)
+  local itemID = C_Item.GetItemInfoInstant(self.itemLink)
 
   self.expectedItemID = itemID
 end

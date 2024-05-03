@@ -68,7 +68,7 @@ local function GlobalFilterItemID(itemID)
     return false
   end
 
-  local classID, subClassID = select(6, GetItemInfoInstant(itemID))
+  local classID, subClassID = select(6, C_Item.GetItemInfoInstant(itemID))
   if classID == nil then
     return true
   end

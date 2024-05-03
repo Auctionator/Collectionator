@@ -24,7 +24,7 @@ function CollectionatorSummaryRowMixin:OnClick(button, ...)
       else
         local item = Item:CreateFromItemID(self.rowData.itemKey.itemID)
         item:ContinueOnItemLoad(function()
-          local _, itemLink = GetItemInfo(self.rowData.itemKey.itemID)
+          local _, itemLink = C_Item.GetItemInfo(self.rowData.itemKey.itemID)
           DressUpLink(itemLink);
         end)
       end

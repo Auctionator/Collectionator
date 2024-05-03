@@ -13,14 +13,14 @@ function CollectionatorReplicateTMogScannerFrameMixin:GetSourceName()
 end
 
 function CollectionatorReplicateTMogScannerFrameMixin:FilterLink(link)
-  local itemID = GetItemInfoInstant(link)
+  local itemID = C_Item.GetItemInfoInstant(link)
   return itemID and select(2, C_TransmogCollection.GetItemInfo(itemID))
 end
 
 function CollectionatorReplicateTMogScannerFrameMixin:GetItem(index, link, scanInfo)
   local _, source = C_TransmogCollection.GetItemInfo(link)
   if source == nil then
-    _, source = C_TransmogCollection.GetItemInfo(GetItemInfoInstant(link))
+    _, source = C_TransmogCollection.GetItemInfo(C_Item.GetItemInfoInstant(link))
   end
 
   if source ~= nil then
@@ -36,7 +36,7 @@ function CollectionatorReplicateTMogScannerFrameMixin:GetItem(index, link, scanI
     local armorType = -1
     local weaponType = -1
 
-    local itemInfo = {GetItemInfo(link)}
+    local itemInfo = {C_Item.GetItemInfo(link)}
     if itemInfo[12] == 4 then
       armorType = itemInfo[13]
     elseif itemInfo[12] == 2 then
@@ -46,7 +46,7 @@ function CollectionatorReplicateTMogScannerFrameMixin:GetItem(index, link, scanI
     return {
       id = source, visual = visual, index = index, set = set,
       armor = armorType, weapon = weaponType, slot = inventorySlot,
-      levelRequired = select(5, GetItemInfo(link)),
+      levelRequired = itemInfo[5],
     }
 
   else

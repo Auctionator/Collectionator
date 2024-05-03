@@ -38,7 +38,7 @@ function CollectionatorSummaryTMogScannerFrameMixin:GetItem(index, itemKeyInfo, 
     local armorType = -1
     local weaponType = -1
 
-    local itemInfo = {GetItemInfo(scanInfo.itemKey.itemID)}
+    local itemInfo = {C_Item.GetItemInfo(scanInfo.itemKey.itemID)}
     if itemInfo[12] == 4 then
       armorType = itemInfo[13]
     elseif itemInfo[12] == 2 then
