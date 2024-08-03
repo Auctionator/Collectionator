@@ -82,5 +82,7 @@ COLLECTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SUMMARY_MODE_TAB"] = "Show summary mode scan (fast) tab (reload required)"
   L["CONFIG_REPLICATE_MODE_TAB"] = "Show replicate mode scan (slow, originally the default) tab (reload required)"
 
+  L["HIDE_ITEM"] = "Hide item"
+
   return L
 end

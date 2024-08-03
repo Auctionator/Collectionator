@@ -38,7 +38,8 @@ function CollectionatorPurchaseWatchFrameMixin:OnEvent(event, ...)
       self.waitingIDs = {}
 
       Auctionator.EventBus:Register(self, {
-        Collectionator.Events.PurchaseAttempted
+        Collectionator.Events.PurchaseAttempted,
+        Collectionator.Events.HideItem,
       })
     end
 
@@ -61,6 +62,9 @@ function CollectionatorPurchaseWatchFrameMixin:ReceiveEvent(eventName, ...)
     local auctionID, itemLink = ...
     self.waitingIDs[auctionID] = itemLink
     self:RegisterNeededEvents()
+  elseif eventName == Collectionator.Events.HideItem then
+    local itemLink = ...
+    self:HideItem(itemLink)
   end
 end
 
@@ -83,6 +87,12 @@ function CollectionatorPurchaseWatchFrameMixin:ProcessPurchase(auctionID)
 
   local itemLink = self.waitingIDs[auctionID]
 
+  self:HideItem(itemLink)
+
+  self.waitingIDs[auctionID] = nil
+end
+
+function CollectionatorPurchaseWatchFrameMixin:HideItem(itemLink)
   if string.match(itemLink, "battlepet") then
     self:ProcessPetDetails(itemLink)
   else
@@ -103,7 +113,6 @@ function CollectionatorPurchaseWatchFrameMixin:ProcessPurchase(auctionID)
       end
     end)
   end
-  self.waitingIDs[auctionID] = nil
 end
 
 function CollectionatorPurchaseWatchFrameMixin:ProcessTMogDetails(itemLink)

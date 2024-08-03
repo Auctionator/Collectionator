@@ -59,6 +59,16 @@ function CollectionatorSummaryBuyoutDropDownMixin:Initialize()
   searchInfo.tooltipText = COLLECTIONATOR_L_SEARCH_FOR_ALTERNATIVES_TOOLTIP
   searchInfo.tooltipOnButton = 1
 
+  local hideInfo = LibDD:UIDropDownMenu_CreateInfo()
+  hideInfo.text = COLLECTIONATOR_L_HIDE_ITEM
+  hideInfo.notCheckable = 1
+  hideInfo.func = function()
+    Auctionator.EventBus
+      :RegisterSource(self, "buyout dropdown")
+      :Fire(self, Collectionator.Events.HideItem, self.auctionInfo.itemLink)
+      :UnregisterSource(self)
+  end
+
   local names = self.rowData.names or {self.rowData.name}
   searchInfo.func = function()
     Auctionator.API.v1.MultiSearchExact("Collectionator", names)
@@ -79,6 +89,7 @@ function CollectionatorSummaryBuyoutDropDownMixin:Initialize()
   LibDD:UIDropDownMenu_AddButton(titleInfo)
   LibDD:UIDropDownMenu_AddButton(confirmInfo)
   LibDD:UIDropDownMenu_AddButton(searchInfo)
+  LibDD:UIDropDownMenu_AddButton(hideInfo)
   LibDD:UIDropDownMenu_AddButton(cancelInfo)
 end
 

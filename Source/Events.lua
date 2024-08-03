@@ -38,6 +38,7 @@ Collectionator.Events = {
   SummaryShowBuyoutOptions = "collecting_summary_show_buyout_options",
 
   PurchaseAttempted = "collecting_purchase_attempted",
+  HideItem = "collecting_hide_item",
 
   ReplicateBuyQueryRequest = "collecting_replicate_buy_query_request",
   ReplicateBuyQueryRequestAborted = "collecting_replicate_buy_query_request_aborted",
