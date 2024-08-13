@@ -1,4 +1,4 @@
-## Interface: 100207
+## Interface: 110000, 110002
 ## Title: Collectionator
 ## Version: @project-version@
 ## Author: plusmouse
