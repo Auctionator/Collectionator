@@ -21,5 +21,5 @@ Collectionator.Constants = {
 
   BuyWarningFactor = 1.4,
 
-  MaxLevel = 70,
+  MaxLevel = 80,
 }
