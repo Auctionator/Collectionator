@@ -50,14 +50,12 @@ function CollectionatorFilterDropDownMixin:OnClick()
     function() return false end,
     function()
       self:ToggleNone()
-      menu:Close()
     end)
     for _, filter in ipairs(self:GetFilters()) do
       rootDescription:CreateCheckbox(self:GetFilterName(filter), function()
         return self:GetValue(filter)
       end, function()
         self:ToggleFilter(filter)
-        menu:Close()
       end)
     end
   end)
