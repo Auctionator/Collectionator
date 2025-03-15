@@ -1,5 +1,16 @@
 CollectionatorSummaryTMogScannerFrameMixin = CreateFromMixins(CollectionatorSummaryScannerFrameMixin)
 
+local modelScene = CreateFrame("ModelScene", nil, UIParent, "ModelSceneMixinTemplate")
+modelScene:TransitionToModelSceneID(596, CAMERA_TRANSITION_TYPE_IMMEDIATE, true)
+modelScene:Hide()
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+frame:SetScript("OnEvent", function()
+  C_Timer.After(0, function()
+    modelScene:GetPlayerActor():SetModelByUnit("player")
+  end)
+end)
+
 function CollectionatorSummaryTMogScannerFrameMixin:OnLoad()
   CollectionatorSummaryScannerFrameMixin.OnLoad(self)
 
@@ -13,7 +24,8 @@ function CollectionatorSummaryTMogScannerFrameMixin:GetSourceName()
 end
 
 function CollectionatorSummaryTMogScannerFrameMixin:FilterItemID(itemID)
-  return select(4, C_Item.GetItemInfoInstant(itemID)) ~= "INVTYPE_NON_EQUIP"
+  local invType = select(4, C_Item.GetItemInfoInstant(itemID))
+  return invType ~= "INVTYPE_NON_EQUIP" and invType ~= "INVTYPE_NON_EQUIP_IGNORE"
 end
 
 function CollectionatorSummaryTMogScannerFrameMixin:GetItem(index, itemKeyInfo, scanInfo)
@@ -23,6 +35,28 @@ function CollectionatorSummaryTMogScannerFrameMixin:GetItem(index, itemKeyInfo, 
     source = tonumber(itemKeyInfo.appearanceLink:match("transmogappearance:(%d+)"))
   else
     source = select(2, C_TransmogCollection.GetItemInfo(scanInfo.itemKey.itemID))
+  end
+
+  if not source and C_Item.IsDressableItemByID(scanInfo.itemKey.itemID) then
+    local pa = modelScene:GetPlayerActor()
+    local invType = select(4, C_Item.GetItemInfoInstant(scanInfo.itemKey.itemID))
+    local mainhandOverride = invType == "INVTYPE_WEAPON" or invType == "INVTYPE_RANGEDRIGHT"
+    local slot = Collectionator.Constants.SlotMap[invType]
+    if slot then
+      local link = select(2, C_Item.GetItemInfo(scanInfo.itemKey.itemID))
+      local result
+      if mainhandOverride then
+        result = pa:TryOn(link, "MAINHANDSLOT")
+      else
+        result = pa:TryOn(link)
+      end
+      if result == Enum.ItemTryOnReason.Success then
+        local info = pa:GetItemTransmogInfo(slot)
+        if info then
+          source = info.appearanceID
+        end
+      end
+    end
   end
 
   if source ~= nil and source > 0 then
