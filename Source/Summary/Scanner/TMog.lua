@@ -1,14 +1,14 @@
 CollectionatorSummaryTMogScannerFrameMixin = CreateFromMixins(CollectionatorSummaryScannerFrameMixin)
 
-local modelScene = CreateFrame("ModelScene", nil, UIParent, "ModelSceneMixinTemplate")
-modelScene:TransitionToModelSceneID(596, CAMERA_TRANSITION_TYPE_IMMEDIATE, true)
+local modelScene
+modelScene = CreateFrame("ModelScene", nil, UIParent, "ModelSceneMixinTemplate")
+modelScene:TransitionToModelSceneID(596, CAMERA_TRANSITION_TYPE_IMMEDIATE, CAMERA_MODIFICATION_TYPE_DISCARD, true)
 modelScene:Hide()
 local frame = CreateFrame("Frame")
-frame:RegisterEvent("PLAYER_ENTERING_WORLD")
-frame:SetScript("OnEvent", function()
-  C_Timer.After(0, function()
-    modelScene:GetPlayerActor():SetModelByUnit("player")
-  end)
+frame:SetScript("OnUpdate", function()
+  if(modelScene:GetPlayerActor():SetModelByUnit("player")) then
+    frame:SetScript("OnUpdate", nil)
+  end
 end)
 
 function CollectionatorSummaryTMogScannerFrameMixin:OnLoad()
