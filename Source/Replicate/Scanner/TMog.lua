@@ -13,8 +13,8 @@ function CollectionatorReplicateTMogScannerFrameMixin:GetSourceName()
 end
 
 function CollectionatorReplicateTMogScannerFrameMixin:FilterLink(link)
-  local itemID = C_Item.GetItemInfoInstant(link)
-  return itemID and select(2, C_TransmogCollection.GetItemInfo(itemID))
+  local itemID, _, _, invType = C_Item.GetItemInfoInstant(link)
+  return itemID and invType ~= "INVTYPE_NON_EQUIP"
 end
 
 function CollectionatorReplicateTMogScannerFrameMixin:GetItem(index, link, scanInfo)

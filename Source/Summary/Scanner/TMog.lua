@@ -13,7 +13,7 @@ function CollectionatorSummaryTMogScannerFrameMixin:GetSourceName()
 end
 
 function CollectionatorSummaryTMogScannerFrameMixin:FilterItemID(itemID)
-  return select(2, C_TransmogCollection.GetItemInfo(itemID))
+  return select(4, C_Item.GetItemInfoInstant(itemID)) ~= "INVTYPE_NON_EQUIP"
 end
 
 function CollectionatorSummaryTMogScannerFrameMixin:GetItem(index, itemKeyInfo, scanInfo)
