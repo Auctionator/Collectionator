@@ -59,7 +59,7 @@ function CollectionatorSummaryTMogScannerFrameMixin:GetItem(index, itemKeyInfo, 
     end
   end
 
-  if source ~= nil and source > 0 then
+  if source ~= nil and source > 0 and select(2, C_TransmogCollection.AccountCanCollectSource(source)) then
     local sourceInfo = C_TransmogCollection.GetSourceInfo(source)
     local inventorySlot = C_Transmog.GetSlotForInventoryType(sourceInfo.invType)
     local visual = sourceInfo.visualID
