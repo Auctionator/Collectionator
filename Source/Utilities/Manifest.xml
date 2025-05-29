@@ -6,4 +6,5 @@
   <Script file="GroupedByID.lua" />
   <Script file="GetPrice.lua" />
   <Script file="GetRealmAndFaction.lua" />
+  <Script file="RecoverTMogSource.lua" />
 </Ui>

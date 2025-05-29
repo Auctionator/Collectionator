@@ -20,7 +20,7 @@ end
 function CollectionatorReplicateTMogScannerFrameMixin:GetItem(index, link, scanInfo)
   local _, source = C_TransmogCollection.GetItemInfo(link)
   if source == nil then
-    _, source = C_TransmogCollection.GetItemInfo(C_Item.GetItemInfoInstant(link))
+    source = Collectionator.Utilities.RecoverTMogSource(C_Item.GetItemInfoInstant(link))
   end
 
   if source ~= nil then
