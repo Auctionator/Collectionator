@@ -97,7 +97,7 @@ function CollectionatorPurchaseWatchFrameMixin:HideItem(itemLink)
     self:ProcessPetDetails(itemLink)
   else
     local itemID = C_Item.GetItemInfoInstant(itemLink)
-    ItemEventListener:AddCallback(itemID, function()
+    Item:CreateFromItemID(itemID):ContinueOnItemLoad(function()
       local classID, subClassID = select(12, C_Item.GetItemInfo(itemLink))
 
       if classID == Enum.ItemClass.Weapon or classID == Enum.ItemClass.Armor then

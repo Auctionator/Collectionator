@@ -85,7 +85,7 @@ function CollectionatorReplicateScannerFrameMixin:BatchStep(start, limit)
 
     if GlobalFilterLink(link) then
       if self:FilterLink(link) then
-        ItemEventListener:AddCallback(self.fullScan[i].replicateInfo[17], (function(index, link)
+        Item:CreateFromItemID(self.fullScan[i].replicateInfo[17]):ContinueOnItemLoad((function(index, link)
           return function()
             local result = self:GetItem(index, link, self.fullScan[index])
             if result ~= nil then

@@ -84,7 +84,7 @@ CollectionatorQualityFilterMixin = CreateFromMixins(CollectionatorFilterDropDown
 
 function CollectionatorQualityFilterMixin:GetFilters()
   return {
-    Enum.ItemQuality.Poor, Enum.ItemQuality.Common, Enum.ItemQuality.Uncommon, Enum.ItemQuality.Rare, Enum.ItemQuality.Epic
+    Enum.ItemQuality.Poor, Enum.ItemQuality.Common or Enum.ItemQuality.Standard, Enum.ItemQuality.Uncommon or Enum.ItemQuality.Good, Enum.ItemQuality.Rare, Enum.ItemQuality.Epic
   }
 end
 

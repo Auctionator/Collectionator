@@ -121,6 +121,7 @@ end
 
 function CollectionatorReplicateBuyCheapestMixin:ReceiveEvent(event, ...)
   if event == Collectionator.Events.ReplicateCheapestResultReturn and self.focussed then
+    self.pending = false
     local purchaseData, queryType = ...
     -- Check that the query corresponds to this tab
     if queryType ~= self:GetParent().queryType then
@@ -131,7 +132,7 @@ function CollectionatorReplicateBuyCheapestMixin:ReceiveEvent(event, ...)
 
   elseif event == Collectionator.Events.ReplicateBuyQueryRequestAborted then
     local expectedEvent, returnData = ...
-    if expectedEvent == Collectionator.Events.CheapestResultReturn then
+    if expectedEvent == Collectionator.Events.CheapestResultReturn and not self.pending then
       self.focussed = nil
       self.BuyButton:Enable()
       self.SkipButton:Enable()
@@ -171,6 +172,21 @@ function CollectionatorReplicateBuyCheapestMixin:Query()
     returnEvent = Collectionator.Events.ReplicateCheapestResultReturn,
     returnData = self:GetParent().queryType,
   })
+
+  self.pending = true
+
+  if not Auctionator.Constants.IsRetail and not self.ticker then
+    self.ticker = C_Timer.NewTicker(0.25, function()
+      if self.pending and self:IsVisible() and self.focussed then
+        if Auctionator.AH.IsNotThrottled() then
+          self:Query()
+        end
+      else
+        self.ticker:Cancel()
+        self.ticker = nil
+      end
+    end)
+  end
 end
 
 function CollectionatorReplicateBuyCheapestMixin:Skip()
